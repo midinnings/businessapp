@@ -1,0 +1,222 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center" style="color:white">
+                <ion-title>{{'Festival & Wishes'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="!TakeDes">
+    <div *ngIf="lists.Brithdays.length>0">
+        <h3 text-center>{{'Birthdays'|language}}</h3>
+        <ion-row>
+            <ion-col *ngFor="let b of lists.Brithdays" size="4" class="ion-text-center">
+                <img [src]="b.logo?common.Url+'Files/'+b.logo:'./assets/img/app/user-1.jpg'" class='round-img'
+                    style="width: 80%;" />
+                <P class="hsubheader">{{b.name}}
+                    <br> {{b.dob|date:'dd.MM.yyyy'}}</P>
+                <ion-button shape="round" size="small" (click)="OpenSharingPopup(1)">{{'Surprise'|language}}
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </div>
+
+    <!-- <div>
+        <h3 class="header">{{'Festivals'|language}}</h3>
+        <ion-row>
+            <ion-col size="4" *ngFor="let f of lists.Festival">
+                <img [src]="f.coverimage?common.Url+'Files/'+f.coverimage:'./assets/img/app/diwali.jpg'"
+                    class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="OpenSharingPopup(3)">{{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+        </ion-row>
+    </div> -->
+
+
+    <div>
+        <h3 class="header">{{'Festivals'|language}}</h3>
+        <ion-row>
+            <ion-col size="4">
+                <img src="assets/img/app/holi.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Holi')">{{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/diwali2.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Diwali')">{{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/rakhi.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Rakhi')">{{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/eid.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Eid')">{{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/janmashtami.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Janmashtami')">
+                        {{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/navratri.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Navratri')">{{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+
+        </ion-row>
+    </div>
+
+
+    <div>
+        <h3 class="header">{{'Important Days'|language}}</h3>
+        <ion-row>
+
+            <ion-col size="4">
+                <img src="assets/img/app/important-day-2.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Gandhi Jayanti')">
+                        {{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/important-day-1.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Republic Day')">
+                        {{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/important-day-3.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Guru Nanak Jayanti')">
+                        {{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/15aug.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Independence Day')">
+                        {{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/mothersday.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Mothers Day')">
+                        {{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+
+            <ion-col size="4">
+                <img src="assets/img/app/childrensday.jpg" class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="SelectTemplate('Childrens Day')">
+                        {{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col>
+            <!-- <ion-col size="4" *ngFor="let i of lists.Importantdays">
+                <img [src]="i.coverimage?common.Url+'Files/'+i.coverimage:'./assets/img/app/important-day-1.jpg'"
+                    class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <ion-button shape="round" size="small" (click)="OpenSharingPopup(2)">{{'Send Wish'|language}}
+                    </ion-button>
+                </p>
+            </ion-col> -->
+        </ion-row>
+    </div>
+
+    <h3 class="header">{{'Saved Wishes'|language}}</h3>
+
+    <ion-row>
+        <p style="text-align: center;width: 100%;" *ngIf="lists.Myoffers.length==0">Saved items not found..</p>
+        <ion-col (click)="OpenCoupon(o)" id="myCanvas_{{i}}" class="Section_CSS" size="12" *ngFor="let o of lists.Myoffers;let i=index;"
+            [style.background]="('url('+common.Url+'Files/'+o.backgroundImage+')')|santize:'css'">
+            <i  class="fa fa-download download_icon" aria-hidden="true"></i>
+            <ion-img [src]="common.Url+'Files/'+o.imageurl"></ion-img>
+        </ion-col>
+    </ion-row>
+
+</ion-content>
+
+<ion-content padding *ngIf="TakeDes">
+    <ion-row>
+        <ion-col size="12">
+            <ion-input type="text" placeholder="Enter Wish Title" [(ngModel)]="wish_title"> </ion-input>
+        </ion-col>
+        <ion-col size="12">
+            <ion-input type="text" placeholder="Enter Wish Description" [(ngModel)]="wish_description"> </ion-input>
+        </ion-col>
+
+        <ion-col size="12">
+            <ion-item lines="none" class="input-border">
+                <ion-label position="fixed">{{'Start Date'|language}}</ion-label>
+                <ion-input [(ngModel)]="start_date" readonly [liIonic4Datepicker]="datePickerObj"
+                    placeholder="Enter Date">
+                </ion-input>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12">
+            <ion-item lines="none" class="input-border">
+                <ion-label position="fixed">{{'End Date'|language}}</ion-label>
+                <ion-input [(ngModel)]="end_date" readonly [liIonic4Datepicker]="datePickerObj"
+                    placeholder="Enter Date">
+                </ion-input>
+            </ion-item>
+        </ion-col>
+
+        <ion-col size="6" class="text-center">
+            <ion-button shape="round" (click)="BackToOffer()">{{'Back'|language}}
+            </ion-button>
+        </ion-col>
+
+        <ion-col size="6" class="text-center">
+            <ion-button shape="round" (click)="SaveDes()">{{'Next'|language}}
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-content>

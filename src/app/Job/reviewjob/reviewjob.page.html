@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Post Job'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <h3 class="ion-text-center mt-2 mb-2">{{'BELOW ARE THE JOB DETAILS'|language}}</h3>
+    <ion-list class="transparent-bg">
+        <ion-item lines="none" class="input-border">
+            <p class="small-font">
+                <span>{{'JOB TITLE'|language}}</span>
+                <span class="end">{{lists.title}}</span>
+            </p>
+        </ion-item>
+        <ion-item lines="none" class="input-border">
+            <p class="small-font">
+                <span class="small-font">{{'JOB TYPE'|language}}</span>
+                <span class="end">{{(lists.positon|arraytostring)|removelast|removelast}}</span>
+            </p>
+        </ion-item>
+        <ion-item lines="none" class="input-border">
+            <p class="small-font">
+                <span>{{'JOB CATEGORY'|language}}</span>
+                <span class="end"> {{(lists.position_type|arraytostring)|removelast|removelast}}</span>
+            </p>
+        </ion-item>
+        <ion-item>
+            <p class="small-font">
+                <span>{{'JOB LOCATION'|language}}</span>
+                <span class="end">{{lists.location}}</span>
+            </p>
+        </ion-item>
+        <ion-item lines="none" class="input-border">
+            <p class="small-font">
+                <span>{{'Facilities'|language}}</span>
+                <span class="end">{{lists.skills}}</span>
+            </p>
+        </ion-item>
+        <ion-item lines="none" class="input-border">
+            <p class="small-font">
+                <span>{{'REQUIRED EXPERIENCE'|language}}</span>
+                <span class="end">{{lists.experience}}</span>
+            </p>
+        </ion-item>
+        <ion-item lines="none" class="input-border">
+            <p class="small-font">
+                <span>{{'SALARY'|language}}</span>
+                <span class="end">{{lists.salary}}</span>
+            </p>
+        </ion-item>
+    </ion-list>
+    <ion-row>
+        <ion-col size="12" class="ion-text-center">
+            <ion-button (click)="Submitjob()" shape="round" class="mc">{{'Post Job'|language}}</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-content>

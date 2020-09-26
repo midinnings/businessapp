@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" class="ion-text-center">
+        <ion-buttons>
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="8" class="ion-text-center">
+        <ion-title>{{'Applicant Detail'|language}}</ion-title>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item *ngFor="let u of lists.joblist" lines="none" class="list-box mt-2">
+    <ion-label>
+      <h2 class="ion-text-uppercase font-w-600">{{u.name}}</h2>
+      <h3 *ngIf="u.Otherinfo.skill">{{u.Otherinfo.skill}}</h3>
+    </ion-label>
+    <ion-note class="p-padding">
+      <p><a class="default-h-color-p" href="tel:{{u.mobileno}}">Call</a></p>
+      <p><a (click)="OpenJobInfo(u)">{{'More'|language}}...</a></p>
+    </ion-note>
+  </ion-item>
+</ion-content>

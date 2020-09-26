@@ -1,0 +1,172 @@
+.background{
+     // background: white !important;
+    display: inline-block;
+    width: 800px !important;
+    max-width: 100%;
+    border: 1px solid gray;
+    position: relative;
+    min-height: 250px;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    
+}
+
+
+
+ .forground{
+     // background: yellow !important;
+     height: 380px !important;
+}
+
+.parallelogram {
+	width: 50px;
+	height: 25px;
+	transform: skew(20deg);
+	background: #555;
+}
+p{
+  margin:2px !important;
+}
+.circle {
+    height: 25px;
+    width: 25px;
+    background-color: #555;
+    border-radius: 50%;
+  }
+
+  .rightpolligon {
+    float: right;
+    shape-outside: polygon(200px 300px, 300px 300px, 300px 0, 0 0);
+    clip-path: polygon(200px 300px, 300px 300px, 300px 0, 0 0);
+    background: #555;
+    height: 25px;
+    width: 25px;
+  }
+
+  .halfpolligon {
+    float: right;
+    shape-outside: polygon(200px 300px, 300px 300px, 300px 0, 0 0);
+    clip-path: polygon(200px 300px, 300px 300px, 300px 0, 0 0);
+    background: #555;
+    height: 25px;
+    width: 25px;
+  }
+
+  .bookmarkRibbon {
+    border: 13px solid #555;
+    border-left: 0;
+    border-right: 9px solid transparent;
+    width: 25px;
+}
+
+.ribbon-horizontal{
+	right: 0;
+  	border: 13px solid #555;
+  	border-right: 0;
+  	border-left: 10px solid transparent;
+  	height: 0;
+  	line-height: 0;
+  	width: 25px;
+  	color: white;
+  	z-index: 1;
+  	-webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+	letter-spacing: 3px;
+}
+
+.ribbon-horizontal span{
+	position: relative;
+	padding: 0 4px 0 10px;
+	text-align: center;   			
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-right: 25px solid #555;
+    border-bottom: 15px solid transparent;
+}
+
+.halfcircle{
+    // float: left;
+    width: 25px;
+    height: 25px;
+    clip-path: circle(50% at 0%);
+    background: #555;
+}
+
+
+.hexagon {
+    position: relative;
+    width: 30px; 
+    height: 20px;
+    background-color: #555;
+    margin: 0;
+  }
+  
+  .hexagon:before,
+  .hexagon:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+  }
+  
+  .hexagon:before {
+    bottom: 100%;
+    border-bottom: 18px solid #555;
+  }
+  
+  .hexagon:after {
+    top: 100%;
+    width: 0;
+    border-top: 18px solid #555;
+  }
+
+  .shapeselector{
+      width: 100% !important;
+      position: absolute !important;
+      bottom: 0px !important;
+      font-size: 12px !important;
+
+  }
+
+  
+  .text-sparallelogram{
+    transform: skewX(1deg);
+    padding-left: 10px;
+    padding-top:10%;
+    p{
+      text-align: left !important;
+      transform: skewX(-20deg);
+    }
+  }
+
+  .myAddress {
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 9px;
+    margin: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background: #c73130;
+    color: white;
+    position: absolute;
+    bottom: -1px;
+    margin: 0px !important;
+    width: 100%;
+}
+
+  ion-slide{
+    height: 80vh;
+  }
+
+//   .halfcircle{
+//     // float: left;
+//     width: 25px;
+//     height: 25px;
+//     clip-path: circle(50% at 0%);
+//     background: #555;
+// }

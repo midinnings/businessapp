@@ -1,0 +1,206 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Billing'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-row>
+        <ion-col class="ion-text-center">
+            <div class="small-font gray-text mc">{{calendar.currentDate|date}}</div>
+        </ion-col>
+    </ion-row>
+    <form [formGroup]="checkoutform">
+        <ion-row>
+            <ion-col size="12">
+                <ion-item ines="none" class="input-border">
+                    <ion-label position="floating" class="ion-text-uppercase">{{'Customer Name'|language}}</ion-label>
+                    <ion-input formControlName="name" type="text" (keyup)="SearchCustomer($event.target.value)"
+                        placeholder="Name"></ion-input>
+                </ion-item>
+                <div *ngIf="lists.Customerlist" style="position: inherit !important;" class="auto-list">
+                    <p (click)="SelectedCustomer(u)" *ngFor="let u of lists.Customerlist" class="autocomplete">
+                        {{u.name}}-({{u.mobile}})
+                    </p>
+                </div>
+            </ion-col>
+            <ion-col size="12">
+                <ion-item lines="none" class="input-border">
+                    <ion-label position="floating" class="ion-text-uppercase">{{'Phone Number'|language}}</ion-label>
+                    <ion-input type="tel" formControlName="mobile" maxlength="10" placeholder="Phone"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="12" *ngIf="!lists.PackageApplied">
+                <ion-item lines="none" class="item-height-30">
+                    <ion-label class="inputlabel ion-text-uppercase">{{'Services'|language}}</ion-label>
+                </ion-item>
+                <ion-item *ngFor="let s of lists.serviceinfo" lines="none" class="input-border">
+                    <ion-label>
+                        {{('language'|user)=='Hindi'?s.service_hi:s.service}} <span text-right> <i
+                                class="fa fa-inr"></i> {{s.serviceprice}}</span>
+                    </ion-label>
+                    <ion-checkbox slot="start" [disabled]="true" checked>
+                    </ion-checkbox>
+                </ion-item>
+                <ion-item (click)="AddmoreService()" lines="none" class="small-font gray-text item-height-30">
+                    <ion-icon name="add-circle-outline" class="primary-text" size="small"></ion-icon> <span
+                        class="gray-text"> {{'Add More'|language}}</span>
+                </ion-item>
+
+                <ion-col size="12" class="input-border pb-1 mb-1">
+                    <ion-row>
+                        <ion-col size="5" class=" pb-1 mb-1">
+                            <ion-item class="" (click)='OpenCoupon()'>
+                                <ion-label position="fixed">{{'View Offers'|language}}</ion-label>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="7" class=" pb-1 mb-1">
+                            <div>
+                                <ion-row class=" pb-1">
+                                    <ion-col size="7">
+                                        <ion-input [(ngModel)]="CustomCoupon" formControlName="couponCode" type="text"
+                                            placeholder="Paste Coupon Code">
+                                        </ion-input>
+                                    </ion-col>
+                                    <ion-col size="5" class="font-w-600 small-font">
+                                        <ion-button (click)="ApplyCoupon()">{{'Apply'|language}}</ion-button>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+
+
+                <div>
+                    <ion-row class="input-border pb-1">
+
+                        <ion-col size="1"></ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">{{'Total Amount'|language}}</ion-col>
+                        <ion-col size="3" class="font-w-600 small-font" style="color:green">
+                            ₹ {{lists.price}}
+                        </ion-col>
+
+                        <ion-col size="1"></ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">{{'Discount'|language}}</ion-col>
+                        <ion-col size="3" class="font-w-600 small-font" style="color:green">
+                            ₹ {{Final_DiscountAvail}} (-)
+                        </ion-col>
+
+                        <ion-col size="1"></ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">{{'Grand Total'|language}}</ion-col>
+                        <ion-col size="3" class="font-w-600 small-font" *ngIf="lists.serviceinfo"><i
+                                class="fa fa-inr"></i> {{Amount_PayableShow}}
+                        </ion-col>
+
+                    </ion-row>
+                </div>
+
+
+
+
+            </ion-col>
+
+            <ion-col size="12">
+                <div *ngIf="lists.PackageApplied">
+                    <ion-row class="input-border pb-1">
+
+
+                        <ion-col size="1"> </ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">Offer Applied</ion-col>
+                        <ion-col size="3" class="font-w-600 small-font" style="color:green">{{lists.coupon_applied}}
+                        </ion-col>
+
+
+                        <!-- <ion-row class="" *ngFor="let s of lists.packageservicelist">
+                            <ion-col size="1"> </ion-col>
+                            <ion-col size="8" class="font-w-600 small-font">{{s.service}}</ion-col>
+                            <ion-col size="3" class="font-w-600 small-font" style="color:green">
+                                ₹ {{s.serviceprice}}
+                            </ion-col>
+                        </ion-row> -->
+
+                        <ion-col size="1"> </ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">Grand Total</ion-col>
+                        <ion-col size="3" class="font-w-600 small-font" style="color:green">
+                            ₹ {{lists.cost}}
+                        </ion-col>
+
+
+                    </ion-row>
+                </div>
+            </ion-col>
+
+            <ion-col size="12">
+                <ion-item lines="none" class="item-height-30">
+                    <ion-label class="inputlabel ion-text-uppercase">{{'Selected Stylist'|language}}</ion-label>
+                </ion-item>
+                <ion-item class="input-border">
+                    <p (click)="Openstylst()" style="width: 100%;"> <span>{{lists.employeeinfo.name}}</span><span><a
+                                style="float:right" class="small-font">{{'Change'|language}}</a></span></p>
+                </ion-item>
+            </ion-col>
+            <ion-col size="12" class="input-border pb-1 mb-1">
+                <ion-list class="transparent-bg">
+                    <ion-radio-group [ngModelOptions]="{standalone: true}" [(ngModel)]="lists.PaymentMode">
+                        <ion-item lines="none" class="item-height-30">
+                            <ion-label class="inputlabel ion-text-uppercase">{{'Payments'|language}}</ion-label>
+                        </ion-item>
+                        <ion-item lines="none" class="item-height-35 small-font">
+                            <ion-label>{{'Paytm'|language}}</ion-label>
+                            <ion-radio slot="start" disabled value="Paytm"></ion-radio>
+                        </ion-item>
+
+                        <ion-item lines="none" class="item-height-35 small-font">
+                            <ion-label>{{'Cash'|language}}</ion-label>
+                            <ion-radio slot="start" value="Cash"></ion-radio>
+                        </ion-item>
+
+                        <ion-item lines="none" class="item-height-35 small-font">
+                            <ion-label>{{'Google Pay'|language}}</ion-label>
+                            <ion-radio slot="start" disabled value="Googlepay"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
+                </ion-list>
+            </ion-col>
+            <ion-col size="6" class=" mb-2">
+                <ion-button (click)="GotoBack()" shape="round">{{'Back'|language}}</ion-button>
+            </ion-col>
+            <ion-col size="6" class=" ion-text-right mb-2">
+                <ion-button (click)="SubmitCheckout()"
+                    [disabled]="!checkoutform.valid&&!lists.employeeinfo.name&&lists.serviceinfo.length==0&&!lists.PaymentMode"
+                    shape="round">
+                    {{'Submit'|language}}
+                </ion-button>
+            </ion-col>
+
+        </ion-row>
+    </form>
+    <ion-item style="display: none;">
+        <ion-label position="fixed">{{'Select Service'|language}}</ion-label>
+        <ion-select multiple="true" (ionChange)="Changeservicelist($event)" [(ngModel)]="lists.service" #serviceselect>
+            <ion-select-option *ngFor="let s of lists.servicelist" value="{{s.serviceid}}">
+                {{('language'|user)=='Hindi'?s.service:s.service}} - Rs.{{s.serviceprice}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item style="display: none;">
+        <ion-label position="fixed">{{'Available Stylish'|language}}</ion-label>
+        <ion-select [(ngModel)]="lists.employee" (ionChange)="ChangeStylist($event)" #stylistselect>
+            <ion-select-option *ngFor="let u of lists.userlist"
+                [disabled]="(u.id!=('id'|user))&&((('usertype'|user)!=2&&('usertype'|user)!=6))" value="{{u.id}}">
+                {{u.name}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+</ion-content>

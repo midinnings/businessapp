@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Employee List'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-row>
+        <ion-col size="5" class="font-w-600">
+            <div><img src="./assets/icon/name.png" class="icon-width"></div>
+            <ion-label>
+                {{'Name'|language}}
+            </ion-label>
+        </ion-col>
+        <ion-col size="4" class="ion-text-center font-w-600">
+            <div><img src="./assets/icon/type.png" class="icon-width"></div>
+            <ion-label> {{'Type'|language}}
+            </ion-label>
+        </ion-col>
+        <ion-col size="3" class="ion-text-center font-w-600">
+            <div><img src="./assets/icon/type.png" class="icon-width"></div>
+            <ion-label> {{'Status'|language}}
+            </ion-label>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let e of lists.Employeelist" class="input-border pb-1 mb-1 small-font">
+        <ion-col size="5">
+            {{e.name}}<br>
+            {{e.mobileno}}
+        </ion-col>
+        <ion-col size="4" class="ion-text-center">
+            {{e.type.skill}}
+        </ion-col>
+        <ion-col size="3" class="ion-text-center">
+            <ion-toggle (click)="UserStatusChange($event,e)" [(ngModel)]="e.status"></ion-toggle>
+        </ion-col>
+    </ion-row>
+</ion-content>

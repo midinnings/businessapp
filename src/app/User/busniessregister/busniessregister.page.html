@@ -1,0 +1,435 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Merchant Signup'|language}}
+                </ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+                <ion-icon style="color:white" *ngIf="lists.edit" (click)="CancelEdit()" name="close"></ion-icon>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <mat-horizontal-stepper labelPosition="bottom" #stepper class="pb-6 mt-2 register_steps">
+        <mat-step>
+            <ng-template matStepLabel>
+                {{(lists.usertype==6?'Freelancer':'Business')|language}}</ng-template>
+            <form [formGroup]="Businessform1">
+                <ion-row>
+                    <!-- <ion-col size="12">
+                        <p class="bheader mt-2">x
+                        </p>
+                    </ion-col> -->
+                    <ion-col size="12">
+                        <ion-item text-center class="logo-img" lines="none" (click)="selectImage()">
+                            <img *ngIf="lists.edit"
+                                [src]="lists.Image?common.Url+'Files/'+lists.Image:'./assets/img/brand-logo.jpg' ">
+                            <img *ngIf="!lists.edit" [src]="lists.Image?lists.Image:'./assets/img/brand-logo.jpg' ">
+                        </ion-item>
+                    </ion-col>
+
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                *{{(lists.usertype==6?'Freelancer Name':'Business Name')|language}}
+                            </ion-label>
+                            <ion-input type="text" placeholder="Laura Wilson" formControlName="name"></ion-input>
+                        </ion-item>
+                    </ion-col>
+
+
+                    <ion-col size="12" >
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                *{{'Salon Type'|language}}
+                            </ion-label>
+                            <ion-select placeholder="Select Select Type" multiple  formControlName="salon_type">
+                                <ion-select-option value="Unisex Salon">Unisex Salon</ion-select-option>
+                                <ion-select-option value="Gents Salon">Gents Salon</ion-select-option>
+                                <ion-select-option value="Ladies Salon">Ladies Salon</ion-select-option>
+                                <ion-select-option value="Kids Salon">Kids Salon</ion-select-option>
+                                <ion-select-option value="MakeUp Salon">MakeUp Salon</ion-select-option>
+                                <ion-select-option value="Nail Salon">Nail Salon</ion-select-option>
+                                <ion-select-option value="Spa">Spa</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                *{{(lists.usertype==6?'Freelancer Address':'Business Address')|language}}
+                            </ion-label>
+                            <ion-textarea rows="2" placeholder="Complete Address" formControlName="address">
+                            </ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'STATE'|language}}
+                            </ion-label>
+                            <ion-select (ionChange)="GetCitylist($event.target.value)" formControlName="stateid">
+                                <ion-select-option *ngFor="let s of lists.Statelist" [value]="s.id">
+                                    {{lists.language=='Hindi'?s.name_hi:s.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'CITY'|language}}
+                            </ion-label>
+                            <ion-select formControlName="cityid">
+                                <ion-select-option *ngFor="let s of lists.Citylist" [value]="s.id">
+                                    {{lists.language=='Hindi'?s.name_hi:s.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'PINCODE'|language}}
+                            </ion-label>
+                            <ion-input type="number" maxlenth="6" placeholder="Pincode" formControlName="pincode">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'MAP LOCATION'|language}}
+                                .</ion-label>
+                            <ion-textarea rows="2" placeholder="Map Location Address"
+                                (ionFocus)="common.PageGoto('Forward','mapmaker',{address:$event.target.value})"
+                                formControlName="address1">
+                            </ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                {{(lists.usertype==6?'Freelancer Email':'BUSINESS EMAIL')|language}}
+                            </ion-label>
+                            <ion-input type="text" formControlName="email" placeholder="Email Address"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                {{'EST DATE'|language}}
+                            </ion-label>
+                            <ion-input readonly formControlName="dob" (ionChange)="CheckDateValidate($event)"
+                                [liIonic4Datepicker]="datePickerObj" placeholder="Enter Date">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+
+                <ion-footer class="ion-no-border fx-ftr">
+                    <ion-toolbar>
+                        <button class="nextbtn ZindexTOP" *ngIf="lists.nameapprove" mat-button matStepperNext
+                            [disabled]="!Businessform1.valid">{{'Next'|language}}
+                        </button>
+                        <button class="nextbtn ZindexTOP" *ngIf="!lists.nameapprove" mat-button
+                            [disabled]="!Businessform1.valid" (click)="checkbusinessname()">{{'Next'|language}}
+                        </button>
+                    </ion-toolbar>
+                </ion-footer>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>{{'Hours'|language}}</ng-template>
+            <ion-row>
+                <ion-col size="12">
+                    <p class="bheader mt-2">
+                        {{('Set Your' + (lists.usertype==6?' Freelancer Hours':' Business Hours'))|language}}
+                    </p>
+                </ion-col>
+            </ion-row>
+            <ion-item class="input-border">
+                <ion-label>{{'All Day'|language}}
+                </ion-label>
+                <ion-toggle (ionChange)="CheckAll($event)" slot="end" name="day" color="primary"></ion-toggle>
+            </ion-item>
+            <ion-row class="input-border ck-nospace">
+                <ion-col size="4" text-center>
+                    <ion-label>{{'Week'|language}}
+                    </ion-label>
+                </ion-col>
+                <ion-col size="4" text-center>
+                    <ion-label>{{'Opening Time'|language}}
+                    </ion-label>
+                </ion-col>
+                <ion-col size="4" text-center>
+                    <ion-label>{{'Closing Time'|language}}
+                    </ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let item of lists.Servicetime;let i=index;" class="input-border ck-nospace">
+                <ion-col size="4">
+                    <ion-item lines="none">
+                        <ion-label>{{item.week|language}}</ion-label>
+                        <ion-checkbox [(ngModel)]="item.checked" slot="start"></ion-checkbox>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-item lines="none">
+                        <ion-select [(ngModel)]="item.day" placeholder="{{'Opening Time'|language}}"
+                            style="padding:5px !important">
+                            <ion-select-option *ngFor="let t of lists.Times" [value]="t">{{t}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-item lines="none">
+                        <ion-select [(ngModel)]="item.evening" placeholder="{{'Closing Time'|language}}"
+                            style="padding:5px !important">
+                            <ion-select-option *ngFor="let t of lists.Times" [value]="t">{{t}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-footer class="ion-no-border fx-ftr">
+                <ion-toolbar>
+                    <button class="prebtn" mat-button matStepperPrevious>{{'Back'|language}}</button>
+                    <button mat-button class="nextbtn" matStepperNext>{{'Next'|language}}</button>
+                </ion-toolbar>
+            </ion-footer>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>{{'Type'|language}}</ng-template>
+            <ion-row>
+                <ion-col size="12">
+                    <p class="bheader mt-2">{{'Select Your Type'|language}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let s of lists.Servicelist">
+                <ion-item style="width:100%" class="p-r-in input-border" lines="none">
+                    <ion-label>{{lists.language=='Hindi'?s.servicename_hi:s.servicename}}</ion-label>
+                    <ion-checkbox slot="start" (ionChange)="GetServiceStep(s)" [(ngModel)]="s.selection">
+                    </ion-checkbox>
+                </ion-item>
+            </ion-row>
+            <ion-footer class="ion-no-border fx-ftr">
+                <ion-toolbar>
+                    <button mat-button matStepperPrevious class="prebtn">{{'Back'|language}}</button>
+                    <button mat-button matStepperNext class="nextbtn">{{'Next'|language}}</button>
+                </ion-toolbar>
+            </ion-footer>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>{{'Service'|language}}</ng-template>
+            <ion-row>
+                <ion-col size="12">
+                    <p class="bheader  mt-2">{{'Add the Services you Offer'|language}}<br><span
+                            class="bsubheader">{{('Do not worry- you will be able to edit these later')|language}}</span>
+                    </p>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let s of lists.ServiceStep">
+                <ion-item style="width:100%" class="p-r-in input-border" *ngIf="s.Child.length>0" lines="none">
+                    <ion-label>{{lists.language=='Hindi'?s.name_hi:s.name}}</ion-label>
+                    <ion-checkbox slot="start" (ionChange)="checkboxchange(s)" [(ngModel)]="s.checked"></ion-checkbox>
+                </ion-item>
+                <ion-row *ngFor="let c of s.Child" style="width:100%;margin-left: 22px;">
+                    <ion-col size="8">
+                        <ion-item style="width:100%" class="p-r-in input-border" lines="none">
+                            <ion-label style="white-space: normal;">{{lists.language=='Hindi'?c.name_hi:c.name}}
+                            </ion-label>
+                            <ion-checkbox slot="start" [(ngModel)]="c.checked"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="4">
+                        <ion-item class="input-border">
+                            <ion-label position="stacked">Price (<i class="fa fa-inr"></i>)</ion-label>
+                            <ion-input type="number" Placeholder="Amount" [(ngModel)]="c.price"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-row>
+
+            <ion-footer class="ion-no-border fx-ftr">
+                <ion-toolbar>
+                    <button mat-button matStepperPrevious class="prebtn">{{'Back'|language}}</button>
+                    <button mat-button matStepperNext class="nextbtn">{{'Next'|language}}</button>
+                </ion-toolbar>
+            </ion-footer>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>{{'Other'|language}}</ng-template>
+
+
+
+            <!-- <ion-col size="12">
+                <ion-item text-center class="logo-img" lines="none" (click)="SelectBusinessImage('Banner')">
+                    <img *ngIf="lists.Banner" [src]="lists.Banner">
+                    <img *ngIf="!lists.Banner" [src]="lists.Banner?lists.Banner:'./assets/img/brand-logo.jpg' ">
+                </ion-item>
+            </ion-col> -->
+
+            <ion-row *ngIf="!Edit_BOS">
+                <ion-col size="4" class="Banner_Images" (click)="SelectBusinessImage('Banner')">
+                    <img *ngIf="lists.Banner" [src]="lists.Banner">
+                    <img *ngIf="!lists.Banner" [src]="lists.Banner?lists.Banner:'./assets/img/banner-img.jpg' ">
+                </ion-col>
+                <ion-col size="4" class="Banner_Images" (click)="SelectBusinessImage('AddOn1')">
+                    <img *ngIf="lists.AddOn1" [src]="lists.AddOn1">
+                    <img *ngIf="!lists.AddOn1" [src]="lists.AddOn1?lists.AddOn1:'./assets/img/additional-img.jpg' ">
+                </ion-col>
+                <ion-col size="4" class="Banner_Images" (click)="SelectBusinessImage('AddOn2')">
+                    <img *ngIf="lists.AddOn2" [src]="lists.AddOn2">
+                    <img *ngIf="!lists.AddOn2" [src]="lists.AddOn2?lists.AddOn2:'./assets/img/additional-img.jpg' ">
+                </ion-col>
+                <ion-col size="4" class="Banner_Images" (click)="SelectBusinessImage('AddOn3')">
+                    <img *ngIf="lists.AddOn3" [src]="lists.AddOn3">
+                    <img *ngIf="!lists.AddOn3" [src]="lists.AddOn3?lists.AddOn3:'./assets/img/additional-img.jpg' ">
+                </ion-col>
+                <ion-col size="4" class="Banner_Images" (click)="SelectBusinessImage('AddOn4')">
+                    <img *ngIf="lists.AddOn4" [src]="lists.AddOn4">
+                    <img *ngIf="!lists.AddOn4" [src]="lists.AddOn4?lists.AddOn4:'./assets/img/additional-img.jpg' ">
+                </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="Edit_BOS">
+                <ion-col size="4" class="Banner_Images" (click)="EditBusinessImage('Banner')">
+                    <img onerror="this.src='./assets/img/banner-img.jpg';" [src]="lists.Banner?lists.Banner:'./assets/img/banner-img.jpg' ">
+                </ion-col>
+                <ion-col size="4" class="Banner_Images" (click)="EditBusinessImage('AddOn1')">
+                    <img [src]="lists.AddOn1?lists.AddOn1:'./assets/img/additional-img.jpg' ">
+                </ion-col>
+                <ion-col size="4" class="Banner_Images" (click)="EditBusinessImage('AddOn2')">
+                    <img [src]="lists.AddOn2?lists.AddOn2:'./assets/img/additional-img.jpg' ">
+                </ion-col>
+                <ion-col size="4" class="Banner_Images" (click)="EditBusinessImage('AddOn3')">
+                    <img [src]="lists.AddOn3?lists.AddOn3:'./assets/img/additional-img.jpg' ">
+                </ion-col>
+                <ion-col size="4" class="Banner_Images" (click)="EditBusinessImage('AddOn4')">
+                    <img [src]="lists.AddOn4?lists.AddOn4:'./assets/img/additional-img.jpg' ">
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <p class="bheader mt-2">{{'Select Facilities'|language}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let facility of Facilities_List">
+                <ion-item style="width:100%" class="p-r-in input-border" lines="none">
+                    <ion-label>{{lists.language=='Hindi'?facility.facilitiesname_hi:facility.facilitiesname}}
+                    </ion-label>
+                    <ion-checkbox slot="start" (ionChange)="FacilityChecked(facility.id)"
+                        [(ngModel)]="facility.selection">
+                    </ion-checkbox>
+                </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <p class="bheader mt-2">{{'Select Preferred Brands'|language}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row *ngFor="let brands of GetBrandList">
+                <ion-item style="width:100%" class="p-r-in input-border" lines="none">
+                    <ion-label>{{lists.language=='Hindi'?brands.brandname_hi:brands.brandname}}</ion-label>
+                    <ion-checkbox slot="start" (ionChange)="BrandChecked(brands.id)" [(ngModel)]="brands.selection">
+                    </ion-checkbox>
+                </ion-item>
+            </ion-row>
+
+            <!-- <ion-row>
+                <ion-col size="12">
+                    <p class="bheader mt-2">{{'Select Preferred Brands'|language}}</p>
+                </ion-col>
+            </ion-row> -->
+            <ion-row>
+                <ion-col size="12">
+                    <p class="bheader mt-2">{{'Social Media Links'|language}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label position="fixed">
+                            *{{('Facebook Page')|language}}
+                        </ion-label>
+                        <ion-input type="text" placeholder="Facebook Page Link" [(ngModel)]="Other_Info.facebook">
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label position="fixed">
+                            *{{('Instagram Page')|language}}
+                        </ion-label>
+                        <ion-input type="text" placeholder="Instagram Page Link" [(ngModel)]="Other_Info.instagram">
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label position="fixed">
+                            *{{('Youtube Channel')|language}}
+                        </ion-label>
+                        <ion-input type="text" placeholder="Youtube Channel Link" [(ngModel)]="Other_Info.youtube">
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <!-- <ion-row>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label position="fixed">
+                            *{{('Linkedin Page')|language}}
+                        </ion-label>
+                        <ion-input type="text" placeholder="Linkedin Page Link" [(ngModel)]="Other_Info.linkedin">
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row> -->
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label position="fixed">
+                            *{{('Business Website')|language}}
+                        </ion-label>
+                        <ion-input type="text" placeholder="Linkedin Page Link" [(ngModel)]="Other_Info.website">
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-item lines="none">
+                    <ion-label style="white-space: normal;" class="terms">
+                        {{'I have read and agree with all Terms and Conditions'|language}}.<a
+                            (click)="Readterms()">Click here</a>
+                    </ion-label>
+                    <ion-toggle slot="start" [(ngModel)]="lists.terms" name="day" color="primary"></ion-toggle>
+                </ion-item>
+            </ion-row>
+
+            <ion-footer class="ion-no-border fx-ftr">
+                <ion-toolbar>
+                    <button mat-button matStepperPrevious class="prebtn">{{'Back'|language}}</button>
+                    <button mat-button (click)="SaveBusiness()" class="nextbtn">{{'Submit'|language}}</button>
+                </ion-toolbar>
+            </ion-footer>
+        </mat-step>
+
+
+    </mat-horizontal-stepper>
+</ion-content>

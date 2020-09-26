@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end" style="margin-top: -18px;">
+      <ion-button (click)="close()">
+        <ion-icon class="iconsclose" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="--background: white !important;">
+  <h5 text-center>{{'Select Custom Dates'|language}}
+  </h5>
+  <ion-row>
+    <ion-col>
+      <ion-label class="small-font">{{'From Date'|language}}
+      </ion-label>
+      <ion-item lines="none" class="input-border small-font">
+        <input [(ngModel)]="lists.fromdate" [owlDateTime]="dt1" [max]="lists.maxdate" [owlDateTimeTrigger]="dt1"
+          placeholder="From Date" class="border-primary1 date-wrapper ion-text-center">
+        <owl-date-time #dt1 pickerType="calendar"></owl-date-time>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-label class="small-font">{{'To Date'|language}}
+      </ion-label>
+      <ion-item lines="none" class="input-border small-font">
+        <input [(ngModel)]="lists.todate" [owlDateTime]="dt2" [max]="lists.maxdate" [owlDateTimeTrigger]="dt2"
+          placeholder="To Date" class="border-primary1 date-wrapper ion-text-center">
+        <owl-date-time #dt2 pickerType="calendar"></owl-date-time>
+      </ion-item>
+    </ion-col>
+    <ion-col lines="none" text-center class="input-border small-font">
+      <ion-button shape="round" (click)="GotoBack()">{{'View Detail'|language}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

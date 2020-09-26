@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end" style="margin-top: -18px;">
+      <ion-button (click)="close()">
+        <ion-icon class="iconsclose" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h5 text-center>{{'Add Expense Info'|language}}
+  </h5>
+
+  <form [formGroup]="expenseform">
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="none" class="input-border">
+          <!-- <ion-label position="fixed">Expense Name</ion-label> -->
+          <ion-input type="type" class="ion-text-center" placeholder="Expense Name" formControlName="name"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item lines="none" class="input-border">
+          <!-- <ion-label position="fixed">Amount</ion-label> -->
+          <ion-input type="number" class="ion-text-center" placeholder="Amount" formControlName="amount"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" text-center>
+        <ion-button shape="round" style="padding-right: 16px;" (click)="close()">{{'Back'|language}}
+        </ion-button>
+        <ion-button shape="round" [disabled]="!expenseform.valid" (click)="SaveExpense()">
+          {{'Submit'|language}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

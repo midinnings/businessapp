@@ -1,0 +1,43 @@
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{'Coupons'|language}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-row class="offer-row">
+    <ion-col id="myoffer" class="Section_CSS" size="12" [style.background]="('url('+BackgroundImage+')')">
+      <ion-img [src]="common.Url+'Files/'+OfferDetailData.imageurl"></ion-img>
+    </ion-col>
+    <!-- <ion-col size="12">
+      <ion-card *ngIf="OfferDetailData != {}">
+        <ion-card-header>
+          <ion-card-subtitle>Free {{OfferDetailData.type}}<a style="float: right;"><i style="    font-size: 22px;"
+                class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+          </ion-card-subtitle>
+          <ion-card-title>{{OfferDetailData.title}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Starts From - {{OfferDetailData.startdate|date:'dd-MM-yyyy'}} <br>
+          Ends On - {{OfferDetailData.enddate|date:'dd-MM-yyyy'}}
+          <br>{{OfferDetailData.description}}
+        </ion-card-content>
+      </ion-card>
+    </ion-col> -->
+
+  </ion-row>
+
+  <ion-row id="btm_btns" class="btm_btns">
+    <ion-col size="6" text-right>
+      <ion-button shape="round" color="primary" (click)="Dismiss()">Back</ion-button>
+    </ion-col>
+    <ion-col size="6" text-left>
+      <ion-button shape="round" color="primary" (click)="ScreenShot()">Download</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

@@ -1,0 +1,103 @@
+<!-- <ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>Enter Your Details</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header> -->
+
+
+<ion-content class="register-bg">
+    <ion-grid>
+        <form [formGroup]="detailform" class="item-width login-wrapper">
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-icon slot="start" class="user-icon"></ion-icon>
+                        <ion-label class="inputlabel" position="stacked">{{'Type'|language}}</ion-label>
+
+                        <ion-radio-group formControlName="usertype" class="w-full">
+                            <ion-item class="typeitem" lines="none">
+                                <ion-label style="text-transform: uppercase; color: #b3b3b3;">{{'Stylist'|language}}</ion-label>
+                                <ion-radio slot="start" value="1"></ion-radio>
+                            </ion-item>
+                            <ion-item class="typeitem" lines="none">
+                                <ion-label style="text-transform: uppercase; color: #b3b3b3;">{{'Business'|language}}</ion-label>
+                                <ion-radio slot="start" value="2"></ion-radio>
+                            </ion-item>
+                            <ion-item class="typeitem" lines="none">
+                                <ion-label style="text-transform: uppercase; color: #b3b3b3;">{{'Freelancer'|language}}</ion-label>
+                                <ion-radio slot="start" value="6"></ion-radio>
+                            </ion-item>
+                        </ion-radio-group>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-icon slot="start" class="lock-icon"></ion-icon>
+                        <ion-label class="inputlabel" position="stacked">{{'Password'|language}}</ion-label>
+                        <ion-input formControlName="password" type="{{lists.passwordtype}}"></ion-input>
+                        <p class="dtft showpassword" *ngIf="lists.passwordtype=='password'"
+                            (click)="lists.passwordtype='text'">
+                            <ion-icon name="eye" style="vertical-align: bottom;"></ion-icon> {{'Show Password'|language}}
+                        </p>
+                        <p class="dtft showpassword" (click)="lists.passwordtype='password'"
+                            *ngIf="lists.passwordtype=='text'">
+                            <ion-icon name="eye-off" style="vertical-align: bottom;"></ion-icon> {{'Hide Password'|language}}
+                        </p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-icon slot="start" class="lock-icon"></ion-icon>
+                        <ion-label class="inputlabel" position="stacked">{{'Confirm Password'|language}}</ion-label>
+                        <ion-input formControlName="confirmpassword" type="{{lists.confpasswordtype}}"></ion-input>
+                        <p class="dtft showpassword" *ngIf="lists.confpasswordtype=='password'"
+                            (click)="lists.confpasswordtype='text'">
+                            <ion-icon name="eye" style="vertical-align: bottom;"></ion-icon> {{'Show Password'|language}}
+                        </p>
+                        <p class="dtft showpassword" (click)="lists.confpasswordtype='password'"
+                            *ngIf="lists.confpasswordtype=='text'">
+                            <ion-icon name="eye-off" style="vertical-align: bottom;"></ion-icon> {{'Hide Password'|language}}
+                        </p>
+                    </ion-item>
+                    <div *ngIf="detailform.value.password!=detailform.value.confirmpassword">
+                        <div class="errormessage">
+                            <ion-icon name="alert"></ion-icon>{{'Password or Confrim Password not Match'|language}}.
+                        </div>
+                    </div>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-icon slot="start" class="language-icon"></ion-icon>
+                        <ion-label class="inputlabel" position="stacked">{{'Language'|language}}</ion-label>
+                        <ion-radio-group formControlName="language" class="w-full">
+                            <ion-item class="typeitem" lines="none" size="6">
+                                <ion-label style="text-transform: uppercase; color: #b3b3b3;">{{'English'|language}}</ion-label>
+                                <ion-radio slot="start" value="English"></ion-radio>
+                            </ion-item>
+                            <ion-item class="typeitem" lines="none" size="6">
+                                <ion-label style="text-transform: uppercase; color: #b3b3b3;">{{'Hindi'|language}}</ion-label>
+                                <ion-radio slot="start" value="Hindi"></ion-radio>
+                            </ion-item>
+                        </ion-radio-group>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12" text-center class="dtft m-t-p-5" style="text-align: -webkit-center !important;">
+                    <ion-button class="loginbutton" expand="full" [disabled]="!detailform.valid"
+                        (click)="GotoRegister()" shape="round">
+                        {{'Register'|language}}</ion-button>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-grid>
+</ion-content>

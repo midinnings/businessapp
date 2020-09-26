@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" class="ion-text-center">
+        <ion-buttons>
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="8" class="ion-text-center" style="color:white">
+        <ion-title>{{'Upcoming Birthday'|language}}</ion-title>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <h3 text-center>{{'Birthdays'|language}}</h3>
+    <ion-row>
+      <ion-col *ngFor="let b of lists.Brithdays" size="4" class="ion-text-center">
+        <img [src]="b.logo?common.Url+'Files/'+b.logo:'./assets/img/app/user-1.jpg'" class='round-img'
+          style="width: 80%;" />
+        <P class="hsubheader">{{b.name}}
+          <br> {{b.dob|date:'dd.MM.yyyy'}}</P>
+        <ion-button shape="round" size="small" (click)="OpenSharingPopup(1)">{{'Surprise'|language}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

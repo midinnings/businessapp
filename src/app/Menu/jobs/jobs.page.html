@@ -1,0 +1,85 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons slot="start">
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8">
+                <ion-title text-center style="color:white">{{'Job Portal'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-slides pager="true">
+        <ion-slide *ngFor="let s of lists.sliders">
+            <img [src]="common.Url+'Files/'+s.image" (click)="common.OpenUrl(s.url,s.isinapp)">
+            <div class="userdiv">
+                <p class="sliderheader">{{s.title}}</p>
+                <span class="slidersubheader">{{s.subtitle}}</span>
+            </div>
+        </ion-slide>
+    </ion-slides>
+    <h3 class="header mt-3">{{'Job Portal'|language}}</h3>
+
+    <ion-list class="listjob mt-3" *ngIf="('usertype'|user)==2||('usertype'|user)==6">
+        <ion-item (click)="common.PageGoto('Forward','businessprofile')" lines="none" class="input-border">
+            <img src="./assets/icon/businessprofile.png" />
+            <ion-label>{{'Business Profile'|language}}</ion-label>
+        </ion-item>
+        <ion-item (click)="common.PageGoto('Forward','addjobpost')" lines="none" class="input-border">
+            <img src="./assets/icon/postjob.png" />
+            <ion-label>{{'Post a Job'|language}}</ion-label>
+        </ion-item>
+
+        <ion-item (click)="common.PageGoto('Forward','joblisting')" lines="none" class="input-border">
+            <img src="./assets/icon/allopenjobs.png" />
+            <ion-label>{{'All Open Jobs'|language}}</ion-label>
+        </ion-item>
+        <ion-item (click)="common.PageGoto('Forward','pastemployee')" lines="none" class="input-border">
+            <img src="./assets/icon/pastemployees.png" />
+            <ion-label>{{'Past Employees'|language}}</ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-item *ngIf="('usertype'|user)==1" lines="none" class="list-box mt-2 marg">
+        <ion-avatar slot="start">
+            <img class="list-img" [src]="('logo'|user)?common.Url+'Files/'+('logo'|user):'./assets/img/app/user-1.jpg'">
+        </ion-avatar>
+        <ion-label>
+            <h2 class="ion-text-uppercase font-w-600"> {{'name'|user}}</h2>
+            <span class="small-font">+91 {{'mobileno'|user}}</span>
+        </ion-label>
+        <ion-note>
+            <p class="icons">
+                <a class="icon-circle">
+                    <ion-icon name="create" (click)="UserEdit()"></ion-icon>
+                </a>
+            </p>
+        </ion-note>
+    </ion-item>
+    <ion-list class="listjob" *ngIf="('usertype'|user)==1">
+        <ion-item (click)="common.PageGoto('Forward','openjob')" lines="none" class="input-border">
+            <img src="./assets/icon/allopenjobs.png" />
+            <ion-label>{{'All Open Jobs'|language}}</ion-label>
+        </ion-item>
+        <ion-item (click)="common.PageGoto('Forward','featuredjob')" lines="none" class="input-border">
+            <img src="./assets/icon/businessprofile.png" />
+            <ion-label>{{'Featured Jobs'|language}}</ion-label>
+        </ion-item>
+        <ion-item (click)="common.PageGoto('Forward','appliedjob')" lines="none" class="input-border">
+            <img src="./assets/icon/postjob.png" />
+            <ion-label>{{'Applied Jobs'|language}}</ion-label>
+        </ion-item>
+        <ion-item (click)="GenerateResume()" lines="none" class="input-border">
+            <img src="./assets/icon/pastemployees.png" />
+            <ion-label>
+                {{'Resume Generator'|language}}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

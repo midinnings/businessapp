@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Customer List'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button size="small" (click)="AddCustomer()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <ion-row>
+        <ion-col size="12">
+            <ion-searchbar [(ngModel)]="lists.search" (ionChange)="SearchCustomer($event.detail.value)"
+                placeholder="{{'Search For Customer'|language}}" margin-bottom class="input-border no-shadow mb-0">
+            </ion-searchbar>
+        </ion-col>
+    </ion-row>
+    <div>
+
+        <ion-item *ngFor="let c of lists.Customerlist" lines="none" class="list-box mt-2">
+            <ion-avatar slot="start">
+                <img (click)="selectImage(c.id)" [src]="c.logo?common.Url+'Files/'+c.logo:'./assets/icon/profile.png'"
+                    class="list-img">
+            </ion-avatar>
+            <ion-label>
+                <h2 class="ion-text-uppercase">{{c.name}}</h2>
+                <h3>+91 {{c.mobile}}</h3>
+            </ion-label>
+            <ion-note>
+                <p class="icons">
+                    <a href="tel:{{c.mobile}}" class="icon-circle">
+                        <ion-icon name="call"></ion-icon>
+                    </a>
+                    <a (click)="mailcustomer(c)" class="icon-circle">
+                        <ion-icon name="mail"></ion-icon>
+                    </a>
+                    <a (click)="editcustomer(c)" class="icon-circle">
+                        <ion-icon name="create"></ion-icon>
+                    </a>
+                </p>
+            </ion-note>
+        </ion-item>
+    </div>
+</ion-content>

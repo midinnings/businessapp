@@ -1,0 +1,279 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="10">
+                <ion-title style="color:white" *ngIf="lists.usertype==5||lists.usertype==2||lists.usertype==6">
+                    {{'name'|user}}
+                </ion-title>
+                <ion-title style="color:white" *ngIf="lists.usertype==1">{{('Businessinfo'|user).name}}
+                </ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+                <ion-badge class="notifybadge">
+                    {{lists.dashboardwid.notifications||0}}</ion-badge>
+                <ion-icon name="notifications" size="large" (click)="common.PageGoto('Forward','notifications')"
+                    style="color: #fff !important;"></ion-icon>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="lists.usertype==1">
+    <ion-slides>
+        <ion-slide *ngFor="let s of lists.sliders">
+            <img [src]="common.Url+'Files/'+s.image" (click)="common.OpenUrl(s.url,s.isinapp)">
+            <div class=" userdiv" text-center style="text-align: -webkit-center !important;">
+                <ion-avatar>
+                    <img [src]="lists.logo?common.Url+'Files/'+lists.logo:'./assets/img/app/user-1.jpg'">
+                </ion-avatar>
+                <p class="sliderheader">{{'name'|user}}</p>
+            </div>
+
+        </ion-slide>
+    </ion-slides>
+    <h3 class="header">{{'My Employer'|language}}</h3>
+    <ion-grid>
+        <ion-row class="griddata">
+            <ion-col size="4">
+                <ion-card class="mycardinfo cardsqr" (click)="GotoPage('appointments/pendinglist')">
+                    <ion-card-content>
+                        <p class="info">{{lists.dashboardwid.TodayAppointments}}</p>
+                        <p class="infoname">{{'TODAY'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content (click)="common.PageGoto('Forward','appointments/confirm',{Page:'Total'})">
+                        <p class="info">{{lists.dashboardwid.TotalWork}}</p>
+                        <p class="infoname">{{'Total Work'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content (click)="GotoPage('employeermanagment')">
+                        <p class="info iconimg"><img src="./assets/icon/pastemployee.png" /></p>
+                        <p class="infoname">{{'My Employer'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4" (click)="common.PageGoto('Forward', 'festivalnvishes', {})">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info iconimg"><img src="./assets/icon/icon1.png" /></p>
+                        <p class="infoname">{{'Festival wishes'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content (click)="GotoPage('offers')">
+                        <p class="info iconimg"><img src="./assets/icon/icon2.png" /></p>
+                        <p class="infoname">{{'Offer/Deal'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content (click)="GotoPage('services')">
+                        <p class="info iconimg"><img src="./assets/icon/icon5.png" /></p>
+                        <p class="infoname">{{'Services Menu'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <h3 class="header">{{'NEWS'|language}}</h3>
+                <ion-row class="griddata">
+                    <ion-icon (click)="pre(2)" name="ios-arrow-back" class="leftarrow"></ion-icon>
+                    <ion-col size="12">
+                        <ion-slides #slides2 pager="true" [options]="slideOpts1" class="bottomslide">
+                            <ion-slide *ngFor="let b of lists.newslist" (click)="Gotoenpage('news')">
+                                <ion-card class="slidecard">
+                                    <p>{{b.title}}</p>
+                                    <span>{{b.ndatetime|date:'dd-MMM-yyyy'}}</span>
+                                    <img [src]="common.Url+'Files/'+ b.coverimage" />
+                                </ion-card>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                    <ion-icon (click)="next(2)" class="rightarrow" name="ios-arrow-forward">
+                    </ion-icon>
+                </ion-row>
+                <h3 class="header">{{'BLOGS'|language}}</h3>
+                <ion-row class="griddata">
+                    <ion-icon (click)="pre(1)" name="ios-arrow-back" class="leftarrow"></ion-icon>
+                    <ion-col size="12">
+                        <ion-slides #slides1 pager="true" [options]="slideOpts2" class="bottomslide">
+                            <ion-slide *ngFor="let b of lists.bloglist" (click)="Gotoenpage('blog')">
+                                <ion-card class="slidecard">
+                                    <p>{{b.title}}</p>
+                                    <span>{{b.publishedon|date:'dd-MMM-yyyy'}}</span>
+                                    <img [src]="common.Url+'Files/'+ b.coverImage" />
+                                </ion-card>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                    <ion-icon (click)="next(1)" class="rightarrow" name="ios-arrow-forward">
+                    </ion-icon>
+                </ion-row>
+                <h3 class="header">{{'EVENTS'|language}}</h3>
+                <ion-row class="griddata">
+                    <ion-icon (click)="pre(3)" name="ios-arrow-back" class="leftarrow"></ion-icon>
+                    <ion-col size="12">
+                        <ion-slides #slides3 pager="true" [options]="slideOpts3" class="bottomslide">
+                            <ion-slide *ngFor="let b of lists.eventlist" (click)="Gotoenpage('event')">
+                                <ion-card class="slidecard">
+                                    <p>{{b.eventname}}</p>
+                                    <span>{{b.publishingdate|date:'dd-MMM-yyyy'}}</span>
+                                    <img [src]="common.Url+'Files/'+ b.coverImage" />
+                                </ion-card>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                    <ion-icon (click)="next(3)" class="rightarrow" name="ios-arrow-forward">
+                    </ion-icon>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
+<ion-content *ngIf="lists.usertype=='5'|| lists.usertype=='2'|| lists.usertype=='6'">
+    <ion-slides pager="true">
+        <ion-slide *ngFor="let s of lists.sliders">
+            <img [src]="common.Url+'Files/'+s.image" (click)="common.OpenUrl(s.url,s.isinapp)">
+            <div class=" userdiv">
+                <!-- <p class="sliderheader">{{('Businessinfo'|user).name}}</p> -->
+            </div>
+        </ion-slide>
+    </ion-slides>
+
+    <h3 class="header">{{'Bookings'|language}} </h3>
+    <ion-grid>
+        <ion-row class="griddata">
+            <ion-icon name="ios-arrow-back" class="leftarrow"></ion-icon>
+            <ion-col size="4" (click)="GotoPage('appointments/pendinglist')">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info">{{lists.dashboardwid.TodayAppointments}}</p>
+                        <p class="infoname">{{'Today'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4" (click)="GotoPage('appointments/confirm')">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info">{{lists.dashboardwid.ConfirmAppointments}}</p>
+                        <p class="infoname">{{'Confirmed'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4" (click)="GotoPage('appointments/appointmentstatus')">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info">{{lists.dashboardwid.PendingAppointments}}</p>
+                        <p class="infoname">{{'Pending'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+
+            </ion-col>
+            <ion-icon class="rightarrow" name="ios-arrow-forward"></ion-icon>
+        </ion-row>
+        <ion-row class="griddata">
+            <ion-col size="12">
+                <h3 class="header">{{'CRM'|language}}</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row class="griddata">
+            <ion-icon name="ios-arrow-back" class="leftarrow"></ion-icon>
+            <ion-col size="4" (click)="common.PageGoto('Forward', 'festivalnvishes', {})">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info iconimg"><img src="./assets/icon/icon1.png" /></p>
+                        <p class="infoname">{{'Festival wishes'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4" (click)="GotoPage('offers')">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info iconimg"><img src="./assets/icon/icon2.png" /></p>
+                        <p class="infoname">{{'Offer/Deal'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4" (click)="GotoPage('businessmanager')">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info iconimg"><img src="./assets/icon/icon3.png" /></p>
+                        <p class="infoname">{{'Business Manager'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-icon class="rightarrow" name="ios-arrow-forward"></ion-icon>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <h3 class="header">{{'NEWS'|language}}</h3>
+                <ion-row class="griddata image-slider">
+                    <ion-icon (click)="pre(2)" name="ios-arrow-back" class="leftarrow"></ion-icon>
+                    <ion-col size="12">
+                        <ion-slides #slides2 pager="true" [options]="slideOpts1" class="bottomslide">
+                            <ion-slide *ngFor="let b of lists.newslist" (click)="Gotoenpage('news')">
+                                <ion-card class="slidecard">
+                                    <p>{{b.title}}</p>
+                                    <span>{{b.ndatetime|date:'dd-MMM-yyyy'}}</span>
+                                    <img onerror="this.src='./assets/img/placeholder.jfif';"
+                                        [src]="common.Url+'Files/'+ b.coverimage" />
+                                </ion-card>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                    <ion-icon (click)="next(2)" class="rightarrow" name="ios-arrow-forward">
+                    </ion-icon>
+                </ion-row>
+                <h3 class="header">{{'BLOGS'|language}}</h3>
+                <ion-row class="griddata image-slider">
+                    <ion-icon (click)="pre(1)" name="ios-arrow-back" class="leftarrow"></ion-icon>
+                    <ion-col size="12">
+                        <ion-slides #slides1 pager="true" [options]="slideOpts2" class="bottomslide">
+                            <ion-slide *ngFor="let b of lists.bloglist" (click)="Gotoenpage('blog')">
+                                <ion-card class="slidecard">
+                                    <p>{{b.title}}</p>
+                                    <span>{{b.publishedon|date:'dd-MMM-yyyy'}}</span>
+                                    <img onerror="this.src='./assets/img/placeholder.jfif';"
+                                        [src]="common.Url+'Files/'+ b.coverImage" />
+                                </ion-card>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                    <ion-icon (click)="next(1)" class="rightarrow" name="ios-arrow-forward">
+                    </ion-icon>
+                </ion-row>
+
+                <h3 class="header">{{'EVENTS'|language}}</h3>
+                <ion-row class="griddata image-slider">
+                    <ion-icon (click)="pre(3)" name="ios-arrow-back" class="leftarrow"></ion-icon>
+                    <ion-col size="12">
+                        <ion-slides #slides3 [options]="slideOpts3" pager="true" class="bottomslide">
+                            <ion-slide *ngFor="let b of lists.eventlist" (click)="Gotoenpage('event')">
+                                <ion-card class="slidecard">
+                                    <p>{{b.eventname}}</p>
+                                    <span>{{b.publishingdate|date:'dd-MMM-yyyy'}}</span>
+                                    <img onerror="this.src='./assets/img/placeholder.jfif';"
+                                        [src]="common.Url+'Files/'+ b.coverImage" />
+                                </ion-card>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                    <ion-icon (click)="next(3)" class="rightarrow" name="ios-arrow-forward">
+                    </ion-icon>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

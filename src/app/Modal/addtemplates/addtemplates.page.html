@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" class="ion-text-center">
+      </ion-col>
+      <ion-col size="8" class="ion-text-center" style="color:white">
+        <ion-title>{{'Add Template'|language}}
+        </ion-title>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <ion-icon name="close" class="close">
+        </ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h5 text-center>{{'Add New Template'|language}}
+  </h5>
+  <form [formGroup]="template">
+    <ion-row style="margin-top: 5%;">
+      <ion-col size="12">
+        <ion-item lines="none" class="input-border">
+          <ion-textarea rows="3" class="ion-text-center" placeholder="Enter Message Hindi"
+            formControlName="messagehindi" type="text">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item lines="none" class="input-border">
+          <ion-textarea rows="3" class="ion-text-center" placeholder="Enter Message English"
+            formControlName="messageenglish" type="text">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" text-center padding>
+        <img [src]="common.Url+'Files/'+template.value.coverimage" class='round-img-5' style="width: 95%;"><br>
+        <a (click)="ChooseImage()">{{'Change Image'|language}}
+        </a>
+      </ion-col>
+      <ion-col size="12" text-center>
+        <ion-button shape="round" style="padding-right: 16px;" [disabled]="!template.valid" (click)="SaveTemplate()">
+          {{'Submit'|language}}
+        </ion-button>
+        <ion-button shape="round" (click)="close()">{{'Back'|language}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

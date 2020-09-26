@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Past Employees'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-row>
+        <ion-col size="12">
+            <ion-searchbar  placeholder="{{'Search For Employee'|language}}" margin-bottom class="input-border no-shadow mb-0">
+            </ion-searchbar>
+        </ion-col>
+    </ion-row>
+    <ion-row class="small-font mb-2 mt-2">
+        <ion-col size="5" class="font-w-600">
+            <div><img src="./assets/icon/name.png" class="icon-width"></div>
+            <ion-label>
+                {{'Name'|language}}
+            </ion-label>
+        </ion-col>
+        <ion-col size="4" class="ion-text-center font-w-600">
+            <div><img src="./assets/icon/type.png" class="icon-width"></div>
+            <ion-label> {{'Type'|language}}
+            </ion-label>
+        </ion-col>
+        <ion-col size="3" class="ion-text-center font-w-600">
+            <div><img src="./assets/icon/duration.png" class="icon-width"></div>
+            <ion-label>
+                {{'Duration'|language}}
+            </ion-label>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let e of lists.Employeelist" class="input-border pb-1 mb-1 small-font"> 
+        <ion-col size="5">
+            {{e.name}}
+        </ion-col>
+        <ion-col size="4" class="ion-text-center">
+            {{e.type.skill}}
+        </ion-col>
+        <ion-col size="3" class="ion-text-center">
+        -   
+        </ion-col>
+    </ion-row>
+    
+</ion-content>

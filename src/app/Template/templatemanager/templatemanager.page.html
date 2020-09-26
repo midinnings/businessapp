@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center" style="color:white">
+                <ion-title>Template Manager</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div>
+        <h3 class="header">Template Cateogory</h3>
+        <ion-row>
+            <ion-col size="4" *ngFor="let f of lists.template" (click)="Gototemplate(f)">
+                <img [src]="f.ccoverimage?common.Url+'Files/'+f.ccoverimage:'./assets/img/app/diwali.jpg'"
+                    class='round-img-5' style="width: 95%;" />
+                <p class="hsubheader">
+                    <span class="small-font">{{f.cname}}</span>
+                </p>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

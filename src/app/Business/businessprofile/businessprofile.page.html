@@ -1,0 +1,122 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title *ngIf="lists.sameuser">{{'Business Profile'|language}}
+                </ion-title>
+                <ion-title *ngIf="!lists.sameuser">{{'Employeer Profile'|language}}
+                </ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+                <ion-button mat-icon-button [matMenuTriggerFor]="appMenu" *ngIf="lists.sameuser">
+                    <ion-icon name="more"></ion-icon>
+                </ion-button>
+                <mat-menu #appMenu="matMenu">
+                    <button mat-menu-item (click)="EditProfile()">{{'Edit Profile'|language}}
+                    </button>
+                    <button mat-menu-item (click)="lists.edit=true">{{'Edit About'|language}}
+                    </button>
+                </mat-menu>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label class="small-font">
+                            {{'Language'|language}}
+                        </ion-label>
+                        <p>{{'English'|language}}
+                        </p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label class="small-font">
+                            {{'Business Name'|language}}
+                        </ion-label>
+                        <p>{{('Businessinfo'|user).name}}</p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label class="small-font">
+                            {{'Business Phone'|language}}
+                        </ion-label>
+                        <p>{{('Businessinfo'|user).mobileno}}</p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label class="small-font">
+                            {{'Business Email'|language}}
+                        </ion-label>
+                        <p>{{('Businessinfo'|user).email}}</p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label class="small-font">
+                            {{'Address'|language}}
+                        </ion-label>
+                        <p>{{('Businessaddressinfo'|user).address}}</p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label class="small-font">
+                            {{'State'|language}}
+                        </ion-label>
+                        <p>{{('Businessaddressinfo'|user).statename}}</p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label class="small-font">
+                            {{'City'|language}}
+                        </ion-label>
+                        <p>{{('Businessaddressinfo'|user).cityname}}</p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="input-border">
+                        <ion-label class="small-font">
+                            {{'Pincode'|language}}
+                        </ion-label>
+                        <p>{{('Businessaddressinfo'|user).pincode}}</p>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12" text-center>
+                    <h5 class="header">{{'ABOUT US'|language}}
+                    </h5>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-card *ngIf="!lists.edit" class="list-box">
+                        <p class="lists-box1"> {{('Businessinfo'|user).about}}</p>
+                    </ion-card>
+                    <ion-item class="input-border" *ngIf="lists.edit">
+                        <ion-label position="floating">{{'About Business'|language}}
+                        </ion-label>
+                        <ion-textarea rows="5" placeholder="Enter About Your Business"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="lists.About">
+                        </ion-textarea>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12" text-center *ngIf="lists.edit">
+                    <ion-button (click)="SaveAbout()" shape="round">{{'Save About'|language}}
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

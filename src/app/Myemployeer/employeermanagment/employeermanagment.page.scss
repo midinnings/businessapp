@@ -1,0 +1,164 @@
+img {
+    width: 45% !important;
+}
+
+ion-title {
+    color: white !important;
+}
+
+.frow {
+    margin-top: 20px !important;
+}
+
+.hsubheader {
+    max-width: 110px;
+    margin: 5px auto 8px;
+    font-weight: 600;
+    font-size: 15px;
+
+}
+
+.icon-box {
+    margin: 15px auto;
+}
+
+.listjob {
+    background: transparent !important;
+    ion-item {
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        ion-label {
+            font-size: 16px !important;
+        }
+    }
+    img {
+        height: 25px !important;
+        width: 35px !important;
+        padding-right: 10px !important;
+    }
+}
+
+.header {
+    text-align: center !important;
+    text-transform: uppercase !important;
+    margin: 5px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+
+
+ion-slides{
+   
+    ion-slide{background: #000;        
+    }
+    img{opacity: 0.6;}
+}
+
+
+
+
+
+.sliderheader {
+    margin: 0px !important;
+    font-size: 14px !important;
+    margin-top: 15% !important;
+}
+
+.slidersubheader {
+    font-size: 10px !important;
+}
+
+.userdiv {
+    position: absolute !important;
+    top: 12% !important;
+    text-align: center !important;
+    text-align: -webkit-center !important;
+    width: 100% !important;
+    color: #ffff !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+}
+
+.employer {
+    position: absolute !important;
+    top: 0 !important;
+    right: 16px !important;
+    color: #ffff !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    font-weight: 500 !important;
+}
+
+.backimg {
+    height: 100% !important;
+}
+
+.mycardinfo {
+    background: #7c7b7b30 !important;
+    ion-card-content {
+        padding: 5px !important;
+        text-align: center !important;
+        .info {
+            color: #c73130 !important;
+        }
+        .infoname {
+            font-size: 10px !important;
+            text-transform: uppercase !important;
+            font-weight: 600 !important;
+            color: black !important;
+        }
+    }
+}
+
+.bottomslide {
+    .swiper-container-horizontal>.swiper-pagination-bullets,
+    .swiper-pagination-custom,
+    .swiper-pagination-fraction {
+        bottom: 0px !important;
+    }
+    ion-card {
+        height: 150px !important;
+    }
+    p {
+        position: absolute !important;
+        bottom: 3px !important;
+        left: 5px !important;
+        color: white !important;
+        font-weight: 600 !important;
+        z-index: 9999 !important;
+    }
+    span {
+        position: absolute !important;
+        left: 5px !important;
+        bottom: 5px !important;
+        color: white !important;
+        font-size: 9px !important;
+        z-index: 9999 !important;
+    }
+}
+
+
+
+.slidecard{
+    width:100% !important;
+    margin: 0px !important;
+    border-radius: 0px;
+    img{
+        width: 100% !important;
+       
+    }
+}
+
+.image-slider{
+
+    ion-slides{border-radius: 5px !important;
+   
+        ion-slide{background: #000;
+        }
+        
+    }
+    
+}
+
+ion-slides{max-width: 600px;}

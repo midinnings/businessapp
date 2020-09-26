@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar color="primary">
+
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" style="color:white" class="ion-text-center">
+                <ion-title class="p-0"> {{'Pending Appointment'|language}}
+                </ion-title>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button size="small" (click)="common.PageGoto('Forward','appointments')">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <ion-item *ngFor="let a of lists.appointmentlist" lines="none" class="list-box mt-2">
+        <ion-avatar slot="start">
+            <img src="./assets/img/logo.png" class="list-img">
+        </ion-avatar>
+        <ion-label>
+            <h2 class="ion-text-uppercase font-w-600">{{a.customer_name}}</h2>
+            <h3>{{a.prefeerddate|date:'dd-MM-yyyy'}}</h3>
+            <h3>{{a.prefeerddate|date:'HH:mm:ss a'}}</h3>
+            <span *ngIf="a.serviceinfo"
+                class="small-font">{{a.serviceinfo|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</span>
+            <span *ngIf="!a.serviceinfo || a.serviceinfo.length==0">Offer : {{a.coupon_applied}}</span>
+        </ion-label>
+        <ion-note>
+            <p (click)="AcceptAppointment(a)">{{'Accept'|language}}</p>
+            <p (click)="CancelAppointment(a)">{{'Cancel'|language}}</p>
+            <p (click)="EditAppointment(a)">{{'Edit'|language}}</p>
+        </ion-note>
+    </ion-item>
+
+</ion-content>

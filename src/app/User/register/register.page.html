@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons slot="start" style="margin-top:25px !important">
+                    <ion-back-button style="color:black !important;"></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+
+            <ion-col size="8">
+                <!-- <ion-title>Create Account</ion-title> -->
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="register-bg">
+    <ion-grid>
+        <form [formGroup]="registerform" class="item-width login-wrapper">
+            <ion-row>
+                <ion-row>
+                    <ion-col size="12" text-center>
+                        <img class="image mb-3" src="./assets/img/logo.png" />
+                    </ion-col>
+
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-icon slot="start" class="user-icon"></ion-icon>
+                            <ion-label class="inputlabel" position="stacked">{{'Name'|language}}
+                            </ion-label>
+                            <ion-input formControlName="name" type="text"></ion-input>
+                        </ion-item>
+                    </ion-col>
+
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-icon slot="start" class="mobile-icon"></ion-icon>
+                            <ion-label class="inputlabel" position="stacked">{{'Mobile Number'|language}}
+                            </ion-label>
+                            <ion-input formControlName="mobile" type="tel" maxlength="10"
+                                (ionBlur)="CheckUserAvalability()"></ion-input>
+                        </ion-item>
+                        <div *ngFor="let item of valid.validation_messages.mobile;let i=index">
+                            <div class="errormessage"
+                                *ngIf="registerform.get('mobile').hasError(item.type) && (registerform.get('mobile').dirty || registerform.get('mobile').touched)">
+                                <ion-icon name="alert"></ion-icon>{{item.message}}
+                            </div>
+                        </div>
+                    </ion-col>
+
+                    <ion-col size="12" class="m-t-p-10" style="text-align:-webkit-center !important;">
+                        <ion-button class="loginbutton" expand="full" shape="round" (click)="Proceed()"
+                            [disabled]="!registerform.valid&&!lists.Avalabile">{{'Register'|language}}
+                        </ion-button>
+                    </ion-col>
+
+                    <ion-col size="12" text-center class="dtft m-t-p-10 ls-1">
+                        <div> {{'Already Member'|language}} ? </div>
+                        <div class="mt-1"><a class="registerft" (click)="common.PageGoto('Root','login')">
+                                {{'Login'|language}} </a></div>
+                    </ion-col>
+                </ion-row>
+            </ion-row>
+        </form>
+    </ion-grid>
+</ion-content>

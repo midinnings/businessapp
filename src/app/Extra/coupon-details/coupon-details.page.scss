@@ -1,0 +1,46 @@
+.download_icon{
+    font-size: 22px;
+    color: #c73130;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.view_icon{
+    font-size: 22px;
+    color: #c73130;
+    position: absolute;
+    right: 5px;
+    top: 32px;
+}
+
+.Section_CSS{
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    margin-bottom:10px;
+    padding:0;
+}
+
+.btm_btns{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.offer-row{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+ion-content{
+    --background:none !important;
+    background-color: #1d1d1d;
+}
+
+ion-img {
+    margin-bottom: -2px;
+}

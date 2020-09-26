@@ -1,0 +1,276 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Stylist SignUp'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <form [formGroup]="stylistregister">
+        <mat-horizontal-stepper labelPosition="bottom" #stepper class="pb-6 mt-2">
+            <mat-step>
+                <ng-template matStepLabel>{{'Basic Information'|language}}</ng-template>
+                <ion-row>
+                    <ion-col size="12">
+
+                        <ion-col size="12">
+                            <p class="bheader mt-2">{{'Tell us about You'|language}}</p>
+                        </ion-col>
+                        <ion-col size="12">
+                            <ion-item text-center class="logo-img" lines="none" (click)="selectImage()">
+                                <img [src]="lists.Image?lists.Image:'./assets/img/user-img.jpg' ">
+                            </ion-item>
+                        </ion-col>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                {{'Stylist Name'|language}}
+                            </ion-label>
+                            <ion-input formControlName="name" type="text" placeholder="Name">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                {{'Mobile Number'|language}}
+                            </ion-label>
+                            <ion-input formControlName="mobile" type="tel" maxlength="10" placeholder="Mobile No.">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12" size="12" class="input-border">
+                        <h5 class="small-font">{{'Current Address Info'|language}}.</h5>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'Address'|language}}</ion-label>
+                            <ion-textarea rows="3" formControlName="address" placeholder="Address Line1"></ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                {{'Landmark'|language}}
+                            </ion-label>
+                            <ion-input formControlName="landmark" type="text" placeholder="Optional">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'STATE'|language}}</ion-label>
+                            <ion-select (ionChange)="GetCitylist($event.target.value)" formControlName="stateid">
+                                <ion-select-option *ngFor="let s of lists.Statelist" [value]="s.id">
+                                    {{lists.language=='Hindi'?s.name_hi:s.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'CITY'|language}}</ion-label>
+                            <ion-select formControlName="cityid">
+                                <ion-select-option *ngFor="let s of lists.Citylist" [value]="s.id">
+                                    {{lists.language=='Hindi'?s.name_hi:s.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                *{{'Zip Code'|language}}
+                            </ion-label>
+                            <ion-input maxlength="6" type="tel" formControlName="pincode" placeholder="Code">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label>
+                                {{'Permanent Add. Same As Current Add.'|language}}
+                            </ion-label>
+                            <ion-checkbox slot="start" (ionChange)="SameAddress($event)"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12" size="12" class="input-border">
+                        <h5 class="small-font">{{'Permanent Address Info'|language}}.</h5>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Address'|language}}</ion-label>
+                            <ion-textarea rows="3" formControlName="address1" placeholder="Address Line1">
+                            </ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                {{'Landmark'|language}}
+                            </ion-label>
+                            <ion-input formControlName="landmark1" formControlName="landmark1" type="text"
+                                placeholder="Optional">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'STATE'|language}}</ion-label>
+                            <ion-select (ionChange)="GetCitylist1($event.target.value)" formControlName="stateid1">
+                                <ion-select-option *ngFor="let s of lists.Statelist1" [value]="s.id">
+                                    {{lists.language=='Hindi'?s.name_hi:s.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">*{{'CITY'|language}}</ion-label>
+                            <ion-select formControlName="cityid1">
+                                <ion-select-option *ngFor="let s of lists.Citylist1" [value]="s.id">
+                                    {{lists.language=='Hindi'?s.name_hi:s.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                {{'Zip Code'|language}}
+                            </ion-label>
+                            <ion-input type="number" formControlName="pincode1" placeholder="Code">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Enter DOB'|language}}</ion-label>
+                            <ion-input readonly formControlName="dob" (ionChange)="CheckDateValidate($event)"
+                                [liIonic4Datepicker]="datePickerObj" placeholder="Enter Date">
+                            </ion-input>
+                        </ion-item>
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Email'|language}}
+                            </ion-label>
+                            <ion-input type="email" placeholder="Enter Email Address" formControlName="email">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-footer class="ion-no-border fx-ftr">
+                    <ion-toolbar>
+                        <button class="nextbtn" mat-button matStepperNext>{{'Next'|language}}</button>
+                    </ion-toolbar>
+                </ion-footer>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>{{'Skills/Qualification'|language}}</ng-template>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Qualification'|language}}</ion-label>
+                            <ion-select formControlName="qualification">
+                                <ion-select-option *ngFor="let s of lists.qualificationlist" [value]="s">{{s}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Select Employeer'|language}}</ion-label>
+                            <ion-input type="text" formControlName="employer"
+                                (keyup)="SearchBusiness($event.target.value)" placeholder="Search Employeer">
+                            </ion-input>
+                        </ion-item>
+                        <div *ngIf="lists.business" class="auto-list">
+                            <p (click)="selectEmployer(u)" *ngFor="let u of lists.business" class="autocomplete">
+                                {{u.name}}-{{u.Address}}-{{u.CityName}}
+                            </p>
+                        </div>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Employment Type'|language}}</ion-label>
+                            <ion-select formControlName="emptype">
+                                <ion-select-option *ngFor="let s of lists.employeementtypelist" [value]="s">
+                                    {{s}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Industry Type'|language}}</ion-label>
+                            <ion-select formControlName="indtype">
+                                <ion-select-option *ngFor="let s of lists.industrytypelist" [value]="s">{{s}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Experience (in Years)'|language}}</ion-label>
+                            <ion-select formControlName="experience">
+                                <ion-select-option *ngFor="let s of lists.experiencelist" [value]="s">{{s}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Skills'|language}}</ion-label>
+                            <ion-select formControlName="skills" multiple="true">
+                                <ion-select-option *ngFor="let s of lists.skilllist" [value]="s">{{s}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">{{'Current Salary'|language}}</ion-label>
+                            <ion-input formControlName="salary" type="number" placeholder="Current Salary">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item class="input-border">
+                            <ion-label position="fixed">
+                                {{'About Yourself'|language}}
+                            </ion-label>
+                            <ion-textarea type="textarea" formControlName="yourself" placeholder="(0/150 characters)">
+                            </ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                    <ion-item lines="none">
+                        <ion-label style="white-space: normal;" class="terms">
+                            {{'I have read and agree with all Terms and Conditions'|language}}.<a
+                                (click)="Readterms()">{{'Click here'|language}}</a>
+                        </ion-label>
+                        <ion-toggle slot="start" formControlName="terms" [(ngModel)]="lists.terms" name="day"
+                            color="primary"></ion-toggle>
+                    </ion-item>
+                </ion-row>
+
+                <ion-footer class="ion-no-border fx-ftr">
+                    <ion-toolbar>
+                        <button class="prebtn" mat-button matStepperPrevious>{{'Back'|language}}</button>
+                        <button mat-button class="nextbtn" matStepperNext
+                            (click)="CreateAccount()">{{'Submit'|language}}</button>
+                    </ion-toolbar>
+                </ion-footer>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </form>
+</ion-content>

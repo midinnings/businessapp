@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Job Detail'|language}}- (#{{lists.id}})</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="input-border">
+        <ion-item lines="none">
+            <ion-avatar slot="start">
+                <img src="./assets/icon/job-type-1.png">
+            </ion-avatar>
+            <ion-label>
+                <h2 class="ion-text-wrap job-title">{{lists.title}}</h2>
+                <h2 *ngIf="lists.company">{{lists.company}}</h2>
+                <h2 *ngIf="lists.company">{{lists.position_type|arraytostring|removelast|removelast}}</h2>
+
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="lists.location" lines=none class="small-font ml-3 item-height-30">
+            <ion-icon name="pin" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>{{lists.location}}</ion-label>
+        </ion-item>
+        <ion-item class="ion-activated" lines=none *ngIf="lists.salarybar" class="small-font ml-3 item-height-30">
+            <i class="fa fa-rupee primary-text mr-1 icon-small-size"></i>
+            <ion-label>{{lists.salarybar}}</ion-label>
+        </ion-item>
+        <ion-item lines=none *ngIf="lists.experience" class="small-font ml-3 item-height-30">
+            <ion-icon name="settings" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>{{'Experience Mini.'|language}} ({{lists.experience}}) </ion-label>
+        </ion-item>
+        <ion-item lines=none *ngIf="lists.qualification" class="small-font ml-3 item-height-30">
+            <ion-icon name="settings" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>{{'Mini. Qualification'|language}} ({{lists.qualification}}) </ion-label>
+        </ion-item>
+        <ion-item lines=none *ngIf="lists.skills" class="small-font ml-3 item-height-30">
+            <ion-icon name="settings" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>{{'Facilities'|language}} ({{lists.skills}}) </ion-label>
+        </ion-item>
+        <ion-item lines=none *ngIf="lists.skills" class="small-font ml-3 item-height-30">
+            <ion-icon name="calendar" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>{{'Last Date'|language}} ({{lists.lastdate|date:'dd-MM-yyyy'}}) </ion-label>
+        </ion-item>
+
+        <ion-item lines=none *ngIf="lists.description" class="small-font gray-text ">
+            <ion-label class="ion-text-wrap gray-bg round-img-5 p-1">{{lists.description}}</ion-label>
+        </ion-item>
+        <ion-item href="#" lines=none class="item-height-30 small-font primary-text ion-text-center">
+            <ion-label>Posted on {{lists.postingdate|daysago}}</ion-label>
+        </ion-item>
+        <ion-row>
+            <ion-col size="12">{{'Contact Info'|language}} : {{lists.email}}/
+                {{lists.number}}</ion-col>
+            <ion-col size="6">{{'Total Applied'|language}} : {{lists.Applied.length}}</ion-col>
+            <ion-col class="ion-text-center" size="12" *ngIf="lists.UserType==2||lists.UserType==6">
+                <ion-button (click)="ApplyJob(lists.id)" *ngIf="CheckApply(lists.Applied)" shape="round"
+                    class="mc mt-1 mb-1">
+                    {{'Apply Now'|language}}</ion-button>
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+
+
+</ion-content>

@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Featured Job'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-row>
+        <ion-col size="12">
+            <ion-searchbar placeholder="{{'Search For Job'|language}}" (ionInput)="SearchJob($event.target.value)" margin-bottom class="input-border no-shadow mb-0">
+            </ion-searchbar>
+        </ion-col>
+    </ion-row>
+
+    <ion-card *ngFor="let b of lists.joblist" class="list-box mt-2">
+        <ion-item lines="none">
+            <ion-label>
+                <h3 class="font-w-600">{{b.title}}</h3>
+                <p class="small-font">{{b.company}}</p>
+                <p class="small-font">{{b.location}}</p>
+            </ion-label>
+            <ion-note class="p-padding">
+                <p (click)="ApplyJob(b.id)" *ngIf="CheckApply(b.Applied)"><a>{{'Apply Job'|language}}</a></p>
+                <p><a class="default-h-color-p" (click)="common.PageGoto('Forward','jobdetail',b)">{{'More'|language}}</a></p>
+            </ion-note>
+        </ion-item>
+    </ion-card>
+</ion-content>

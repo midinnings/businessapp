@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" style="color:white" class="ion-text-center">
+                <ion-title class="p-0">{{'Day Wise Appointments'|language}}</ion-title>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-row>
+        <ion-col size="6" class="small-font mb-1">{{'From Date'|language}} : {{lists.from|date}}</ion-col>
+        <ion-col size="6" text-right class="small-font mb-1" text-right>{{'To Date'|language}} : {{lists.to|date}}</ion-col>
+    </ion-row>
+    <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+        (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+        (onTimeSelected)="onTimeSelected($event)" step="30">
+    </calendar>
+    <ion-item *ngFor="let item of lists.pendinglists" lines="none" class="list-box mt-2">
+        <ion-avatar slot="start">
+            <img src="./assets/img/logo.png" class="list-img">
+        </ion-avatar>
+        <ion-label>
+            <h2 class="ion-text-uppercase font-w-600">{{item.customer_name}}</h2>
+            <h3>{{item.prefeerddate|date:'HH:MM:ss a'}}</h3>
+            <span class="small-font">{{item.coupon_applied}}</span>
+            <span class="small-font" *ngIf="item.serviceinfo">{{item.serviceinfo|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</span>
+        </ion-label>
+        <ion-note class="p-padding">
+            <p><a href="tel:{{item.contactno}}" class="default-h-color-p">{{'Call'|language}}</a></p>
+            <p (click)="EditAppointment(item)">{{'Edit'|language}}</p>
+            <p (click)="MessageCust(item)">{{'Message'|language}}</p>
+            <p (click)="CancelAppointment(item)">{{'Cancel'|language}}</p>
+            <p *ngIf="ShowCheckout(item)" (click)="CheckoutAppointment(item)">{{'Billing'|language}}</p>
+        </ion-note>
+    </ion-item>
+</ion-content>

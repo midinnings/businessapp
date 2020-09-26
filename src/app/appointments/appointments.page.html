@@ -1,0 +1,120 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center" style="color:white">
+                <ion-title>{{'Appointments'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-row>
+        <ion-col size="6" class="small-font mb-1">{{'Selected Date'|language}}</ion-col>
+        <ion-col size="6" class="small-font mb-1" text-right>{{lists.title}}</ion-col>
+    </ion-row>
+    <calendar [eventSource]="eventSource" [markDisabled]="markDisabled" [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate" (onEventSelected)="onEventSelected($event)"
+        (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" step="30">
+    </calendar>
+    <calendar [markDisabled]="markDisabled" [eventSource]="eventSource1" startHour="6" endHour="24"
+        [calendarMode]="calendar.timemode" [currentDate]="calendar.currenttime" step="30"
+        (onTimeSelected)="onTimeSelected1($event)" [eventSource]="lists.eventtime">
+    </calendar>
+    <form [formGroup]="book">
+        <ion-col size="12">
+            <ion-item class="input-border">
+                <ion-label position="fixed">{{'Customer Name'|language}}</ion-label>
+                <ion-input type="text" formControlName="cname" (keyup)="SearchCustomer($event.target.value)"
+                    placeholder="Laura Wilson">
+                </ion-input>
+            </ion-item>
+            <div *ngIf="lists.Customerlist" style="position: inherit !important;" class="auto-list">
+                <p (click)="SelectedCustomer(u)" *ngFor="let u of lists.Customerlist" class="autocomplete">
+                    {{u.name}}-({{u.mobile}})
+                </p>
+            </div>
+        </ion-col>
+
+        <ion-col size="12">
+            <ion-item class="input-border">
+                <ion-label position="fixed">{{'Customer Mobile'|language}}</ion-label>
+                <ion-input type="tel" maxlength="10" formControlName="cmobile" placeholder="888888888">
+                </ion-input>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12">
+            <ion-item class="input-border">
+                <ion-label position="fixed">{{'Customer Email'|language}}</ion-label>
+                <ion-input type="email" formControlName="cemail">
+                </ion-input>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12">
+            <ion-item class="input-border">
+                <ion-label class="inputlabel" position="stacked">{{'Gender'|language}}</ion-label>
+                <ion-radio-group formControlName="gender" class="w-full">
+                    <ion-item lines="none" class="typeitem">
+                        <ion-label>{{'Male'|language}}</ion-label>
+                        <ion-radio slot="start" value="Male"></ion-radio>
+                    </ion-item>
+                    <ion-item lines="none" class="typeitem">
+                        <ion-label>{{'Female'|language}}</ion-label>
+                        <ion-radio slot="start" value="Female"></ion-radio>
+                    </ion-item>
+                </ion-radio-group>
+            </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+            <ion-item class="input-border">
+                <ion-label position="fixed">{{'Select an Offer'|language}}</ion-label>
+                <ion-checkbox (ionChange)="SelectAnOffer($event.target.value)"  name="" formControlName="PackageSelected">
+                </ion-checkbox>
+            </ion-item>
+        </ion-col>
+
+        <ion-col size="12" *ngIf="lists.ShowOffers">
+            <ion-item class="input-border">
+                <ion-label position="fixed" (click)="ViewOffers()">{{'View Offers'|language}}</ion-label>
+                <ion-input [(ngModel)]="ShowCode" (click)="ViewOffers()" [ngModelOptions]="{standalone: true}" readonly> </ion-input>
+            </ion-item>
+        </ion-col>
+
+        <ion-col size="12" *ngIf="!lists.ShowOffers">
+            <ion-item class="input-border">
+                <ion-label position="fixed">{{'Select Service'|language}}</ion-label>
+                <ion-select multiple="true" formControlName="service">
+                    <ion-select-option *ngFor="let s of lists.servicelist" value="{{s.serviceid}}">
+                        {{('language'|user)=='Hindi'?s.service_hi:s.service}} - Rs.{{s.serviceprice}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+            <ion-item class="input-border">
+                <ion-label position="fixed">{{'Available Stylist'|language}}</ion-label>
+                <ion-select formControlName="stylist">
+                    <ion-select-option *ngFor="let u of lists.userlist" value="{{u.id}}">{{u.name}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+
+
+        <ion-col size="12" text-center style="display: block;">
+            <ion-button [disabled]="!book.valid" (click)="SaveAppointment()" shape="round">{{'Book Now'|language}}
+            </ion-button>
+        </ion-col>
+    </form>
+
+</ion-content>

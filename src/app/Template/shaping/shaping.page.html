@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Select Shape</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides #testSlider pager="true">
+    <ion-slide  *ngFor="let t of lists.defaulttemplates;let i=index;">
+      <div id={{i}} class="background" #screen
+        [style.background]="('url('+common.Url+'Files/'+t.backgroundimageurl+')')|santize:'css'">
+        <div [className]="t.templateclass?t.templateclass:'forground'" [style.background]="t.shapcolor">
+          <div *ngIf="t.templateclass=='sparallelogram'" class="text-sparallelogram" style="text-align:center">
+            <p *ngFor="let c of t.textsetting"
+              [ngStyle]="{'font-size':c.fontsize+'px','color':c.fontcolor,'font-family':c.fonttype}">
+              <span *ngIf="c.status&&c.typeid==1">{{templatedata.title}}</span>
+              <span *ngIf="c.status&&c.typeid==2">{{templatedata.couponcode}}</span>
+              <span
+                *ngIf="c.status&&c.typeid==3">{{templatedata.discount}}{{templatedata.discounttype=="A"?"INR":"%"}}</span>
+              <span *ngIf="c.status&&c.typeid==4">{{templatedata.description}}</span>
+              <span *ngIf="c.status&&c.typeid==5">{{templatedata.services?templatedata.services:""}}</span>
+            </p>
+          </div>
+          <div *ngIf="t.templateclass=='scircle'" class="scircletext" style="text-align:center">
+            <p *ngFor="let c of t.textsetting"
+              [ngStyle]="{'font-size':c.fontsize+'px','color':c.fontcolor,'font-family':c.fonttype}">
+              <span *ngIf="c.status&&c.typeid==1">{{templatedata.title}}</span>
+              <span *ngIf="c.status&&c.typeid==2">{{templatedata.couponcode}}</span>
+              <span
+                *ngIf="c.status&&c.typeid==3">{{templatedata.discount}}{{templatedata.discounttype=="A"?"INR":"%"}}</span>
+              <span *ngIf="c.status&&c.typeid==4">{{templatedata.description}}</span>
+              <span *ngIf="c.status&&c.typeid==5">{{templatedata.services?templatedata.services:""}}</span>
+            </p>
+          </div>
+          <div *ngIf="t.templateclass=='shalfcircle'" class="shalftext" style="text-align:center">
+            <p *ngFor="let c of t.textsetting"
+              [ngStyle]="{'font-size':c.fontsize+'px','color':c.fontcolor,'font-family':c.fonttype}">
+              <span *ngIf="c.status&&c.typeid==1">{{templatedata.title}}</span>
+              <span *ngIf="c.status&&c.typeid==2">{{templatedata.couponcode}}</span>
+              <span
+                *ngIf="c.status&&c.typeid==3">{{templatedata.discount}}{{templatedata.discounttype=="A"?"INR":"%"}}</span>
+              <span *ngIf="c.status&&c.typeid==4">{{templatedata.description}}</span>
+              <span *ngIf="c.status&&c.typeid==5">{{templatedata.services?templatedata.services:""}}</span>
+            </p>
+          </div>
+        </div>
+        <p class="myAddress">
+          <ion-icon name="pin"></ion-icon>{{('Businessinfo'|user)['name']}} |
+          {{('Businessaddressinfo'|user)['address']}},
+          {{('Businessaddressinfo'|user)['cityname']}}, {{('Businessaddressinfo'|user)['statename']}} |
+          {{('Businessinfo'|user)['mobileno']}}
+        </p>
+      </div>
+
+    </ion-slide>
+  </ion-slides>
+  <ion-row>
+    <ion-col size="12" text-center>
+      <ion-button (click)="exportImage()">Select Template</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

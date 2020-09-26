@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end" style="margin-top: -18px;">
+      <ion-button (click)="close()">
+        <ion-icon class="iconsclose" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row class="input-border">
+    <ion-col size="12" text-center class="m-t-p-5">
+      <img class="round-img image border-primary"
+        [src]="lists.logo?common.Url+'Files/'+lists.logo:'./assets/img/logo.png'" />
+    </ion-col>
+    <ion-col text-center size="12">
+      <p>{{lists.name}}</p>
+      <span class="small-font number">+91 - {{lists.mobileno}} </span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="input-border">
+    <ion-col size="6">
+      {{'City'|language}}
+    </ion-col>
+    <ion-col size="6">
+      <span class="small-font"> {{lists.Address.cityname}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="input-border">
+    <ion-col size="6">
+      {{'State'|language}}
+    </ion-col>
+    <ion-col size="6">
+      <span class="small-font"> {{lists.Address.statename}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="input-border">
+    <ion-col size="6">
+      {{'Email'|language}}
+    </ion-col>
+    <ion-col size="6">
+      <span class="small-font"> {{lists.email}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="input-border">
+    <ion-col size="6">
+      {{'Qualification'|language}}
+    </ion-col>
+    <ion-col size="6">
+      <span class="small-font">{{lists.Otherinfo.qualification}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="input-border">
+    <ion-col size="6">
+      {{'Skill'|language}}
+    </ion-col>
+    <ion-col size="6">
+      <span class="small-font">{{lists.Otherinfo.skill}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="input-border">
+    <ion-col size="6">
+      {{'Employeer'|language}}
+    </ion-col>
+    <ion-col size="6">
+      <span class="small-font"> {{lists.Otherinfo.employer}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="input-border">
+    <ion-col size="6">
+      {{'Salary'|language}}
+    </ion-col>
+    <ion-col size="6">
+      <span class="small-font">{{lists.Otherinfo.currentsalary}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="input-border">
+    <ion-col size="6">
+      {{'Experience'|language}}
+    </ion-col>
+    <ion-col size="6">
+      <span class="small-font">{{lists.Otherinfo.eperience}} year</span>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -1,0 +1,128 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Post Job'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form [formGroup]="jobform">
+        <ion-grid class="p-0">
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item linse="none" class="input-border">
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'JOB Title'|language}}</ion-label>
+                        <ion-input type="text"
+                            placeholder="Ex. Male Hair Artist,Female Hair Artist etc."
+                            formControlName="title"></ion-input>
+                    </ion-item>
+                </ion-col>
+
+                <ion-col size="12" class="input-border pb-2">
+                    <ion-item lines="none" class="item-height-30">
+                        <ion-label class="ion-text-uppercase small-font">{{'JOB TYPE'|language}}</ion-label>
+                    </ion-item>
+
+                    <ion-item *ngFor="let j of lists.Jobtype" lines="none" class="item-height-30 small-font">
+                        <ion-label>
+                            {{j}}
+                        </ion-label>
+                        <ion-checkbox (ionChange)="Check('Type',$event,j)" slot="start" value="{{j}}"
+                            class="mt-0 mb-0 mr-1"></ion-checkbox>
+                    </ion-item>
+                </ion-col>
+
+                <ion-col size="12" class="input-border">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+
+                                <mat-panel-title position="stacked" class="small-font">
+                                    {{'JOB CATEGORY'|language}}
+                                </mat-panel-title>
+                                <mat-panel-description class="small-font1">
+                                    {{'Select'|language}}
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <ion-item *ngFor="let j of lists.JobCat" lines="none" class="item-height-30 small-font">
+                                <ion-label>
+                                    {{j}}
+                                </ion-label>
+                                <ion-checkbox (ionChange)="Check('Category',$event,j)" slot="end" value="{{j}}"
+                                    class="mt-0 mb-0 mr-1">
+                                </ion-checkbox>
+                            </ion-item>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item lines="none" class="input-border">
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'JOB LOCATION'|language}}</ion-label>
+                        <ion-input formControlName="location" placeholder="Mumbai, Delhi etc."
+                            class="color-input round-img-5 mt-1 mb-1 pl-1 pr-1">
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item lines="none" class="input-border">
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'Facilities'|language}}</ion-label>
+                        <ion-input formControlName="skills" placeholder="Ex. Incentive,Accomodation etc"
+                            class="color-input round-img-5 mt-1 mb-1 pl-1 pr-1">
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12" class="jobexpire">
+                    <ion-item lines="none" class="input-border  small-font">
+                        {{'OPEN Till'|language}} <span class="pl-1">{{'Min. Limit 15 Days'|language}}</span>
+                        <input formControlName="lastdate" [owlDateTime]="dt1" [min]="lists.today"
+                            [owlDateTimeTrigger]="dt1" placeholder="DOB" class="border-primary date-wrapper ml-2">
+                        <owl-date-time #dt1 pickerType="calendar"></owl-date-time>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12" class="input-border">
+                    <ion-item lines="none">
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'REQUIRED EXPERIENCE'|language}}</ion-label>
+                        <ion-select text-right [(ngModel)]="lists.Experience" placeholder="Select"
+                            [ngModelOptions]="{standalone: true}">
+                            <ion-select-option *ngFor="let s of lists.exp" [value]="s">{{s}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12" class="input-border">
+                    <ion-item lines="none">
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'SALARY'|language}}</ion-label>
+                        <ion-select [(ngModel)]="lists.salary" text-right placeholder="Select"
+                            [ngModelOptions]="{standalone: true}">
+                            <ion-select-option *ngFor="let s of lists.sal" [value]="s">{{s}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item lines="none" class="input-border">
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'JOB SUMMARY'|language}}</ion-label>
+                        <ion-textarea formControlName="description" place="Explain Job" rows="3"
+                            class="color-input round-img-5 mt-1 mb-1 pl-1 pr-1">
+                        </ion-textarea>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button [disabled]="!jobform.valid" (click)="submit()" shape="round" class="mc">{{'NEXT'|language}}
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

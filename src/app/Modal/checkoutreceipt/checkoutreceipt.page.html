@@ -1,0 +1,58 @@
+<ion-content>
+    <ion-row>
+        <ion-col size="12" text-center class="m-t-p-5">
+            <img class="image"
+                [src]="lists.UserProfile.Businessinfo.logo?common.Url+'Files/'+lists.UserProfile.Businessinfo.logo:'./assets/img/logo.png'">
+        </ion-col>
+        <ion-col size="12" text-center>
+            <h3> {{lists.UserProfile.Businessinfo.name}}</h3>
+        </ion-col>
+        <ion-col size="12" text-center>
+            <ion-label class="address" style="text-align: center;">+91
+                {{lists.UserProfile.Businessinfo.mobileno}}<br>{{lists.UserProfile.Businessaddressinfo.address}}
+            </ion-label>
+        </ion-col>
+        <ion-col size="12">
+            <ion-label class="ion-text-uppercase pdl">{{'Customer Name'|language}}
+            </ion-label>
+        </ion-col>
+        <ion-col size="6">
+            <ion-label class="number pdl">{{lists.customer_name}}</ion-label>
+        </ion-col>
+        <ion-col size="6">
+            <ion-label class="number">+91 {{lists.contactno}}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+            <ion-label class="pdl"><strong>{{'Services'|language}}
+                </strong></ion-label>
+        </ion-col>
+
+    </ion-row>
+    <ion-row *ngFor="let s of lists.serviceinfo;let i=index" padding class="ntbp">
+        <ion-col size="1">
+            <ion-label>{{i+1}}</ion-label>
+        </ion-col>
+        <ion-col size="6">
+            <ion-label>{{('language'|user)=='Hindi'?s.service_hi:s.service}}</ion-label>
+        </ion-col>
+        <ion-col size="3">
+            <ion-label><i class="fa fa-inr"></i> {{s.serviceprice}}</ion-label>
+        </ion-col>
+    </ion-row>
+    <ion-row padding>
+        <ion-col size="6"><b>{{'Discount'|language}}
+            </b></ion-col>
+        <ion-col size="6" text-right>{{lists.Discount}} {{lists.DiscountType=='P'?'%':'₹'}}</ion-col>
+        <ion-col size="6"><b>{{'Total'|language}}</b></ion-col>
+        <ion-col size="6" text-right>{{totalamount()}}</ion-col>
+    </ion-row>
+</ion-content>
+<ion-footer>
+    <div>
+        <ion-button shape="round" style="padding-left: 16px;" (click)="close()">{{'Back'|language}}
+        </ion-button>
+        <ion-button shape="round" style="padding-right: 16px;float:right" (click)="next()">
+            {{'Next'|language}}
+        </ion-button>
+    </div>
+</ion-footer>

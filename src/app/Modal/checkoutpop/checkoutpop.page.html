@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end" style="margin-top: -18px;">
+      <ion-button (click)="close()">
+        <ion-icon class="iconsclose" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="--background: white !important;">
+  <h5 text-center>{{'Billing'|language}}
+  </h5>
+  <ion-row style="margin-top: 5%;">
+    <ion-col size="12" text-center>
+      <ion-button shape="round" style="padding-right: 16px;" (click)="gotopage('appointments/pendinglist')">
+        {{'Appointments'|language}}
+      </ion-button>
+      <ion-button shape="round" (click)="gotopage('manual')">{{'Manually'|language}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

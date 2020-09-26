@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" class="ion-text-center">
+
+      </ion-col>
+      <ion-col size="8" class="ion-text-center">
+        <ion-title>{{'My Contacts'|language}}</ion-title>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <ion-icon class="iconsclose" name="close-circle-outline" (click)="close()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-row>
+    <ion-col size="12">
+      <ion-searchbar (ionChange)="SearchCustomer($event.detail.value)" placeholder="Search For Customer" margin-bottom
+        class="input-border no-shadow mb-0">
+      </ion-searchbar>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let c of lists.Contact">
+    <ion-item *ngIf="c.phoneNumbers" style="width: 100%;" lines="none" class="list-box mt-2" (click)="PickContact(c)">
+      <ion-avatar slot="start">
+        <img src="./assets/icon/profile.png" class="list-img">
+      </ion-avatar>
+      <ion-label>
+        <h2 class="ion-text-uppercase">{{c.displayName}}</h2>
+        <h3 *ngIf="c.phoneNumbers.length>0">{{c.phoneNumbers[0]['value']}}</h3>
+      </ion-label>
+      <ion-note>
+        <p class="icons">
+          <a href="tel:{{c.phoneNumbers[0]['value']}}" class="icon-circle">
+            <ion-icon name="call"></ion-icon>
+          </a>
+        </p>
+      </ion-note>
+    </ion-item>
+  </ion-row>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

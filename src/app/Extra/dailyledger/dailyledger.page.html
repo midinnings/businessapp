@@ -1,0 +1,126 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" style="color:white" class="ion-text-center">
+                <ion-title>{{'Daily Ledger'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <div class="input-border pb-1">
+        <ion-row>
+            <ion-col size="6">
+                <p>{{'Income'|language}}</p>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item lines="none">
+                    <ion-select [(ngModel)]="Type" (ionChange)="GetDailyLedger()">
+                        <ion-select-option value="Daily">{{'Daily'|language}}</ion-select-option>
+                        <ion-select-option value="Weekly">{{'Weekly'|language}}</ion-select-option>
+                        <ion-select-option value="Monthly">{{'Monthly'|language}}</ion-select-option>
+                        <ion-select-option value="Custom">{{'Custom Date'|language}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div class="input-border pt-1 pb-2 input-border">
+        <ion-row>
+            <ion-col size="6">
+                <ion-label class="font-w-600 small-font">{{'TOTAL SALES'|language}}</ion-label>
+            </ion-col>
+            <ion-col size="6">
+            </ion-col>
+            <ion-col size="6" class="pt-0">
+                <ion-label class="font-w-600 small-font"><i class="fa fa-inr"></i> {{TotalSales()}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row class="pt-1">
+            <ion-col size="4">
+                <ion-label class="font-w-600 ion-text-uppercase">{{'Name'|language}}</ion-label>
+            </ion-col>
+            <ion-col size="4">
+                <ion-label class="font-w-600 ion-text-uppercase">{{'Services'|language}}</ion-label>
+            </ion-col>
+            <ion-col size="4">
+                <ion-label class="font-w-600 ion-text-uppercase">{{'Amount'|language}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let s of lists.Sales;let i=index" class="input-border">
+            <ion-col size="4">
+                <ion-label>{{i+1}}. {{s.customer_name}}</ion-label>
+            </ion-col>
+            <ion-col size="4">
+                <ion-label>{{s.Service|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</ion-label>
+            </ion-col>
+            <ion-col size="4" text-right>
+                <ion-label><i class="fa fa-inr"></i> {{s.total}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="4">
+            </ion-col>
+            <ion-col size="4">
+                <ion-label class="font-w-600 small-font">{{'Total Sales'|language}}</ion-label>
+            </ion-col>
+            <ion-col size="4" text-right>
+                <ion-label class="font-w-600 small-font"><i class="fa fa-inr"></i> {{TotalSales()}}</ion-label>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div class="input-border pb-1">
+        <ion-row>
+            <ion-col size="6">
+                <p>EXPENSES</p>
+                <p><a (click)="AddExpenses()">{{'Add Expenses'|language}}</a></p>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item lines="none">
+                    <ion-select [(ngModel)]="Type">
+                        <ion-select-option value="Daily">{{'Daily'|language}}</ion-select-option>
+                        <ion-select-option value="Weekly">{{'Weekly'|language}}</ion-select-option>
+                        <ion-select-option value="Monthly">{{'Monthly'|language}}</ion-select-option>
+                        <ion-select-option value="Custom">{{'Custom Date'|language}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div class="input-border pt-1 pb-2 input-border">
+
+        <ion-row class="pt-1">
+            <ion-col size="4">
+                <ion-label class="font-w-600 ion-text-uppercase">{{'Name'|language}}</ion-label>
+            </ion-col>
+            <ion-col size="4">
+                <ion-label class="font-w-600 ion-text-uppercase">{{'Amount'|language}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let s of lists.Expenses;let i=index" class="input-border">
+            <ion-col size="6">
+                <ion-label>{{i+1}}. {{s.name}}</ion-label>
+            </ion-col>
+            <ion-col size="6" text-right>
+                <ion-label><i class="fa fa-inr"></i> {{s.amount}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="4">
+            </ion-col>
+            <ion-col size="4">
+                <ion-label class="font-w-600 small-font">{{'Total Expenses'|language}}</ion-label>
+            </ion-col>
+            <ion-col size="4" text-right>
+                <ion-label class="font-w-600 small-font"><i class="fa fa-inr"></i> {{TotalExpense()}}</ion-label>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

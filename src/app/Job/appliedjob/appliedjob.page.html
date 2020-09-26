@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center">
+                <ion-buttons>
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col size="8" class="ion-text-center">
+                <ion-title>{{'Applied Jobs'|language}}</ion-title>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-row>
+        <ion-col size="12">
+            <ion-searchbar placeholder="" margin-bottom class="input-border no-shadow mb-0">
+            </ion-searchbar>
+        </ion-col>
+    </ion-row>
+
+    <div *ngFor="let j of lists.joblist" class="input-border">
+        <ion-item lines="none">
+            <ion-avatar slot="start">
+                <img src="./assets/icon/job-type-1.png">
+            </ion-avatar>
+            <ion-label>
+                <h2 style="white-space: normal;" class="ion-text-wrap job-title">{{j.title}}</h2>
+                <span class="small-font" style="white-space: normal;" *ngIf="j.company">{{j.company}}</span><br>
+                <span class="small-font" style="white-space: normal;">{{j.position_type|arraytostring|removelast|removelast}}</span>
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="j.location" lines=none class="small-font ml-3 item-height-30">
+            <ion-icon name="pin" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>{{j.location}}</ion-label>
+        </ion-item>
+        <ion-item  class="ion-activated" lines=none *ngIf="j.salarybar" class="small-font ml-3 item-height-30">
+            <i class="fa fa-rupee primary-text mr-1 icon-small-size"></i>
+            <ion-label>{{j.salarybar}}</ion-label>
+        </ion-item>
+        <ion-item  lines=none *ngIf="j.experience" class="small-font ml-3 item-height-30">
+            <ion-icon name="settings" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>Experience Mini. ({{j.experience}}) </ion-label>
+        </ion-item>
+        <ion-item  lines=none class="item-height-30 small-font primary-text ion-text-center">
+            <ion-label>Applied on {{j.postingdate|daysago}}</ion-label>
+        </ion-item>
+        <ion-row>
+            <ion-col class="ion-text-center pb-1 mb-1" lines="none" size="12">
+                <a href="tel:{{j.number}}" shape="round" class="mc call-btn">Call</a> <a shape="round"
+                    class="mc call-btn" (click)="common.PageGoto('Forward','jobdetail',j)">{{'More'|language}}</a>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

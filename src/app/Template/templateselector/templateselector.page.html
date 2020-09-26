@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Template Selector</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div class="background" #screen [style.background]="common.Url+'Files/'+lists.mytemplate.backgroundimageurl">
+      <div [className]="lists.class?lists.class:'forground'" [style.background]="lists.shapecolor">
+        <div *ngIf="lists.class=='sparallelogram'" class="text-sparallelogram" style="text-align:center">
+          <p *ngFor="let c of lists.couponarray"
+            [ngStyle]="{'font-size':c.fontsize+'px','color':c.fontcolor,'font-family':c.fonttype}">
+            <span *ngIf="c.status">{{c.type}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
