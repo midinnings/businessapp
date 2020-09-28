@@ -19,7 +19,8 @@
     <ion-item lines="none" class="list-box mb-2 pt-1 pb-1">
         <ion-row class="d-block">
             <ion-col class="ion-float-left" size="7">
-                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase">{{'Total Income'|language}} </ion-label>
+                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase">{{'Total Income'|language}}
+                </ion-label>
                 <div class="large-text-35 mt-1"><i class="fa fa-rupee"></i>{{lists.Totalincome}}</div>
             </ion-col>
             <ion-col class="ion-float-right ion-text-right" size="5">
@@ -38,7 +39,8 @@
     <ion-item lines="none" class="list-box mb-2 pt-1 pb-1">
         <ion-row class="d-block">
             <ion-col class="ion-float-left" size="7">
-                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase">{{'Total Expenses'|language}} </ion-label>
+                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase">
+                    {{'Total Expenses'|language}} </ion-label>
                 <div class="large-text-35 mt-1"><i class="fa fa-rupee"></i>{{lists.Totalexpenses}}</div>
             </ion-col>
             <ion-col class="ion-float-right ion-text-right" size="5">
@@ -56,7 +58,8 @@
     <ion-item lines="none" class="list-box mb-2 pt-1 pb-1">
         <ion-row class="d-block">
             <ion-col class="ion-float-left" size="7">
-                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase"> {{'Total Appointments'|language}}
+                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase">
+                    {{'Total Appointments'|language}}
                 </ion-label>
                 <div class="large-text-35 mt-1">{{lists.Totalappointment}}</div>
             </ion-col>
@@ -75,7 +78,8 @@
     <ion-item lines="none" class="list-box mb-2 pt-1 pb-1">
         <ion-row class="d-block">
             <ion-col class="ion-float-left" size="7">
-                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase"> {{'New Customer'|language}} </ion-label>
+                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase">
+                    {{'New Customer'|language}} </ion-label>
                 <div class="large-text-35 mt-1">{{lists.Newcustomer}}</div>
             </ion-col>
             <ion-col class="ion-float-right ion-text-right" size="5">
@@ -91,15 +95,16 @@
         </ion-row>
     </ion-item>
     <ion-item lines="none" class="list-box mb-2 pt-1 pb-1" *ngIf="title=='Reports'">
-        
-                <ion-row class="d-block">
-                    <ion-col class="ion-float-left" size="12">
-                        <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase"> {{'Total Employees'|language}}
-                        </ion-label>
-                        <div class="large-text-35 mt-1">{{lists.Totalemployee}}</div>
-                    </ion-col>
-                </ion-row>
-          
+
+        <ion-row class="d-block">
+            <ion-col class="ion-float-left" size="12">
+                <ion-label position="fixed" class="font-w-600 small-font ion-text-uppercase">
+                    {{'Total Employees'|language}}
+                </ion-label>
+                <div class="large-text-35 mt-1">{{lists.Totalemployee}}</div>
+            </ion-col>
+        </ion-row>
+
     </ion-item>
 
 </ion-content>

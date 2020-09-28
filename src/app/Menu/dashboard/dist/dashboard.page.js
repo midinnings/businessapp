@@ -138,14 +138,13 @@ var DashboardPage = /** @class */ (function () {
     };
     DashboardPage.prototype.GetSlider = function () {
         var _this = this;
-        var id = 0;
-        if (localStorage.getItem("UserType") == "2" || localStorage.getItem("UserType") == "6") {
-            id = 1;
-        }
-        else {
-            id = 2;
-        }
-        this.common.PostMethod("GetBanners", { id: id }).then(function (res) {
+        // let id = 0;
+        // if (localStorage.getItem("UserType") == "2" || localStorage.getItem("UserType") == "6") {
+        //   id = 1;
+        // } else {
+        //   id = 2;
+        // }
+        this.common.PostMethod("GetBanners", { id: 2 }).then(function (res) {
             _this.lists.sliders = res.Data;
         });
     };

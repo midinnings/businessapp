@@ -32,7 +32,7 @@ export class EndetailsPage implements OnInit {
     //let url = this.common.Website + 'event_single.html?type=App&id=' + this.lists.id;
     var TitleProcessed = this.lists.eventname.replace(/-/gi, '_');
     TitleProcessed = TitleProcessed.replace(/\s/g, '-');
-    let url = this.common.Website + 'blog/latest/' + TitleProcessed;
+    let url = this.common.Website + 'event/latest/' + TitleProcessed;
     message = this.lists.eventname + "\n\n" + new LimittoPipe().transform(message, 120);
     this.share.share(message, this.lists.eventname + ' Starting at ' + this.lists.startdatetime, file, url).then((res: any) => {
       this.common.dismissLoader();

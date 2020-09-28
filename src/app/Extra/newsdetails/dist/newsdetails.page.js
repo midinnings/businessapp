@@ -33,7 +33,7 @@ var NewsdetailsPage = /** @class */ (function () {
         // url = this.common.Website + 'news_single.html?type=App&id=' + this.lists.id;
         var TitleProcessed = this.lists.title.replace(/-/gi, '_');
         TitleProcessed = TitleProcessed.replace(/\s/g, '-');
-        var url = this.common.Website + 'blog/latest/' + TitleProcessed;
+        var url = this.common.Website + 'news/latest/' + TitleProcessed;
         message = this.lists.title + "\n\n" + message;
         this.social.share(message, this.lists.title, file, url).then(function (res) {
             _this.common.dismissLoader();

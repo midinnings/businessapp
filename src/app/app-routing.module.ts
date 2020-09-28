@@ -171,10 +171,10 @@ const routes: Routes = [
     path: 'employeelist',
     loadChildren: () => import('./Employee/employeelist/employeelist.module').then( m => m.EmployeelistPageModule)
   },
-  {
-    path: 'reviewrating',
-    loadChildren: () => import('./reviewrating/reviewrating.module').then( m => m.ReviewratingPageModule)
-  },
+  // {
+  //   path: 'reviewrating',
+  //   loadChildren: () => import('./reviewrating/reviewrating.module').then( m => m.ReviewratingPageModule)
+  // },
   {
     path: 'findcandidate',
     loadChildren: () => import('./Employee/findcandidate/findcandidate.module').then( m => m.FindcandidatePageModule)
@@ -294,6 +294,10 @@ const routes: Routes = [
   {
     path: 'coupon-details',
     loadChildren: () => import('./Extra/coupon-details/coupon-details.module').then( m => m.CouponDetailsPageModule)
+  },
+  {
+    path: 'customer-reviews',
+    loadChildren: () => import('./Extra/customer-reviews/customer-reviews.module').then( m => m.CustomerReviewsPageModule)
   }
 ];
 @NgModule({

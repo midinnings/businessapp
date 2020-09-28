@@ -29,7 +29,7 @@ export class NewsdetailsPage implements OnInit {
     // url = this.common.Website + 'news_single.html?type=App&id=' + this.lists.id;
     var TitleProcessed = this.lists.title.replace(/-/gi, '_');
     TitleProcessed = TitleProcessed.replace(/\s/g, '-');
-    let url = this.common.Website + 'blog/latest/' + TitleProcessed;
+    let url = this.common.Website + 'news/latest/' + TitleProcessed;
     message = this.lists.title + "\n\n" + message;
     this.social.share(message, this.lists.title, file, url).then((res: any) => {
       this.common.dismissLoader();

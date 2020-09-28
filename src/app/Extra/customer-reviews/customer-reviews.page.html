@@ -1,0 +1,132 @@
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+      <ion-row>
+          <ion-col size="2" class="ion-text-center">
+              <ion-buttons>
+                  <ion-back-button></ion-back-button>
+              </ion-buttons>
+          </ion-col>
+          <ion-col size="8" class="ion-text-center">
+              <ion-title>{{'Customer Reviews & Ratings'|language}}</ion-title>
+          </ion-col>
+          <ion-col size="2" class="ion-text-center">
+          </ion-col>
+      </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let rating of Rating">
+    <ion-row>
+        <ion-col size="12">{{rating.feedback}}</ion-col>
+    </ion-row>
+  </ion-card>
+
+</ion-content> -->
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" class="ion-text-center">
+        <ion-buttons>
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="8" class="ion-text-center">
+        <ion-title>{{'Reviews and Ratings'|language}}
+        </ion-title>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <ion-item lines="none" class="list-box mb-2">
+      <ion-avatar slot="start">
+          <img src="./assets/img/app/user-1.jpg" class="list-img">
+      </ion-avatar>
+      <ion-label>
+          <ion-row>
+              <ion-col size="8" class="p-0">
+                  <h3 class="font-w-600">ALEX STONE</h3>
+              </ion-col>
+              <ion-col size="4" class="p-0">
+                  <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#c73130" defaultColor="#c73130" readonly="false" rating="3" fontSize="14px">
+                  </ionic4-star-rating>
+              </ion-col>
+              <ion-col size="12" class="p-0">
+                  <p>Lorem Ipsum is simply dummy text.</p>
+              </ion-col>
+              <ion-col size="12" class="p-0">
+                  <p class="small-font primary-text">
+                      <ion-icon name="share-alt"></ion-icon> Reply </p>
+              </ion-col>
+          </ion-row>
+      </ion-label>
+  </ion-item> -->
+  <ion-item *ngIf="Rating.length==0">
+    <p style="text-align: center;">No Rating Found..</p>
+  </ion-item>
+  <ion-item lines="none" class="list-box mb-2" *ngFor="let ratingone of Rating">
+    <ion-avatar slot="start">
+      <img src="./assets/img/app/user-1.jpg" class="list-img">
+    </ion-avatar>
+    <ion-label>
+      <ion-row>
+        <ion-col size="12" class="p-0">
+          <h3 class="font-w-600" style="text-transform: capitalize;">{{ratingone.name}}</h3>
+        </ion-col>
+
+        <ion-col size="12" class="p-0" *ngIf="ratingone.feedback">
+          <p>{{ratingone.feedback}}</p>
+        </ion-col>
+        <ion-col size="12" class="p-0" *ngIf="!ratingone.feedback">
+          <p>NA</p>
+        </ion-col>
+
+        <ion-col size="6" class="p-0" text-center>
+          <span class="rating_label">Overall</span>
+          <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
+            activeColor="#c73130" defaultColor="#c73130" readonly="false" [rating]="ratingone.overall_rate"
+            fontSize="12px">
+          </ionic4-star-rating>
+        </ion-col>
+
+        <ion-col size="6" class="p-0" text-center>
+          <span class="rating_label">Ambience</span>
+          <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
+            activeColor="#c73130" defaultColor="#c73130" readonly="false" [rating]="ratingone.ambiance_rate"
+            fontSize="12px">
+          </ionic4-star-rating>
+        </ion-col>
+
+
+        <ion-col size="6" class="p-0" text-center>
+          <span class="rating_label">Services</span>
+          <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
+            activeColor="#c73130" defaultColor="#c73130" readonly="false" [rating]="ratingone.services_rate"
+            fontSize="12px">
+          </ionic4-star-rating>
+        </ion-col>
+
+        <ion-col size="6" class="p-0" text-center>
+          <span class="rating_label">Waiting</span>
+          <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
+            activeColor="#c73130" defaultColor="#c73130" readonly="false" [rating]="ratingone.waiting_rate"
+            fontSize="12px">
+          </ionic4-star-rating>
+        </ion-col>
+
+
+        <!-- <ion-col size="12" class="p-0">
+                  <p class="small-font primary-text">
+                      <ion-icon name="share-alt"></ion-icon> {{'Reply'|language}}
+                  </p>
+              </ion-col> -->
+      </ion-row>
+    </ion-label>
+  </ion-item>
+</ion-content>

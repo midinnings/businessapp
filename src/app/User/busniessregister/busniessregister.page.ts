@@ -540,7 +540,9 @@ export class BusniessregisterPage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       allowEdit: true,
-      correctOrientation: true
+      correctOrientation: true,
+      targetWidth: 400,
+      targetHeight: 220,
     }
     env.camera.getPicture(options).then((imageData) => {
       if (Image_Type == 'Banner') {
@@ -603,7 +605,9 @@ export class BusniessregisterPage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       allowEdit: true,
-      correctOrientation: true
+      correctOrientation: true,
+      targetWidth: 400,
+      targetHeight: 220,
     }
     env.camera.getPicture(options).then((imageData) => {
       if (Image_Type == 'Banner') {

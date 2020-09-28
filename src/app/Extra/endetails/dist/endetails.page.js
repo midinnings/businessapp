@@ -36,7 +36,7 @@ var EndetailsPage = /** @class */ (function () {
         //let url = this.common.Website + 'event_single.html?type=App&id=' + this.lists.id;
         var TitleProcessed = this.lists.eventname.replace(/-/gi, '_');
         TitleProcessed = TitleProcessed.replace(/\s/g, '-');
-        var url = this.common.Website + 'blog/latest/' + TitleProcessed;
+        var url = this.common.Website + 'event/latest/' + TitleProcessed;
         message = this.lists.eventname + "\n\n" + new limitto_pipe_1.LimittoPipe().transform(message, 120);
         this.share.share(message, this.lists.eventname + ' Starting at ' + this.lists.startdatetime, file, url).then(function (res) {
             _this.common.dismissLoader();
