@@ -32,7 +32,7 @@
             </ion-col>
         </ion-row>
     </div>
-    <div class="input-border pt-1 pb-2 input-border">
+    <div class="input-border pt-1 pb-2 input-border small_fonts" >
         <ion-row>
             <ion-col size="6">
                 <ion-label class="font-w-600 small-font">{{'TOTAL SALES'|language}}</ion-label>
@@ -50,8 +50,8 @@
             <ion-col size="4">
                 <ion-label class="font-w-600 ion-text-uppercase">{{'Services'|language}}</ion-label>
             </ion-col>
-            <ion-col size="4">
-                <ion-label class="font-w-600 ion-text-uppercase">{{'Amount'|language}}</ion-label>
+            <ion-col size="4" text-right>
+                <ion-label class="font-w-600 ion-text-uppercase text" >{{'Amount'|language}}</ion-label>
             </ion-col>
         </ion-row>
         <ion-row *ngFor="let s of lists.Sales;let i=index" class="input-border">
@@ -59,10 +59,13 @@
                 <ion-label>{{i+1}}. {{s.customer_name}}</ion-label>
             </ion-col>
             <ion-col size="4">
-                <ion-label>{{s.Service|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</ion-label>
+                <ion-label *ngIf="s.coupon_applied && s.coupon_applied!='' ">
+                    Deal Code - {{s.coupon_applied}}
+                </ion-label>
+                <ion-label *ngIf="s.service!=[]">{{s.service|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</ion-label>
             </ion-col>
             <ion-col size="4" text-right>
-                <ion-label><i class="fa fa-inr"></i> {{s.total}}</ion-label>
+                <ion-label><i class="fa fa-inr"></i> {{s.cost}}</ion-label>
             </ion-col>
         </ion-row>
         <ion-row>
@@ -94,13 +97,13 @@
             </ion-col>
         </ion-row>
     </div>
-    <div class="input-border pt-1 pb-2 input-border">
+    <div class="input-border pt-1 pb-2 input-border   small_fonts">
 
         <ion-row class="pt-1">
             <ion-col size="4">
                 <ion-label class="font-w-600 ion-text-uppercase">{{'Name'|language}}</ion-label>
             </ion-col>
-            <ion-col size="4">
+            <ion-col size="4" text-right>
                 <ion-label class="font-w-600 ion-text-uppercase">{{'Amount'|language}}</ion-label>
             </ion-col>
         </ion-row>

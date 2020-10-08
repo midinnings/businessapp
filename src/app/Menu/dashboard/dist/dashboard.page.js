@@ -11,7 +11,7 @@ var user_pipe_1 = require("./../../Pipes/pipe/user.pipe");
 var core_1 = require("@angular/core");
 var moment = require("moment");
 var DashboardPage = /** @class */ (function () {
-    function DashboardPage(common, inmessage, fcmmessage, router) {
+    function DashboardPage(events, common, inmessage, fcmmessage, router) {
         var _this = this;
         this.common = common;
         this.inmessage = inmessage;
@@ -45,6 +45,11 @@ var DashboardPage = /** @class */ (function () {
                 _this.GetBlogs();
             }
         });
+        var env = this;
+        events.subscribe('ReloadDashboard', function (user) {
+            env.GetBlogs();
+            console.log('reloading dash now firing event....');
+        });
     }
     DashboardPage.prototype.ionViewWillLeave = function () {
         this.slides1.stopAutoplay();
@@ -60,7 +65,7 @@ var DashboardPage = /** @class */ (function () {
         this.GetSlider();
         setInterval(function () {
             _this.GetDashboardInfo();
-        }, 15000);
+        }, 10000);
     };
     DashboardPage.prototype.ngOnDestroy = function () {
         // this.subscription.unsubscribe();

@@ -72,7 +72,8 @@
   </ion-item>
   <ion-item lines="none" class="list-box mb-2" *ngFor="let ratingone of Rating">
     <ion-avatar slot="start">
-      <img src="./assets/img/app/user-1.jpg" class="list-img">
+      <img src="{{ratingone.logo?common.Url+'Files/'+ratingone.logo:'./assets/img/app/profile_placeholder.jpg'}}"
+        class="list-img">
     </ion-avatar>
     <ion-label>
       <ion-row>
@@ -87,7 +88,7 @@
           <p>NA</p>
         </ion-col>
 
-        <ion-col size="6" class="p-0" text-center>
+        <ion-col size="6" class="p-0">
           <span class="rating_label">Overall</span>
           <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
             activeColor="#c73130" defaultColor="#c73130" readonly="false" [rating]="ratingone.overall_rate"
@@ -95,7 +96,7 @@
           </ionic4-star-rating>
         </ion-col>
 
-        <ion-col size="6" class="p-0" text-center>
+        <ion-col size="6" class="p-0">
           <span class="rating_label">Ambience</span>
           <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
             activeColor="#c73130" defaultColor="#c73130" readonly="false" [rating]="ratingone.ambiance_rate"
@@ -103,8 +104,7 @@
           </ionic4-star-rating>
         </ion-col>
 
-
-        <ion-col size="6" class="p-0" text-center>
+        <ion-col size="6" class="p-0">
           <span class="rating_label">Services</span>
           <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
             activeColor="#c73130" defaultColor="#c73130" readonly="false" [rating]="ratingone.services_rate"
@@ -112,7 +112,7 @@
           </ionic4-star-rating>
         </ion-col>
 
-        <ion-col size="6" class="p-0" text-center>
+        <ion-col size="6" class="p-0">
           <span class="rating_label">Waiting</span>
           <ionic4-star-rating class="ratings-star" #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
             activeColor="#c73130" defaultColor="#c73130" readonly="false" [rating]="ratingone.waiting_rate"

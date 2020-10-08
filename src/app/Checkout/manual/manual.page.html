@@ -120,24 +120,24 @@
                         <ion-col size="8" class="font-w-600 small-font">Offer Applied</ion-col>
                         <ion-col size="3" class="font-w-600 small-font" style="color:green">{{lists.coupon_applied}}
                         </ion-col>
+                    </ion-row>
 
-
-                        <!-- <ion-row class="" *ngFor="let s of lists.packageservicelist">
-                            <ion-col size="1"> </ion-col>
-                            <ion-col size="8" class="font-w-600 small-font">{{s.service}}</ion-col>
-                            <ion-col size="3" class="font-w-600 small-font" style="color:green">
-                                ₹ {{s.serviceprice}}
-                            </ion-col>
-                        </ion-row> -->
-
+                    <ion-row class="" *ngFor="let s of lists.packageservicelist">
+                        <ion-col size="1"> </ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">{{s.service}}</ion-col>
+                        <ion-col size="3" class="font-w-600 small-font" style="color:green">
+                            ₹ {{s.serviceprice}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="input-border pb-1">
                         <ion-col size="1"> </ion-col>
                         <ion-col size="8" class="font-w-600 small-font">Grand Total</ion-col>
                         <ion-col size="3" class="font-w-600 small-font" style="color:green">
                             ₹ {{lists.cost}}
                         </ion-col>
-
-
                     </ion-row>
+
+
                 </div>
             </ion-col>
 

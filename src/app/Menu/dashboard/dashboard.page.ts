@@ -2,11 +2,12 @@ import { InmessageService } from './../../Service/inmessage.service';
 import { UserPipe } from './../../Pipes/pipe/user.pipe';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonService } from 'src/app/Service/common.service';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, Events } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { FcmmessageService } from 'src/app/Service/fcmmessage.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -36,7 +37,7 @@ export class DashboardPage implements OnInit {
     slidesPerView: 1,
     autoplay: true
   };
-  constructor(public common: CommonService, public inmessage: InmessageService, public fcmmessage: FcmmessageService, public router: Router) {
+  constructor(events: Events, public common: CommonService, public inmessage: InmessageService, public fcmmessage: FcmmessageService, public router: Router) {
     this.lists.dashboardwid = {};
     this.lists.dashboardwid.notifications = 0;
     this.subscription = this.inmessage.getMessage().subscribe((res: any) => {
@@ -48,6 +49,12 @@ export class DashboardPage implements OnInit {
         this.GetDashboardInfo();
         this.GetBlogs();
       }
+    });
+
+    let env = this;
+    events.subscribe('ReloadDashboard', (user) => {
+      env.GetBlogs();
+      console.log('reloading dash now firing event....');
     });
   }
 
@@ -66,7 +73,7 @@ export class DashboardPage implements OnInit {
 
     setInterval(() => {
       this.GetDashboardInfo();
-    }, 15000);
+    }, 10000);
   }
 
   ngOnDestroy() {
@@ -82,8 +89,8 @@ export class DashboardPage implements OnInit {
       this.lists.logo = new UserPipe().transform('logo');
     }, 500);
     this.GetDashboardInfo();
-    
-    
+
+
     this.GetUserProfile();
   }
   GetUserProfile() {
@@ -112,6 +119,9 @@ export class DashboardPage implements OnInit {
   }
   GetBlogs() {
     this.common.PostMethod("DashboardBlog", { userid: localStorage.getItem("UserId"), usertype: localStorage.getItem("UserType"), b_id: new UserPipe().transform('b_id'), language: new UserPipe().transform('language') }).then((res: any) => {
+
+    
+
       this.lists.bloglist = res.Data.Blog;
       this.lists.newslist = res.Data.News;
       this.lists.eventlist = res.Data.Event;

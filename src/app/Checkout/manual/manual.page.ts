@@ -43,7 +43,7 @@ export class ManualPage implements OnInit {
     this.checkoutform = this.fb.group({
       name: new FormControl('', Validators.required),
       mobile: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(10)])),
-      couponCode:new FormControl()
+      couponCode: new FormControl()
     });
     this.lists.Old = false;
     this.router.queryParams.subscribe((res: any) => {
@@ -53,12 +53,15 @@ export class ManualPage implements OnInit {
         object.forEach(element => {
           this.lists[element] = res[element];
         });
+
         if (this.lists.service) {
           this.lists.service = JSON.parse(this.lists.service);
         }
-        if(this.lists.service.length==0){
-            this.lists.PackageApplied = true;
+        if (this.lists.service.length == 0) {
+          this.lists.PackageApplied = true;
+          
         }
+        
         this.checkoutform.controls['name'].setValue(res.customer_name);
         this.checkoutform.controls['mobile'].setValue(res.contactno);
       }
@@ -66,7 +69,14 @@ export class ManualPage implements OnInit {
     setTimeout(() => {
       this.GetServiceList();
       this.GetEmployeelist();
+
+      if(this.lists.PackageApplied){
+        this.PackageDiscount(this.lists);
+      }
+     
     }, 200);
+
+
   }
   onEventSelected(ev) {
     console.log(ev);
@@ -88,6 +98,7 @@ export class ManualPage implements OnInit {
   GetEmployeelist() {
     this.common.PostMethod("GetFilterData", { file: "userlogin", name: "b_id", value: new UserPipe().transform('b_id') }).then((res: any) => {
       this.lists.userlist = res.Data;
+      this.ChangeStylist(this.lists);
     });
   }
 
@@ -129,7 +140,7 @@ export class ManualPage implements OnInit {
 
 
   Changeservicelist(ev) {
-    let env=this;
+    let env = this;
     this.lists.serviceinfo = [];
     ev.detail.value.forEach(element => {
       this.lists.servicelist.forEach(data => {
@@ -140,7 +151,7 @@ export class ManualPage implements OnInit {
     });
 
     setTimeout(() => {
-        env.totalamount();
+      env.totalamount();
     }, 500);
   }
 
@@ -266,6 +277,19 @@ export class ManualPage implements OnInit {
   }
 
   ChangeStylist(ev) {
+    debugger
+  
+    if(typeof this.lists.employeeinfo== "string"){
+      let EmployeeData = this.lists.userlist.filter( i => i.id==this.lists.employee );
+      if(EmployeeData){
+        if(typeof this.lists.employeeinfo== "string"){
+          this.lists.employeeinfo = {};
+        }
+        this.lists.employeeinfo.name = EmployeeData[0].name;
+        return
+      }
+      
+    }
     this.lists.userlist.forEach(element => {
       if (element.id == ev.detail.value) {
         this.lists.employeeinfo.name = element.name;
@@ -282,13 +306,12 @@ export class ManualPage implements OnInit {
       showBackdrop: true,
       componentProps: this.lists
     });
-    debugger
     if (this.lists.service.length > 0) {
       await custmodal.present();
       let { data } = await custmodal.onWillDismiss();
       if (data.status) {
 
-       this.ApplyDiscountConcession(data.Data);
+        this.ApplyDiscountConcession(data.Data);
       }
     } else {
       let msg = "please add one service to activate Coupons";
@@ -304,10 +327,10 @@ export class ManualPage implements OnInit {
     let values = this.DiscountValues = DataCoupon;
     this.lists.applycoupon = values;
     this.lists.couponCode = values.couponcode;
-   
-    if(values.type == 'OnService' || values.type == 'Flat'){
+
+    if (values.type == 'OnService' || values.type == 'Flat') {
       this.DirectDiscount(values);
-    }else{
+    } else {
       this.common.presentToast('Please select a valid offer applicable on services..', 2000);
     }
     // this.book.controls['couponCode'].setValue(values.couponcode);
@@ -343,7 +366,7 @@ export class ManualPage implements OnInit {
 
   DirectDiscount(values) {
     let SelectedServices = this.lists.service;
-    if(SelectedServices.length==0){this.common.presentToast('Please select services to proceed..', 2000);return}
+    if (SelectedServices.length == 0) { this.common.presentToast('Please select services to proceed..', 2000); return }
     if (values.discounttype == 'Amount') { this.lists.Discount = parseInt(values.discount); }
     else if (values.discounttype == 'Percent') { this.lists.Discount = (this.lists.price * (parseInt(values.discount) / 100)); }
     else { this.common.presentToast("Coupon is not valid or expired..", 2000); return; }
@@ -371,25 +394,46 @@ export class ManualPage implements OnInit {
   ApplyCoupon() {
     let data = { file: 'offer', name: 'couponcode', value: this.CustomCoupon };
     this.common.PostMethod("GetFilterData", data).then((res: any) => {
-          console.log(res);
-          debugger
-          if (res.Status == 1) {
-            if(res.Data.length!=0){
-              let CouponExtractData = res.Data[0];
-              this.ApplyDiscountConcession(CouponExtractData);
-            }else{
-              let msg = "Coupon Code is not valid..";
-              this.common.presentToast(msg, 2000);
-            }
-             
-          }else{
-            let msg = "Coupon Code is not valid..";
-            this.common.presentToast(msg, 2000);
-          }
+      console.log(res);
+      debugger
+      if (res.Status == 1) {
+        if (res.Data.length != 0) {
+          let CouponExtractData = res.Data[0];
+          this.ApplyDiscountConcession(CouponExtractData);
+        } else {
+          let msg = "Coupon Code is not valid..";
+          this.common.presentToast(msg, 2000);
+        }
+
+      } else {
+        let msg = "Coupon Code is not valid..";
+        this.common.presentToast(msg, 2000);
+      }
     });
   }
 
+  PackageDiscount(values) {
+    let data = { file: 'offer', name: 'id', value: this.lists.coupon_id };
+    debugger
+    this.common.PostMethod("GetFilterData", data).then((res: any) => {
+      if (res.Status == 1) {
+        let ServiceIds = res.Data[0].services.split(',');
+        this.lists.packageservicelist = []
+        ServiceIds.forEach(element => {
+          let ServiceFound = this.lists.servicelist.filter(i => i.serviceid == element);
+          if (ServiceFound) {
+            this.lists.packageservicelist.push(ServiceFound[0]);
+          }
+        });
 
+      }
+    });
+
+
+    // Applying package discounts and making other service carges-----------------
+
+
+  }
 
 
   // totalamount() {

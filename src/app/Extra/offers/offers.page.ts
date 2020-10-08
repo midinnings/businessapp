@@ -56,8 +56,9 @@ export class OffersPage implements OnInit {
     });
   }
 
-  AddCoupon() {
-    this.common.PageGoto('Forward', 'offers/offerndeal');
+  AddCoupon(Type) {
+    localStorage.setItem('CreationType',Type);
+    this.common.PageGoto('Forward', 'offers/offerndeal', {'type':Type});
   }
 
   async OpenCoupon(CouponData) {

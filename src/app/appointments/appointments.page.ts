@@ -29,6 +29,7 @@ export class AppointmentsPage implements OnInit {
   book: FormGroup;
   OfferParams: any = {};
   ShowCode: any = '';
+  ShowDealSelection: boolean = true;
   constructor(public modal: ModalController, public common: CommonService, public fb: FormBuilder, public router: ActivatedRoute, public inmessage: InmessageService) {
     this.lists.appointmentdate = new Date();
     this.lists.eventtime = [];
@@ -48,9 +49,14 @@ export class AppointmentsPage implements OnInit {
     });
 
     this.router.queryParams.subscribe(res => {
+
+      if (Object.keys(res).length != 0) { this.ShowDealSelection = false; } else {
+        this.lists.ShowOffers = false; return;
+      }
+      if (res.coupon_id != null || res.coupon_id != "null") { this.ShowCode = res.coupon_applied; this.lists.ShowOffers = true; }
       this.book.controls['cname'].setValue(res.customer_name);
       this.book.controls['cmobile'].setValue(res.contactno);
-      this.book.controls['cemail'].setValue(res.email);
+      if (res.email && res.email != "null") this.book.controls['cemail'].setValue(res.email);
       this.book.controls['gender'].setValue(res.gender);
       setTimeout(() => {
         this.book.controls['service'].setValue(JSON.parse(res.service));
@@ -131,11 +137,11 @@ export class AppointmentsPage implements OnInit {
 
   SaveAppointment() {
 
-    if(this.book.value.PackageSelected){
-        if(!this.OfferParams.coupon_applied){
-          this.common.presentToast("Please Select an Offer", 4000);
-          return;
-        }
+    if (this.book.value.PackageSelected) {
+      if (!this.OfferParams.coupon_applied) {
+        this.common.presentToast("Please Select an Offer", 4000);
+        return;
+      }
     }
 
     this.common.presentLoader();
@@ -150,7 +156,11 @@ export class AppointmentsPage implements OnInit {
     } else {
       this.lists.prefeereddate = new DatePipe('en-GB').transform(this.lists.appointmentdate, 'yyyy-MM-dd') + ' ' + new DatePipe('en-GB').transform(this.lists.selectedtime, 'hh:mm:ss a');
       var Services_i = "[]";
-      if (this.book.value.service != "") { Services_i = JSON.stringify(this.book.value.service); }
+      if (this.book.value.service != "") {
+        Services_i = JSON.stringify(this.book.value.service);
+        this.OfferParams.coupon_applied = this.OfferParams.coupon_id = null;
+      }
+
       let Data = {
         'id': id,
         'userid': localStorage.getItem("UserId"),
@@ -171,6 +181,7 @@ export class AppointmentsPage implements OnInit {
       }
       this.common.PostMethod("CreateAppointment", Data).then((res: any) => {
         if (res.Status == "1") {
+          this.lists.ShowOffers = false;
           this.common.dismissLoader();
           this.common.presentToast(res.Message, 4000);
           setTimeout(() => {
@@ -250,14 +261,14 @@ export class AppointmentsPage implements OnInit {
     let { data } = await modal.onWillDismiss();
     if (data.status) {
 
-      if(data.Data.type == 'OnService' || data.Data.type == 'Flat'){
+      if (data.Data.type == 'OnService' || data.Data.type == 'Flat') {
         this.common.presentToast('Please select from any Package/Combo/BuynGet Offers', 3000);
-      }else{
+      } else {
         this.OfferParams.coupon_id = data.Data.id;
         this.ShowCode = this.OfferParams.coupon_applied = data.Data.couponcode;
         this.OfferParams.cost = data.Data.discount;
       }
-     
+
       //this.ApplyDiscountConcession(data.Data);
     }
   }

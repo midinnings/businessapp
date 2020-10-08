@@ -30,6 +30,14 @@
         (onTimeSelected)="onTimeSelected1($event)" [eventSource]="lists.eventtime">
     </calendar>
     <form [formGroup]="book">
+        <ion-col size="12" *ngIf="ShowDealSelection">
+            <ion-item class="input-border">
+                <ion-label position="fixed">{{'Do you want to select a Deal'|language}}</ion-label>
+                <ion-checkbox style="margin-left: 10vw;" (ionChange)="SelectAnOffer($event.target.value)" name=""
+                    formControlName="PackageSelected">
+                </ion-checkbox>
+            </ion-item>
+        </ion-col>
         <ion-col size="12">
             <ion-item class="input-border">
                 <ion-label position="fixed">{{'Customer Name'|language}}</ion-label>
@@ -74,18 +82,13 @@
             </ion-item>
         </ion-col>
 
-        <ion-col size="12">
-            <ion-item class="input-border">
-                <ion-label position="fixed">{{'Select an Offer'|language}}</ion-label>
-                <ion-checkbox (ionChange)="SelectAnOffer($event.target.value)"  name="" formControlName="PackageSelected">
-                </ion-checkbox>
-            </ion-item>
-        </ion-col>
+
 
         <ion-col size="12" *ngIf="lists.ShowOffers">
             <ion-item class="input-border">
-                <ion-label position="fixed" (click)="ViewOffers()">{{'View Offers'|language}}</ion-label>
-                <ion-input [(ngModel)]="ShowCode" (click)="ViewOffers()" [ngModelOptions]="{standalone: true}" readonly> </ion-input>
+                <ion-label position="fixed" (click)="ViewOffers()">{{'View Deals'|language}}</ion-label>
+                <ion-input [(ngModel)]="ShowCode" (click)="ViewOffers()" [ngModelOptions]="{standalone: true}" readonly>
+                </ion-input>
             </ion-item>
         </ion-col>
 

@@ -29,10 +29,11 @@
         <ion-label>
             <h2 class="ion-text-uppercase font-w-600">{{a.customer_name}}</h2>
             <h3>{{a.prefeerddate|date:'dd-MM-yyyy'}}</h3>
-            <h3>{{a.prefeerddate|date:'HH:mm:ss a'}}</h3>
+            <!-- {{a.prefeerddate|date:'HH:mm:ss'}}  -->
+            <h3>{{common.SplitTime(a.prefeerddate)}}</h3>
             <span *ngIf="a.serviceinfo"
                 class="small-font">{{a.serviceinfo|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</span>
-            <span *ngIf="!a.serviceinfo || a.serviceinfo.length==0">Offer : {{a.coupon_applied}}</span>
+            <span *ngIf="!a.serviceinfo || a.serviceinfo.length==0">Deal : {{a.coupon_applied}}</span>
         </ion-label>
         <ion-note>
             <p (click)="AcceptAppointment(a)">{{'Accept'|language}}</p>

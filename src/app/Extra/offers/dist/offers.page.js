@@ -86,8 +86,9 @@ var OffersPage = /** @class */ (function () {
             _this.common.presentToast(res.Message, 4000);
         });
     };
-    OffersPage.prototype.AddCoupon = function () {
-        this.common.PageGoto('Forward', 'offers/offerndeal');
+    OffersPage.prototype.AddCoupon = function (Type) {
+        localStorage.setItem('CreationType', Type);
+        this.common.PageGoto('Forward', 'offers/offerndeal', { 'type': Type });
     };
     OffersPage.prototype.OpenCoupon = function (CouponData) {
         return __awaiter(this, void 0, void 0, function () {

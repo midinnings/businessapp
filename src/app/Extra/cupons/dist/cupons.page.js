@@ -33,6 +33,10 @@ var CuponsPage = /** @class */ (function () {
         this.lists.Myoffers = this.lists.Myoffers.filter(function (i) { return i.type == 'OnService' || i.type == 'Package' || i.type == 'BuynGet' || i.type == 'Flat' || i.type == 'Combo'; });
     };
     CuponsPage.prototype.ApplyCupon = function (ev) {
+        if (!this.common.dateCheck(ev.startdate, ev.enddate)) {
+            this.common.presentToast('Coupon is expired..', 3000);
+            return;
+        }
         this.modal.dismiss({ status: true, Data: ev });
     };
     CuponsPage = __decorate([

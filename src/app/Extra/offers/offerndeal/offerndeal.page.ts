@@ -21,7 +21,7 @@ export class OfferndealPage implements OnInit {
 
   lists: any = {};
 
-  ShowService: boolean = false;
+  //ShowService: boolean = false;
 
   datePickerObj: any = {
     inputDate: new Date(), // default new Date()
@@ -61,13 +61,16 @@ export class OfferndealPage implements OnInit {
     } // Default {}
   };
 
-
+  CreationType: String = 'Offers';
+  SelectSecondService: boolean = false;
+  OccasionList: any = [];
 
   constructor(public common: CommonService, public modal: ModalController, public fb: FormBuilder, public navCtrl: NavController) {
     this.lists.from = new Date();
     this.lists.to = new Date();
-
+    this.CreationType = localStorage.getItem('CreationType');
   }
+
   onEventSelected(ev) {
     console.log(ev);
   }
@@ -86,24 +89,25 @@ export class OfferndealPage implements OnInit {
     this.offerform = this.fb.group({
       type: new FormControl('Offer', Validators.required),
       title: new FormControl('', Validators.required),
-      description: new FormControl(),
+      description: new FormControl(''),
       couponcode: new FormControl(''),
       startdate: new FormControl('', Validators.required),
       enddate: new FormControl('', Validators.required),
       usage: new FormControl(''),
       noftime: new FormControl(0),
       discounttype: new FormControl('Amount', Validators.required),
-      discount: new FormControl(0, Validators.required),
+      discount: new FormControl('', Validators.required),
       //  applysetting: new FormControl('', Validators.required),
       services: new FormControl(''),
       templatecategory: new FormControl(''),
       occassion: new FormControl(''),
       discountMainTypes: new FormControl(''),
-
+      second_service: new FormControl(''),
     });
     this.GetServicelist();
     this.GetTemplateCategorylist();
     this.Occassions();
+    //this.GetOccasionData();
   }
 
   GetServicelist() {
@@ -126,44 +130,101 @@ export class OfferndealPage implements OnInit {
 
   ServiceSelected(values) {
     //----
-    if(this.offerform.value.discountMainTypes == 'BuynGet'){
-      if (  this.offerform.value.services.length != 2) {
+    if (this.offerform.value.discountMainTypes == 'BuynGet') {
+      if (this.offerform.value.services.length != 1) {
         this.offerform.value.services = '';
         this.common.presentToast('Please select appropriate services from service list to create BuynGet/Combo/Package', 2000);
       }
     }
-    
+
   }
 
   TypeSelected(value) {
 
-    if (value == 'OnService' || value == 'Flat') {
-      this.ShowService = false;
+
+    if (value == 'BuynGet') {
+      this.SelectSecondService = true;
     } else {
-      this.ShowService = true;
+      this.SelectSecondService = false;
+    }
+  }
+
+  GenerateCouponCode() {
+    let DisValue = this.offerform.value.discount;
+    let DisTitle = this.offerform.value.title;
+    let UserProfile = JSON.parse(localStorage.getItem('UserProfile'));
+    var UserName = 'MSZ';
+
+    var today = new Date();
+    var date = String(today.getDate()).padStart(2, '0');
+
+    let TitleSub = DisTitle.substring(0, 2);
+    if (UserProfile) { UserName = UserProfile.name; UserName = UserName.substring(0, 2); }
+
+    if (DisValue && DisTitle && UserProfile) {
+      let CouponCode = UserName + '' + TitleSub + '' + DisValue + '' + date;
+      CouponCode = CouponCode.toUpperCase();
+      return CouponCode;
+    } else {
+      return 'MSZ' + UserName + '' + date;
     }
   }
 
 
-
-  SaveOffer() {
-
-  }
   Back() {
     this.navCtrl.back();
   }
   Next() {
-    if (this.ShowService) {
+    let env=this;
+    if (this.CreationType == 'Deals') {
       if (this.offerform.value.services.length >= 2) {
       } else {
-        this.common.presentToast('Please select appropriate services from service list to create BuynGet/Combo/Package', 2000);
-        return;
+        if (this.offerform.value.services.length == 1 && this.offerform.value.discountMainTypes == 'BuynGet') {
+
+        } else {
+          this.common.presentToast('Please select appropriate services to create BuynGet/Combo/Package', 3000);
+          return;
+        }
+
       }
     }
+    this.offerform.value.couponcode = this.GenerateCouponCode();
     this.offerform.value.type = this.offerform.value.discountMainTypes;
     this.offerform.value.b_id = new UserPipe().transform('b_id');
     this.offerform.value.userid = localStorage.getItem("UserId");
+
+    if (this.offerform.value.second_service && this.offerform.value.services) {
+      this.offerform.value.services.push(this.offerform.value.second_service);
+    }
+
+    if (this.offerform.value.services) {
+      var filteredArray = this.lists.Servicelist.filter(function(itm){
+        return env.offerform.value.services.indexOf(itm.serviceid) > -1;
+      });
+      let ServiceNames = [];
+      filteredArray.forEach(element => {
+          ServiceNames.push(element.service);
+      });
+      this.offerform.value.ServiceNames = ServiceNames.toString();
+    }else{
+      this.offerform.value.ServiceNames = '';
+    }
+
+
     this.common.PageGoto('Forward', 'shaping', this.offerform.value);
   }
+
+  OccasionChange(Cat) {
+    this.common.PostMethod("GetOccasionData", { type: "title", category:Cat }).then((res: any) => {
+      if (res.Status == 1) {
+        this.OccasionList = res.Data;
+      }
+    });
+  }
+
+  // OccasionChange(Cat){
+
+  // }
+
 
 }

@@ -425,4 +425,15 @@ export class StylistregisterPage implements OnInit {
       this.common.BasicAlert("Alert !", "", "Please do not Select Future Date.");
     }
   }
+
+  numberOnlyValidation(event: any) {
+    const pattern = /[0-9.,]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar) || event.target.value.length >5) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+  
 }

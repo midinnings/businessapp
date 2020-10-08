@@ -37,6 +37,12 @@ body {
     color: #464646;
 }
 
+.customSelectClass .alert-radio-label{
+    font-size: 12px !important;
+    text-overflow: unset !important;
+    white-space: inherit !important;
+}
+
 .errormessage {
     margin-left: 5px !important;
     margin-top: 1px !important;

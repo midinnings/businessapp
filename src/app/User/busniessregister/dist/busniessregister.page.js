@@ -108,6 +108,7 @@ var BusniessregisterPage = /** @class */ (function () {
         this.AddonImages = {};
         this.Edit_BOS = false;
         this.BOS = {};
+        this.ShowTerms = true;
         this.Initalization();
         this.GetStatelist();
         this.GetServiceCategory();
@@ -128,7 +129,7 @@ var BusniessregisterPage = /** @class */ (function () {
             address1: new forms_1.FormControl('', forms_1.Validators.required),
             landmark: new forms_1.FormControl(),
             pincode: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.maxLength(6), forms_1.Validators.minLength(6)])),
-            pincode1: new forms_1.FormControl('', forms_1.Validators.required),
+            pincode1: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.maxLength(6)])),
             stateid: new forms_1.FormControl('', forms_1.Validators.required),
             cityid: new forms_1.FormControl('', forms_1.Validators.required),
             password: new forms_1.FormControl(),
@@ -143,6 +144,10 @@ var BusniessregisterPage = /** @class */ (function () {
             if (res.edit) {
                 _this.lists.edit = res.edit;
                 var Profile = JSON.parse(localStorage.getItem("UserProfile"));
+                if (res.language) {
+                    localStorage.setItem("language", res.language);
+                    _this.lists.language = res.language;
+                }
                 _this.SetEditValue(Profile);
             }
             else if (res.searchaddress) {
@@ -161,7 +166,8 @@ var BusniessregisterPage = /** @class */ (function () {
                 }
             }
         });
-        this.lists.language = localStorage.getItem('language');
+        if (localStorage.getItem('language'))
+            this.lists.language = localStorage.getItem('language');
         //Get Facilites List-------------
         this.common.GetMethod("GetFacilitiesList").then(function (res) {
             console.log(res);
@@ -179,6 +185,9 @@ var BusniessregisterPage = /** @class */ (function () {
     };
     BusniessregisterPage.prototype.SetEditValue = function (ev) {
         var _this = this;
+        this.lists.terms = true;
+        this.ShowTerms = false;
+        this.common.presentLoader();
         var env = this;
         if (ev.logo) {
             this.lists.Image = ev.logo;
@@ -214,10 +223,10 @@ var BusniessregisterPage = /** @class */ (function () {
             this.BOS = ev.BusinessOtherServices;
             this.Other_Info = this.BOS;
             if (this.BOS.facility_ids) {
-                this.PreferedSelectedFacilites = this.BOS.facility_ids.split(',');
+                this.PreferedSelectedFacilites = this.BOS.facility_ids.split(',').map(Number);
             }
             if (this.BOS.brand_ids) {
-                this.PreferedBrands = this.BOS.brand_ids.split(',');
+                this.PreferedBrands = this.BOS.brand_ids.split(',').map(Number);
             }
             this.Banner_Link = this.BOS.salon_banner;
             this.lists.Banner = this.common.Url + 'Files/' + this.BOS.salon_banner;
@@ -375,7 +384,6 @@ var BusniessregisterPage = /** @class */ (function () {
         }
         else {
             this.common.presentLoader();
-            debugger;
             this.lists.Servicetime = this.lists.Servicetime.filter(function (i) { return i.checked == true; });
             this.Businessform1.value.Service_Week = this.lists.Servicetime;
             this.lists.ub_type = [];
@@ -438,7 +446,7 @@ var BusniessregisterPage = /** @class */ (function () {
                             console.log(res);
                             localStorage.setItem("UserProfile", JSON.stringify(res.Data));
                         });
-                        _this.common.presentToast(res.Message, 4000);
+                        _this.common.presentToast(res.status.Message, 4000);
                         _this.common.PageGoto("Root", "");
                     }
                     else {
@@ -454,7 +462,7 @@ var BusniessregisterPage = /** @class */ (function () {
                             }
                             else {
                                 _this.common.dismissLoader();
-                                _this.common.presentToast(res.status.Status.Message, 4000);
+                                _this.common.presentToast(res.status.Message, 4000);
                             }
                         });
                     }
@@ -480,14 +488,6 @@ var BusniessregisterPage = /** @class */ (function () {
                                     text: 'Confirm',
                                     handler: function () {
                                         _this.lists.nameapprove = true;
-                                    }
-                                },
-                                {
-                                    text: 'Change',
-                                    role: 'cancel',
-                                    cssClass: 'secondary',
-                                    handler: function (blah) {
-                                        _this.lists.nameapprove = false;
                                     }
                                 }
                             ]
@@ -723,8 +723,9 @@ var BusniessregisterPage = /** @class */ (function () {
     BusniessregisterPage.prototype.CancelEdit = function () {
         this.navCtrl.back();
     };
-    BusniessregisterPage.prototype.FacilityChecked = function (FacilityId) {
-        var FacilityIdVar = JSON.stringify(FacilityId);
+    BusniessregisterPage.prototype.FacilityChecked = function (FacilityId, e) {
+        if (e.currentTarget.checked) { }
+        var FacilityIdVar = parseInt(FacilityId);
         if (this.PreferedSelectedFacilites.includes(FacilityIdVar) || this.PreferedSelectedFacilites.includes(FacilityId)) {
             var index = this.PreferedSelectedFacilites.indexOf(FacilityIdVar);
             if (index > -1) {
@@ -732,12 +733,15 @@ var BusniessregisterPage = /** @class */ (function () {
             }
         }
         else {
-            this.PreferedSelectedFacilites.push(FacilityIdVar);
+            if (e.currentTarget.checked) {
+                this.PreferedSelectedFacilites.push(FacilityIdVar);
+            }
         }
         console.log(this.PreferedSelectedFacilites, 'FacilityIds selected');
     };
-    BusniessregisterPage.prototype.BrandChecked = function (BrandId) {
-        var BrandIdVar = JSON.stringify(BrandId);
+    BusniessregisterPage.prototype.BrandChecked = function (BrandId, e) {
+        if (e.currentTarget.checked) { }
+        var BrandIdVar = parseInt(BrandId);
         if (this.PreferedBrands.includes(BrandIdVar) || this.PreferedBrands.includes(BrandId)) {
             var index = this.PreferedBrands.indexOf(BrandIdVar);
             if (index > -1) {
@@ -745,7 +749,9 @@ var BusniessregisterPage = /** @class */ (function () {
             }
         }
         else {
-            this.PreferedBrands.push(BrandIdVar);
+            if (e.currentTarget.checked) {
+                this.PreferedBrands.push(BrandIdVar);
+            }
         }
         console.log(this.PreferedBrands, 'PreferedBrands selected');
     };
@@ -758,6 +764,14 @@ var BusniessregisterPage = /** @class */ (function () {
         if (sdate > today) {
             this.Businessform1.controls["dob"].setValue("");
             this.common.BasicAlert("Alert !", "", "Please do not Select Future Date.");
+        }
+    };
+    BusniessregisterPage.prototype.numberOnlyValidation = function (event) {
+        var pattern = /[0-9.,]/;
+        var inputChar = String.fromCharCode(event.charCode);
+        if (!pattern.test(inputChar) || event.target.value.length > 5) {
+            // invalid character, prevent input
+            event.preventDefault();
         }
     };
     BusniessregisterPage = __decorate([

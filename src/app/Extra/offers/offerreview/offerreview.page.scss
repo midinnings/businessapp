@@ -1,8 +1,19 @@
-p{
-    width: 100% !important;}
-.end{
+p {
+    width: 100% !important;
+}
+
+.end {
     float: right !important;
 }
-ion-title{
-    color:white !important;
+
+ion-title {
+    color: white !important;
+}
+
+.back_offer {
+
+    .item-native,
+    .item-inner {
+        padding: 0px;
+    }
 }

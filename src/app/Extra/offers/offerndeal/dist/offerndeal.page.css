@@ -1,0 +1,23 @@
+.typeitem {
+  float: left !important;
+  margin-left: -20px;
+  width: 55%;
+  margin-top: 6px;
+}
+
+ion-select {
+  width: 100% !important;
+  text-align: right !important;
+}
+
+ion-label {
+  white-space: normal !important;
+}
+
+.small_font {
+  font-size: 10px;
+}
+
+.min_margin {
+  margin-right: 10px;
+}

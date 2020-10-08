@@ -14,7 +14,7 @@
         <ion-col size="12">
             <ion-card *ngFor="let c of lists.Myoffers">
                 <ion-card-header>
-                    <ion-card-subtitle>Free {{c.type}}<a style="float: right;" (click)="ApplyCupon(c)">{{'Apply Now'|language}}</a>
+                    <ion-card-subtitle>{{c.type}}<a style="float: right;" (click)="ApplyCupon(c)">{{'Apply Now'|language}}</a>
                     </ion-card-subtitle>
                     <ion-card-title>{{c.title}}</ion-card-title>
                 </ion-card-header>

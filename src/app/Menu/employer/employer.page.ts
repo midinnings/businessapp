@@ -3,7 +3,7 @@ import { FcmmessageService } from './../../Service/fcmmessage.service';
 import { CommonService } from './../../Service/common.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect } from '@ionic/angular';
+import { IonSelect, Events } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { BussinessSettingsPage } from 'src/app/Modal/bussiness-settings/bussiness-settings.page';
 
@@ -16,7 +16,7 @@ export class EmployerPage implements OnInit {
   lists: any = {}
   @ViewChild('stylistselect', { static: false }) stylistselect: IonSelect;
 
-  constructor(public Modal:ModalController,public social: SocialSharing, public fcmmessage: FcmmessageService, public router: Router, public common: CommonService) { }
+  constructor(public events:Events, public Modal:ModalController,public social: SocialSharing, public fcmmessage: FcmmessageService, public router: Router, public common: CommonService) { }
 
   ngOnInit() {
     this.lists.language = localStorage.getItem("language")||"English";
@@ -51,6 +51,7 @@ export class EmployerPage implements OnInit {
     this.common.PostMethod("UpdateData", { file: "userlogin", name: "id", value: Profile.id, updatename: "language", updatevalue: this.lists.language }).then((res: any) => {
       this.common.presentToast("Language Change Successfully", 4000);
     })
+    this.events.publish('ReloadDashboard');
   }
 
  async OpenSettings(){

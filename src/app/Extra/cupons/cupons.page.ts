@@ -32,6 +32,13 @@ export class CuponsPage implements OnInit {
   }
 
   ApplyCupon(ev) {
+    
+    if(!this.common.dateCheck(ev.startdate, ev.enddate)){
+      this.common.presentToast('Coupon is expired..', 3000);
+      return;
+    }
+    
+    
     this.modal.dismiss({ status: true, Data: ev });
   }
 

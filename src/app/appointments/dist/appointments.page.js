@@ -69,6 +69,7 @@ var AppointmentsPage = /** @class */ (function () {
         this.lists = {};
         this.OfferParams = {};
         this.ShowCode = '';
+        this.ShowDealSelection = true;
         this.markDisabled = function (date) {
             var current = new Date();
             var mydate = current.getFullYear() + "-" + (current.getMonth() + 1) + "-" + (current.getDate());
@@ -92,9 +93,21 @@ var AppointmentsPage = /** @class */ (function () {
             PackageSelected: new forms_1.FormControl(false, forms_1.Validators.required)
         });
         this.router.queryParams.subscribe(function (res) {
+            if (Object.keys(res).length != 0) {
+                _this.ShowDealSelection = false;
+            }
+            else {
+                _this.lists.ShowOffers = false;
+                return;
+            }
+            if (res.coupon_id != null || res.coupon_id != "null") {
+                _this.ShowCode = res.coupon_applied;
+                _this.lists.ShowOffers = true;
+            }
             _this.book.controls['cname'].setValue(res.customer_name);
             _this.book.controls['cmobile'].setValue(res.contactno);
-            _this.book.controls['cemail'].setValue(res.email);
+            if (res.email && res.email != "null")
+                _this.book.controls['cemail'].setValue(res.email);
             _this.book.controls['gender'].setValue(res.gender);
             setTimeout(function () {
                 _this.book.controls['service'].setValue(JSON.parse(res.service));
@@ -183,6 +196,7 @@ var AppointmentsPage = /** @class */ (function () {
             var Services_i = "[]";
             if (this.book.value.service != "") {
                 Services_i = JSON.stringify(this.book.value.service);
+                this.OfferParams.coupon_applied = this.OfferParams.coupon_id = null;
             }
             var Data = {
                 'id': id,
@@ -203,6 +217,7 @@ var AppointmentsPage = /** @class */ (function () {
             };
             this.common.PostMethod("CreateAppointment", Data).then(function (res) {
                 if (res.Status == "1") {
+                    _this.lists.ShowOffers = false;
                     _this.common.dismissLoader();
                     _this.common.presentToast(res.Message, 4000);
                     setTimeout(function () {

@@ -180,4 +180,31 @@ export class CommonService {
     }
   }
 
+  SplitTime(DateTime_V) {
+    if (DateTime_V) {
+      let TimeOnly = DateTime_V.split(' ')[1];
+      let Phase = DateTime_V.split(' ')[2];
+      if (TimeOnly) {
+        return TimeOnly+' '+Phase;
+      } else {
+        return '00:00:00';
+      }
+
+    } else {
+      return '00:00:00';
+    }
+  }
+
+  dateCheck(from, to) {
+    var fDate, lDate, cDate;
+    fDate = Date.parse(from);
+    lDate = Date.parse(to);
+    cDate = Date.parse(new Date().toJSON().slice(0, 10));
+
+    if ((cDate <= lDate && cDate >= fDate)) {
+      return true;
+    }
+    return false;
+  }
+
 }

@@ -11,23 +11,21 @@ export class OfferreviewPage implements OnInit {
 
   constructor(public routes: ActivatedRoute, public common: CommonService) { }
   lists: any = {};
-  BackgroundImagePath:any='';
+  BackgroundImagePath: any = '';
   ngOnInit() {
     this.BackgroundImagePath = localStorage.getItem('TempBackgroundPath');
     this.routes.queryParams.subscribe((res: any) => {
       console.log(res);
       this.lists = res;
     });
-   
+
   }
 
   CreateCoupon() {
     this.common.presentLoader();
-    var DataSend:any = {};
+    var DataSend: any = {};
     DataSend = JSON.parse(JSON.stringify(this.lists));
-    
     DataSend.backgroundImage = this.BackgroundImagePath;
-    
     this.common.PostMethod("CreateOffer", DataSend).then((res: any) => {
       this.common.dismissLoader();
       if (res.Status == 1) {

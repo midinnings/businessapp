@@ -474,6 +474,14 @@ var StylistregisterPage = /** @class */ (function () {
             this.common.BasicAlert("Alert !", "", "Please do not Select Future Date.");
         }
     };
+    StylistregisterPage.prototype.numberOnlyValidation = function (event) {
+        var pattern = /[0-9.,]/;
+        var inputChar = String.fromCharCode(event.charCode);
+        if (!pattern.test(inputChar) || event.target.value.length > 5) {
+            // invalid character, prevent input
+            event.preventDefault();
+        }
+    };
     StylistregisterPage = __decorate([
         core_1.Component({
             selector: 'app-stylistregister',

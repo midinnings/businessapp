@@ -106,7 +106,6 @@ export class PendinglistPage implements OnInit {
   }
 
   CheckoutAppointment(ev) {
-    debugger
     this.common.PageGoto("Forward", "manual", ev);
   }
 

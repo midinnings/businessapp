@@ -1,5 +1,6 @@
 import { ModalController, NavParams } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/Service/common.service';
 
 @Component({
   selector: 'app-appointmenttimestatus',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppointmenttimestatusPage implements OnInit {
 
-  constructor(public modal: ModalController, public navparams: NavParams) { }
+  constructor(public common:CommonService,public modal: ModalController, public navparams: NavParams) { }
   lists: any = {}
   ngOnInit() {
     this.lists = this.navparams.data.appointment;

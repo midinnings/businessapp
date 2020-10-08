@@ -259,6 +259,31 @@ var CommonService = /** @class */ (function () {
             this.inapp.create(url, '_self', 'location=no');
         }
     };
+    CommonService.prototype.SplitTime = function (DateTime_V) {
+        if (DateTime_V) {
+            var TimeOnly = DateTime_V.split(' ')[1];
+            var Phase = DateTime_V.split(' ')[2];
+            if (TimeOnly) {
+                return TimeOnly + ' ' + Phase;
+            }
+            else {
+                return '00:00:00';
+            }
+        }
+        else {
+            return '00:00:00';
+        }
+    };
+    CommonService.prototype.dateCheck = function (from, to) {
+        var fDate, lDate, cDate;
+        fDate = Date.parse(from);
+        lDate = Date.parse(to);
+        cDate = Date.parse(new Date().toJSON().slice(0, 10));
+        if ((cDate <= lDate && cDate >= fDate)) {
+            return true;
+        }
+        return false;
+    };
     CommonService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

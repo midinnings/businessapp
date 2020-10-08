@@ -44,7 +44,7 @@ export class DailyledgerPage implements OnInit {
   TotalSales() {
     let Total: any = 0;
     this.lists.Sales.forEach(element => {
-      Total = parseInt(Total) + parseInt(element.total);
+      if(element.cost)Total = parseInt(Total) + parseInt(element.cost);
     });
     return Total;
   }

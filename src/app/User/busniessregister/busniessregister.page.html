@@ -99,7 +99,7 @@
                         <ion-item class="input-border">
                             <ion-label position="fixed">*{{'PINCODE'|language}}
                             </ion-label>
-                            <ion-input type="number" maxlenth="6" placeholder="Pincode" formControlName="pincode">
+                            <ion-input (keypress)="numberOnlyValidation($event)" type="text" placeholder="Pincode" formControlName="pincode">
                             </ion-input>
                         </ion-item>
                     </ion-col>
@@ -328,7 +328,7 @@
                 <ion-item style="width:100%" class="p-r-in input-border" lines="none">
                     <ion-label>{{lists.language=='Hindi'?facility.facilitiesname_hi:facility.facilitiesname}}
                     </ion-label>
-                    <ion-checkbox slot="start" (ionChange)="FacilityChecked(facility.id)"
+                    <ion-checkbox slot="start" (ionChange)="FacilityChecked(facility.id, $event)"
                         [(ngModel)]="facility.selection">
                     </ion-checkbox>
                 </ion-item>
@@ -342,7 +342,7 @@
             <ion-row *ngFor="let brands of GetBrandList">
                 <ion-item style="width:100%" class="p-r-in input-border" lines="none">
                     <ion-label>{{lists.language=='Hindi'?brands.brandname_hi:brands.brandname}}</ion-label>
-                    <ion-checkbox slot="start" (ionChange)="BrandChecked(brands.id)" [(ngModel)]="brands.selection">
+                    <ion-checkbox slot="start" (ionChange)="BrandChecked(brands.id, $event)" [(ngModel)]="brands.selection">
                     </ion-checkbox>
                 </ion-item>
             </ion-row>
@@ -412,7 +412,7 @@
                     </ion-item>
                 </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row *ngIf="ShowTerms">
                 <ion-item lines="none">
                     <ion-label style="white-space: normal;" class="terms">
                         {{'I have read and agree with all Terms and Conditions'|language}}.<a

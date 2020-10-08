@@ -28,7 +28,6 @@ export class ShapingPage implements OnInit {
       this.lists.occassion = res.occassion;
       for (const property in res) {
         this.templatedata[property] = res[property];
-
       }
     });
 

@@ -23,7 +23,7 @@ var OfferndealPage = /** @class */ (function () {
             currentDate: new Date()
         };
         this.lists = {};
-        this.ShowService = false;
+        //ShowService: boolean = false;
         this.datePickerObj = {
             inputDate: new Date(),
             showTodayButton: false,
@@ -61,8 +61,12 @@ var OfferndealPage = /** @class */ (function () {
                 fontColor: '#ee88bf' // Default null
             } // Default {}
         };
+        this.CreationType = 'Offers';
+        this.SelectSecondService = false;
+        this.OccasionList = [];
         this.lists.from = new Date();
         this.lists.to = new Date();
+        this.CreationType = localStorage.getItem('CreationType');
     }
     OfferndealPage.prototype.onEventSelected = function (ev) {
         console.log(ev);
@@ -81,23 +85,25 @@ var OfferndealPage = /** @class */ (function () {
         this.offerform = this.fb.group({
             type: new forms_1.FormControl('Offer', forms_1.Validators.required),
             title: new forms_1.FormControl('', forms_1.Validators.required),
-            description: new forms_1.FormControl(),
+            description: new forms_1.FormControl(''),
             couponcode: new forms_1.FormControl(''),
             startdate: new forms_1.FormControl('', forms_1.Validators.required),
             enddate: new forms_1.FormControl('', forms_1.Validators.required),
             usage: new forms_1.FormControl(''),
             noftime: new forms_1.FormControl(0),
             discounttype: new forms_1.FormControl('Amount', forms_1.Validators.required),
-            discount: new forms_1.FormControl(0, forms_1.Validators.required),
+            discount: new forms_1.FormControl('', forms_1.Validators.required),
             //  applysetting: new FormControl('', Validators.required),
             services: new forms_1.FormControl(''),
             templatecategory: new forms_1.FormControl(''),
             occassion: new forms_1.FormControl(''),
-            discountMainTypes: new forms_1.FormControl('')
+            discountMainTypes: new forms_1.FormControl(''),
+            second_service: new forms_1.FormControl('')
         });
         this.GetServicelist();
         this.GetTemplateCategorylist();
         this.Occassions();
+        //this.GetOccasionData();
     };
     OfferndealPage.prototype.GetServicelist = function () {
         var _this = this;
@@ -120,38 +126,87 @@ var OfferndealPage = /** @class */ (function () {
     OfferndealPage.prototype.ServiceSelected = function (values) {
         //----
         if (this.offerform.value.discountMainTypes == 'BuynGet') {
-            if (this.offerform.value.services.length != 2) {
+            if (this.offerform.value.services.length != 1) {
                 this.offerform.value.services = '';
                 this.common.presentToast('Please select appropriate services from service list to create BuynGet/Combo/Package', 2000);
             }
         }
     };
     OfferndealPage.prototype.TypeSelected = function (value) {
-        if (value == 'OnService' || value == 'Flat') {
-            this.ShowService = false;
+        if (value == 'BuynGet') {
+            this.SelectSecondService = true;
         }
         else {
-            this.ShowService = true;
+            this.SelectSecondService = false;
         }
     };
-    OfferndealPage.prototype.SaveOffer = function () {
+    OfferndealPage.prototype.GenerateCouponCode = function () {
+        var DisValue = this.offerform.value.discount;
+        var DisTitle = this.offerform.value.title;
+        var UserProfile = JSON.parse(localStorage.getItem('UserProfile'));
+        var UserName = 'MSZ';
+        var today = new Date();
+        var date = String(today.getDate()).padStart(2, '0');
+        var TitleSub = DisTitle.substring(0, 2);
+        if (UserProfile) {
+            UserName = UserProfile.name;
+            UserName = UserName.substring(0, 2);
+        }
+        if (DisValue && DisTitle && UserProfile) {
+            var CouponCode = UserName + '' + TitleSub + '' + DisValue + '' + date;
+            CouponCode = CouponCode.toUpperCase();
+            return CouponCode;
+        }
+        else {
+            return 'MSZ' + UserName + '' + date;
+        }
     };
     OfferndealPage.prototype.Back = function () {
         this.navCtrl.back();
     };
     OfferndealPage.prototype.Next = function () {
-        if (this.ShowService) {
+        var env = this;
+        if (this.CreationType == 'Deals') {
             if (this.offerform.value.services.length >= 2) {
             }
             else {
-                this.common.presentToast('Please select appropriate services from service list to create BuynGet/Combo/Package', 2000);
-                return;
+                if (this.offerform.value.services.length == 1 && this.offerform.value.discountMainTypes == 'BuynGet') {
+                }
+                else {
+                    this.common.presentToast('Please select appropriate services to create BuynGet/Combo/Package', 3000);
+                    return;
+                }
             }
         }
+        this.offerform.value.couponcode = this.GenerateCouponCode();
         this.offerform.value.type = this.offerform.value.discountMainTypes;
         this.offerform.value.b_id = new user_pipe_1.UserPipe().transform('b_id');
         this.offerform.value.userid = localStorage.getItem("UserId");
+        if (this.offerform.value.second_service && this.offerform.value.services) {
+            this.offerform.value.services.push(this.offerform.value.second_service);
+        }
+        if (this.offerform.value.services) {
+            var filteredArray = this.lists.Servicelist.filter(function (itm) {
+                return env.offerform.value.services.indexOf(itm.serviceid) > -1;
+            });
+            var ServiceNames_1 = [];
+            filteredArray.forEach(function (element) {
+                ServiceNames_1.push(element.service);
+            });
+            this.offerform.value.ServiceNames = ServiceNames_1.toString();
+        }
+        else {
+            this.offerform.value.ServiceNames = '';
+        }
         this.common.PageGoto('Forward', 'shaping', this.offerform.value);
+    };
+    OfferndealPage.prototype.OccasionChange = function (Cat) {
+        var _this = this;
+        this.common.PostMethod("GetOccasionData", { type: "title", category: Cat }).then(function (res) {
+            if (res.Status == 1) {
+                _this.OccasionList = res.Data;
+            }
+        });
     };
     OfferndealPage = __decorate([
         core_1.Component({

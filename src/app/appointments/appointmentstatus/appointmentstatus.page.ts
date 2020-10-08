@@ -30,6 +30,7 @@ export class AppointmentstatusPage implements OnInit {
   }
 
   ngOnInit() {
+    this.common.presentLoader();
     this.GetAppointments();
   }
   ngOnDestroy() {
@@ -53,6 +54,7 @@ export class AppointmentstatusPage implements OnInit {
     }
     this.common.PostMethod("AppointmentStatusWise", { appointmentstatus: "Waiting", userid: userid, b_id: new UserPipe().transform('b_id') }).then((res: any) => {
       this.lists.appointmentlist = res.Data;
+      this.common.dismissLoader();
     });
   }
   async CancelAppointment(ev) {
@@ -107,4 +109,9 @@ export class AppointmentstatusPage implements OnInit {
       });
     }
   }
+
+
+
+
+
 }

@@ -33,7 +33,7 @@
         </ion-label>
         <ion-note class="p-padding">
             <p>{{a.prefeerddate|date:'dd.MMM.yyyy'}}</p>
-            <p>{{a.prefeerddate|date:'HH:MM:SS a'}}</p>
+            <p>{{common.SplitTime(a.prefeerddate)}}</p>
             <p class="ion-text-uppercase letter-spacing-1">{{a.appointmentstatus}}</p>
         </ion-note>
     </ion-item>

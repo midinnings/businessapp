@@ -76,6 +76,7 @@ export class BusniessregisterPage implements OnInit {
   AddonImages: any = {};
   Edit_BOS: boolean = false;
   BOS: any = {};
+  ShowTerms: boolean = true;
   constructor(public zone: NgZone, private geolocation: Geolocation, public navCtrl: NavController, private camera: Camera, private file: File, public common: CommonService, public fb: FormBuilder, public router: ActivatedRoute) {
     this.Initalization();
     this.GetStatelist();
@@ -99,7 +100,7 @@ export class BusniessregisterPage implements OnInit {
       address1: new FormControl('', Validators.required),
       landmark: new FormControl(),
       pincode: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])),
-      pincode1: new FormControl('', Validators.required),
+      pincode1: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(6)])),
       stateid: new FormControl('', Validators.required),
       cityid: new FormControl('', Validators.required),
       password: new FormControl(),
@@ -114,6 +115,7 @@ export class BusniessregisterPage implements OnInit {
       if (res.edit) {
         this.lists.edit = res.edit;
         let Profile = JSON.parse(localStorage.getItem("UserProfile"));
+        if (res.language) { localStorage.setItem("language", res.language); this.lists.language = res.language; }
         this.SetEditValue(Profile);
       } else if (res.searchaddress) {
         this.Businessform1.controls['address1'].setValue(res.address);
@@ -130,7 +132,7 @@ export class BusniessregisterPage implements OnInit {
         }
       }
     });
-    this.lists.language = localStorage.getItem('language');
+    if (localStorage.getItem('language')) this.lists.language = localStorage.getItem('language');
 
     //Get Facilites List-------------
     this.common.GetMethod("GetFacilitiesList").then((res: any) => {
@@ -152,6 +154,9 @@ export class BusniessregisterPage implements OnInit {
   }
 
   SetEditValue(ev) {
+    this.lists.terms = true;
+    this.ShowTerms = false;
+    this.common.presentLoader();
     let env = this;
     if (ev.logo) {
       this.lists.Image = ev.logo;
@@ -177,8 +182,10 @@ export class BusniessregisterPage implements OnInit {
     this.Businessform1.controls["pincode"].setValue(Address.pincode);
     this.Businessform1.controls["address"].setValue(Address.address);
     var salon_types = [];
-    if(ev.salon_type && ev.salon_type!=''){salon_types = ev.salon_type.split(',');
-    this.Businessform1.controls["salon_type"].setValue(salon_types);}
+    if (ev.salon_type && ev.salon_type != '') {
+      salon_types = ev.salon_type.split(',');
+      this.Businessform1.controls["salon_type"].setValue(salon_types);
+    }
     let Weeks = ev.Businessinfo.Timing;
 
     //------Setting Up Other Values------------------------------------
@@ -186,8 +193,8 @@ export class BusniessregisterPage implements OnInit {
     if (ev.BusinessOtherServices) {
       this.BOS = ev.BusinessOtherServices;
       this.Other_Info = this.BOS;
-      if (this.BOS.facility_ids) { this.PreferedSelectedFacilites = this.BOS.facility_ids.split(','); }
-      if (this.BOS.brand_ids) { this.PreferedBrands = this.BOS.brand_ids.split(','); }
+      if (this.BOS.facility_ids) { this.PreferedSelectedFacilites = this.BOS.facility_ids.split(',').map(Number); }
+      if (this.BOS.brand_ids) { this.PreferedBrands = this.BOS.brand_ids.split(',').map(Number); }
       this.Banner_Link = this.BOS.salon_banner;
       this.lists.Banner = this.common.Url + 'Files/' + this.BOS.salon_banner;
       if (this.BOS.additional_images) {
@@ -204,7 +211,7 @@ export class BusniessregisterPage implements OnInit {
         env.Facilities_List.forEach((element, i) => {
           if (env.BOS.facility_ids) {
             let FacilityArr = env.BOS.facility_ids.split(',');
-            if (FacilityArr.includes(element.id) || FacilityArr.includes(  JSON.stringify(element.id)  )) {
+            if (FacilityArr.includes(element.id) || FacilityArr.includes(JSON.stringify(element.id))) {
               env.Facilities_List[i].selection = true;
             }
           }
@@ -336,8 +343,8 @@ export class BusniessregisterPage implements OnInit {
     }
   }
 
-  ChangeinServiceTime(){
-    
+  ChangeinServiceTime() {
+
   }
 
   SaveBusiness() {
@@ -346,10 +353,9 @@ export class BusniessregisterPage implements OnInit {
       this.common.BasicAlert("Alert !", "", "Please first accept terms and conditions.")
     } else {
       this.common.presentLoader();
-      debugger
-    
 
-      this.lists.Servicetime = this.lists.Servicetime.filter( i => i.checked==true );
+
+      this.lists.Servicetime = this.lists.Servicetime.filter(i => i.checked == true);
       this.Businessform1.value.Service_Week = this.lists.Servicetime;
       this.lists.ub_type = [];
       this.lists.ub_service = [];
@@ -402,7 +408,7 @@ export class BusniessregisterPage implements OnInit {
               console.log(res);
               localStorage.setItem("UserProfile", JSON.stringify(res.Data));
             });
-            this.common.presentToast(res.Message, 4000);
+            this.common.presentToast(res.status.Message, 4000);
             this.common.PageGoto("Root", "");
           } else {
             this.common.PostMethod("login", { mobile: this.Businessform1.value.mobile, password: this.Businessform1.value.password, token: localStorage.getItem("FCMToken") }).then((res: any) => {
@@ -416,7 +422,7 @@ export class BusniessregisterPage implements OnInit {
                 this.common.PageGoto("Root", "");
               } else {
                 this.common.dismissLoader();
-                this.common.presentToast(res.status.Status.Message, 4000);
+                this.common.presentToast(res.status.Message, 4000);
               }
 
             });
@@ -439,14 +445,6 @@ export class BusniessregisterPage implements OnInit {
           text: 'Confirm',
           handler: () => {
             this.lists.nameapprove = true;
-          }
-        },
-        {
-          text: 'Change',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            this.lists.nameapprove = false;
           }
         }
       ]
@@ -659,30 +657,36 @@ export class BusniessregisterPage implements OnInit {
     this.navCtrl.back();
   }
 
-  FacilityChecked(FacilityId) {
-    
-    var FacilityIdVar:any = JSON.stringify(FacilityId);
+  FacilityChecked(FacilityId, e) {
+    if(e.currentTarget.checked){}
+    var FacilityIdVar: any = parseInt(FacilityId);
     if (this.PreferedSelectedFacilites.includes(FacilityIdVar) || this.PreferedSelectedFacilites.includes(FacilityId)) {
       const index = this.PreferedSelectedFacilites.indexOf(FacilityIdVar);
       if (index > -1) {
         this.PreferedSelectedFacilites.splice(index, 1);
       }
     } else {
-      this.PreferedSelectedFacilites.push(FacilityIdVar);
+      if(e.currentTarget.checked){
+        this.PreferedSelectedFacilites.push(FacilityIdVar);
+      }
+      
     }
 
     console.log(this.PreferedSelectedFacilites, 'FacilityIds selected');
   }
 
-  BrandChecked(BrandId) {
-    var BrandIdVar:any = JSON.stringify(BrandId);
+  BrandChecked(BrandId, e) {
+    if(e.currentTarget.checked){}
+    var BrandIdVar: any = parseInt(BrandId);
     if (this.PreferedBrands.includes(BrandIdVar) || this.PreferedBrands.includes(BrandId)) {
       const index = this.PreferedBrands.indexOf(BrandIdVar);
       if (index > -1) {
         this.PreferedBrands.splice(index, 1);
       }
     } else {
+      if(e.currentTarget.checked){
       this.PreferedBrands.push(BrandIdVar);
+      }
     }
 
     console.log(this.PreferedBrands, 'PreferedBrands selected');
@@ -702,4 +706,16 @@ export class BusniessregisterPage implements OnInit {
       this.common.BasicAlert("Alert !", "", "Please do not Select Future Date.");
     }
   }
+
+  numberOnlyValidation(event: any) {
+    const pattern = /[0-9.,]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar) || event.target.value.length >5) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+
+
 }

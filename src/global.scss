@@ -37,6 +37,12 @@ body {
     color: #464646;
 }
 
+.alert-radio-label, .alert-checkbox-label{
+    font-size: 12px !important;
+    text-overflow: unset !important;
+    white-space: inherit !important;
+}
+
 .register_steps .mat-step-label {
     font-size: 12px !important;
 }

@@ -28,7 +28,7 @@
         </ion-avatar>
         <ion-label>
             <h2 class="ion-text-uppercase font-w-600">{{item.customer_name}}</h2>
-            <h3>{{item.prefeerddate|date:'HH:MM:ss a'}}</h3>
+            <h3>{{common.SplitTime(item.prefeerddate)}}</h3>
             <span class="small-font">{{item.coupon_applied}}</span>
             <span class="small-font" *ngIf="item.serviceinfo">{{item.serviceinfo|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</span>
         </ion-label>

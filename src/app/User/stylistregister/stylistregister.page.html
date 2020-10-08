@@ -92,7 +92,7 @@
                             <ion-label position="fixed">
                                 *{{'Zip Code'|language}}
                             </ion-label>
-                            <ion-input maxlength="6" type="tel" formControlName="pincode" placeholder="Code">
+                            <ion-input (keypress)="numberOnlyValidation($event)" type="text"  formControlName="pincode" placeholder="Code">
                             </ion-input>
                         </ion-item>
                     </ion-col>
@@ -149,7 +149,7 @@
                             <ion-label position="fixed">
                                 {{'Zip Code'|language}}
                             </ion-label>
-                            <ion-input type="number" formControlName="pincode1" placeholder="Code">
+                            <ion-input (keypress)="numberOnlyValidation($event)" type="text"  formControlName="pincode1" placeholder="Code">
                             </ion-input>
                         </ion-item>
                     </ion-col>

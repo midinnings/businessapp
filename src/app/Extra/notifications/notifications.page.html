@@ -32,7 +32,8 @@
       <h3>{{n.ndatetime|date:'dd-MM-yyyy HH:MM:ss a'}}</h3>
     </ion-label>
     <ion-note class="p-padding">
-      <p><a (click)="UpdateNotify(n)">More...</a></p>
+      <ion-button class="small_more_btn" (click)="UpdateNotify(n)" shape="round" color="primary">more</ion-button>
+      <!-- <p><a (click)="UpdateNotify(n)">More...</a></p> -->
     </ion-note>
   </ion-item>
 </ion-content>
