@@ -53,12 +53,27 @@ var DailyledgerPage = /** @class */ (function () {
         this.common = common;
         this.modal = modal;
         this.lists = {};
+        this.filterbystaff = '';
+        this.StaffList = [];
     }
     DailyledgerPage.prototype.ngOnInit = function () {
         this.Type = "Daily";
         this.lists.Sales = [];
         this.lists.Expenses = [];
         this.GetDailyLedger();
+        this.GetStylist();
+    };
+    DailyledgerPage.prototype.FilterByStaff = function (emp_id) {
+        var _this = this;
+        this.common.PostMethod("DailyLedger", { b_id: new user_pipe_1.UserPipe().transform('b_id'), bystaff: true, employee_id: emp_id }).then(function (res) {
+            _this.lists = res.Data;
+        });
+    };
+    DailyledgerPage.prototype.GetStylist = function () {
+        var _this = this;
+        this.common.PostMethod("GetFilterData", { file: "userlogin", name: "b_id", value: new user_pipe_1.UserPipe().transform('b_id') }).then(function (res) {
+            _this.StaffList = res.Data;
+        });
     };
     DailyledgerPage.prototype.GetDailyLedger = function () {
         var _this = this;

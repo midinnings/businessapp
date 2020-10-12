@@ -113,6 +113,9 @@ var AppointmentsPage = /** @class */ (function () {
                 _this.book.controls['service'].setValue(JSON.parse(res.service));
                 _this.book.controls['stylist'].setValue(res.employee);
             }, 2000);
+            if (JSON.parse(res.service).length != 0) {
+                _this.lists.ShowOffers = false;
+            }
             _this.lists.bookid = res.id;
             var startDate = moment(res.prefeerddate);
             var end = moment(res.prefeerddate).add(1, 'hours');

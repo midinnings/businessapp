@@ -44,8 +44,22 @@
         </ion-item>
         <ion-item lines="none" class="input-border">
             <p class="small-font">
-                <span>{{'Facilities'|language}}</span>
+                <span>{{'Skills'|language}}</span>
                 <span class="end">{{lists.skills}}</span>
+            </p>
+        </ion-item>
+        <ion-item lines="none" class="input-border">
+            <p class="small-font">
+                <span>{{'Incentive'|language}}</span>
+                <span class="end" *ngIf="lists.incentive">{{'Yes'|language}}</span>
+                <span class="end" *ngIf="!lists.incentive">{{'No'|language}}</span>
+            </p>
+        </ion-item>
+        <ion-item lines="none" class="input-border">
+            <p class="small-font">
+                <span>{{'Accommodation'|language}}</span>
+                <span class="end" *ngIf="lists.accommodation">{{'Yes'|language}}</span>
+                <span class="end" *ngIf="!lists.accommodation">{{'No'|language}}</span>
             </p>
         </ion-item>
         <ion-item lines="none" class="input-border">

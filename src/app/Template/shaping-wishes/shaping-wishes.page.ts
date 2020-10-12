@@ -159,6 +159,7 @@ export class ShapingWishesPage implements OnInit {
               this.common.PostMethod("CreateOffer", this.templatedata).then((res: any) => {
                 this.common.dismissLoader();
                 if (res.Status == 1) {
+                  this.common.PageGoto('Root', 'app/tabs/dashboard');
                   this.common.presentToast('Festival Wish Created Successfully', 4000);
                 } else {
                   this.common.presentToast(res.Message, 4000);

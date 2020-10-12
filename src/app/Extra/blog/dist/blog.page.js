@@ -26,8 +26,12 @@ var BlogPage = /** @class */ (function () {
     };
     BlogPage.prototype.GetEventsList = function () {
         var _this = this;
+        this.common.presentLoader();
         this.common.PostMethod("GetBloglist", { language: new user_pipe_1.UserPipe().transform('language'), usertype: localStorage.getItem("UserType") }).then(function (res) {
             _this.lists.bloglist = res.Data;
+            _this.common.dismissLoader();
+        }, function (err) {
+            _this.common.dismissLoader();
         });
     };
     BlogPage.prototype.GOtoDetails = function (ev) {

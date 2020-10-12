@@ -415,8 +415,7 @@
             <ion-row *ngIf="ShowTerms">
                 <ion-item lines="none">
                     <ion-label style="white-space: normal;" class="terms">
-                        {{'I have read and agree with all Terms and Conditions'|language}}.<a
-                            (click)="Readterms()">Click here</a>
+                        {{'I have read and agree with all Terms and Conditions'|language}}.<a (click)="Readterms()">Click here</a>
                     </ion-label>
                     <ion-toggle slot="start" [(ngModel)]="lists.terms" name="day" color="primary"></ion-toggle>
                 </ion-item>

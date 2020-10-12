@@ -41,7 +41,7 @@
                     </ion-select>
                 </ion-item>
             </ion-col>
-            <ion-col size="12" >
+            <ion-col size="12">
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Discount Type'|language}}</ion-label>
                     <ion-select (ionChange)="TypeSelected($event.target.value)" formControlName="discountMainTypes">
@@ -66,7 +66,7 @@
             <ion-col size="12" *ngIf="SelectSecondService">
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Select Free Service'|language}}</ion-label>
-                    <ion-select formControlName="second_service" >
+                    <ion-select formControlName="second_service">
                         <ion-select-option *ngFor="let BusinessServices of lists.Servicelist" [value]="BusinessServices.serviceid">{{BusinessServices.service}} - {{BusinessServices.serviceprice}}</ion-select-option>
                     </ion-select>
                 </ion-item>
@@ -80,6 +80,7 @@
                     </ion-select>
                 </ion-item>
             </ion-col>
+
             <!-- <ion-col size="12">
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Description'|language}}</ion-label>
@@ -98,16 +99,14 @@
             <ion-col size="12">
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Start Date'|language}}</ion-label>
-                    <ion-input readonly formControlName="startdate" [liIonic4Datepicker]="datePickerObj"
-                        placeholder="Enter Date">
+                    <ion-input readonly formControlName="startdate" [liIonic4Datepicker]="datePickerObj" placeholder="Enter Date">
                     </ion-input>
                 </ion-item>
             </ion-col>
             <ion-col size="12">
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'End Date'|language}}</ion-label>
-                    <ion-input formControlName="enddate" readonly [liIonic4Datepicker]="datePickerObj"
-                        placeholder="Enter Date">
+                    <ion-input formControlName="enddate" readonly [liIonic4Datepicker]="datePickerObj" placeholder="Enter Date">
                     </ion-input>
                 </ion-item>
             </ion-col>
@@ -155,7 +154,7 @@
 
 
 
-              
+
             <ion-col size="12" *ngIf="CreationType == 'Offers' ">
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Discount By'|language}}</ion-label>
@@ -167,9 +166,9 @@
             </ion-col>
             <ion-col size="12" lines="none">
                 <ion-item class="input-border">
-                    <ion-label position="fixed" *ngIf="CreationType == 'Offers'" >{{'Discount Value'|language}}</ion-label>
-                    <ion-label position="fixed" *ngIf="CreationType == 'Deals'"  >{{'Deal Amount'|language}}</ion-label>
-                    <ion-input type="number" formControlName="discount" ></ion-input>
+                    <ion-label position="fixed" *ngIf="CreationType == 'Offers'">{{'Discount Value'|language}}</ion-label>
+                    <ion-label position="fixed" *ngIf="CreationType == 'Deals'">{{'Deal Amount'|language}}</ion-label>
+                    <ion-input type="number" formControlName="discount"></ion-input>
                 </ion-item>
             </ion-col>
             <!-- <ion-col size="12">
@@ -183,7 +182,7 @@
             <ion-col size="6" class="mb-2">
                 <ion-button (click)="Back()" shape="round">{{'Cancel'|language}}</ion-button>
             </ion-col>
-            <ion-col size="6" class="ion-text-right  mb-2" >
+            <ion-col size="6" class="ion-text-right  mb-2">
                 <ion-button (click)="Next()" shape="round">{{'Next'|language}}</ion-button>
             </ion-col>
         </ion-row>

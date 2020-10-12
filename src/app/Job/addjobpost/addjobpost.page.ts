@@ -28,6 +28,8 @@ export class AddjobpostPage implements OnInit {
       skills: new FormControl(),
       lastdate: new FormControl(jobend, Validators.required),
       postdate: new FormControl(),
+      incentive: new FormControl(),
+      accommodation: new FormControl(),
     });
   }
   submit() {
@@ -45,6 +47,7 @@ export class AddjobpostPage implements OnInit {
     Data.postdate = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
     Data.lastdate = moment(Data.lastdate).format("YYYY-MM-DD HH:mm:ss");
     Data.company_name = new UserPipe().transform('companyname');
+    debugger
     this.common.PageGoto('Forward', 'reviewjob', Data);
   }
   GetMasterListData() {

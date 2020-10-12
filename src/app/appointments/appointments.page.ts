@@ -63,6 +63,9 @@ export class AppointmentsPage implements OnInit {
         this.book.controls['stylist'].setValue(res.employee);
 
       }, 2000);
+      if(JSON.parse(res.service).length!=0){
+        this.lists.ShowOffers = false;
+      }
       this.lists.bookid = res.id;
       let startDate: any = moment(res.prefeerddate);
       let end: any = moment(res.prefeerddate).add(1, 'hours');

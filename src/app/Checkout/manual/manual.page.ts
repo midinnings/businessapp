@@ -232,6 +232,7 @@ export class ManualPage implements OnInit {
       if (rdata.data.Status) {
         if (!rdata.data.finish) {
           let filename = rdata.data.filename + ".pdf";
+          debugger
           this.file.writeFile(this.file.externalRootDirectory + "MSZApp/", filename, rdata.data.Data, { replace: true }).then((result: any) => {
             this.social.share("Your Salon Receipt via-My Salon Zone", "Receipt", [this.file.externalRootDirectory + "MSZApp/" + filename], "");
           });

@@ -40,10 +40,10 @@
 
 
         <ion-fab-list (click)="AddCoupon('Deals')" side="top" color="primary">
-            <ion-fab-button><span class="side_btns">Deals</span></ion-fab-button>
+            <ion-fab-button class="sub_btns"><span class="side_btns">{{'Create Deals'|language}}</span></ion-fab-button>
         </ion-fab-list>
         <ion-fab-list (click)="AddCoupon('Offers')" side="start" color="primary">
-            <ion-fab-button><span class="side_btns">Offers</span></ion-fab-button>
+            <ion-fab-button class="sub_btns"><span class="side_btns">{{'Create Offers'|language}}</span></ion-fab-button>
         </ion-fab-list>
 
 
@@ -64,10 +64,8 @@
     </ion-fab> -->
 
     <ion-row>
-        <ion-col (click)="OpenCoupon(o)" id="myCanvas_{{i}}" class="Section_CSS" size="12"
-            *ngFor="let o of lists.Myoffers;let i=index;"
-            [style.background]="('url('+common.Url+'Files/'+o.backgroundImage+')')|santize:'css'">
-            <i class="fa fa-window-maximize view_icon" aria-hidden="true"></i>
+        <ion-col (click)="OpenCoupon(o)" id="myCanvas_{{i}}" class="Section_CSS" size="12" *ngFor="let o of lists.Myoffers;let i=index;" [style.background]="('url('+common.Url+'Files/'+o.backgroundImage+')')|santize:'css'">
+            <!-- <i class="fa fa-window-maximize view_icon" aria-hidden="true"></i> -->
             <ion-img [src]="common.Url+'Files/'+o.imageurl"></ion-img>
         </ion-col>
     </ion-row>

@@ -20,8 +20,7 @@
         <h3 text-center>{{'Birthdays'|language}}</h3>
         <ion-row>
             <ion-col *ngFor="let b of lists.Brithdays" size="4" class="ion-text-center">
-                <img [src]="b.logo?common.Url+'Files/'+b.logo:'./assets/img/app/user-1.jpg'" class='round-img'
-                    style="width: 80%;" />
+                <img [src]="b.logo?common.Url+'Files/'+b.logo:'./assets/img/app/user-1.jpg'" class='round-img' style="width: 80%;" />
                 <P class="hsubheader">{{b.name}}
                     <br> {{b.dob|date:'dd.MM.yyyy'}}</P>
                 <ion-button shape="round" size="small" (click)="OpenSharingPopup(1)">{{'Surprise'|language}}
@@ -174,9 +173,8 @@
 
     <ion-row>
         <p style="text-align: center;width: 100%;" *ngIf="lists.Myoffers.length==0">Saved items not found..</p>
-        <ion-col (click)="OpenCoupon(o)" id="myCanvas_{{i}}" class="Section_CSS" size="12" *ngFor="let o of lists.Myoffers;let i=index;"
-            [style.background]="('url('+common.Url+'Files/'+o.backgroundImage+')')|santize:'css'">
-            <i  class="fa fa-download download_icon" aria-hidden="true"></i>
+        <ion-col (click)="OpenCoupon(o)" id="myCanvas_{{i}}" class="Section_CSS" size="12" *ngFor="let o of lists.Myoffers;let i=index;" [style.background]="('url('+common.Url+'Files/'+o.backgroundImage+')')|santize:'css'">
+            <i class="fa fa-download download_icon" aria-hidden="true"></i>
             <ion-img [src]="common.Url+'Files/'+o.imageurl"></ion-img>
         </ion-col>
     </ion-row>
@@ -186,25 +184,31 @@
 <ion-content padding *ngIf="TakeDes">
     <ion-row>
         <ion-col size="12">
-            <ion-input type="text" placeholder="Enter Wish Title" [(ngModel)]="wish_title"> </ion-input>
+            <!-- <ion-input type="text" placeholder="Enter Wish Title" [(ngModel)]="wish_title"> </ion-input> -->
+            <ion-select class="customSelectClass" [(ngModel)]="wish_title" placeholder="Please select title">
+                <ion-select-option *ngFor="let occasionL of OccasionList" [value]="occasionL.name">{{occasionL.name}}
+                </ion-select-option>
+            </ion-select>
         </ion-col>
         <ion-col size="12">
-            <ion-input type="text" placeholder="Enter Wish Description" [(ngModel)]="wish_description"> </ion-input>
+            <!-- <ion-input type="text" placeholder="Enter Wish Description" [(ngModel)]="wish_description"> </ion-input> -->
+            <ion-select class="customSelectClass" [(ngModel)]="wish_description" placeholder="Please select description">
+                <ion-select-option *ngFor="let occasionL of OccasionDescriptions" [value]="occasionL.name">
+                    {{occasionL.name}}</ion-select-option>
+            </ion-select>
         </ion-col>
 
         <ion-col size="12">
             <ion-item lines="none" class="input-border">
                 <ion-label position="fixed">{{'Start Date'|language}}</ion-label>
-                <ion-input [(ngModel)]="start_date" readonly [liIonic4Datepicker]="datePickerObj"
-                    placeholder="Enter Date">
+                <ion-input [(ngModel)]="start_date" readonly [liIonic4Datepicker]="datePickerObj" placeholder="Enter Date">
                 </ion-input>
             </ion-item>
         </ion-col>
         <ion-col size="12">
             <ion-item lines="none" class="input-border">
                 <ion-label position="fixed">{{'End Date'|language}}</ion-label>
-                <ion-input [(ngModel)]="end_date" readonly [liIonic4Datepicker]="datePickerObj"
-                    placeholder="Enter Date">
+                <ion-input [(ngModel)]="end_date" readonly [liIonic4Datepicker]="datePickerObj" placeholder="Enter Date">
                 </ion-input>
             </ion-item>
         </ion-col>

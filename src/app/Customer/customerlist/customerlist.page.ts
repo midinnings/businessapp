@@ -21,8 +21,12 @@ export class CustomerlistPage implements OnInit {
   }
 
   GetCustomerList() {
+    this.common.presentLoader();
     this.common.PostMethod("GetCustomerList", { b_id: new UserPipe().transform('b_id') }).then((res: any) => {
       this.lists.Customerlist = res.Data;
+      this.common.dismissLoader();
+    },err=>{
+      this.common.dismissLoader();
     });
   }
 

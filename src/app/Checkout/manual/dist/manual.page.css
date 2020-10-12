@@ -1,0 +1,21 @@
+ion-title {
+  color: #fff;
+}
+
+.inputlabel {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #5d5d5d !important;
+}
+
+.small-font {
+  color: #6f6f6f;
+  font-size: 12px !important;
+}
+
+.small_bt {
+  font-size: 12px;
+  height: 30px;
+  width: 83px;
+}

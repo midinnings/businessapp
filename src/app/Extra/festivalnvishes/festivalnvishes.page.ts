@@ -14,8 +14,8 @@ export class FestivalnvishesPage implements OnInit {
   lists: any = {};
   wish_title: any = '';
   wish_description: any = '';
-  start_date:any = '';
-  end_date:any = '';
+  start_date: any = '';
+  end_date: any = '';
   TakeDes: boolean = false;
 
   datePickerObj: any = {
@@ -55,6 +55,8 @@ export class FestivalnvishesPage implements OnInit {
       fontColor: '#ee88bf' // Default null
     } // Default {}
   };
+  OccasionList = [];
+  OccasionDescriptions = [];
 
 
   constructor(public common: CommonService, public modal: ModalController) { }
@@ -95,9 +97,10 @@ export class FestivalnvishesPage implements OnInit {
     });
   }
 
-  SelectTemplate(TemplateFor){
+  SelectTemplate(TemplateFor) {
     this.lists.SelectedOccasion = TemplateFor;
     this.TakeDes = true;
+    this.OccasionChange(TemplateFor);
   }
 
   async OpenSharingPopup(ev) {
@@ -120,7 +123,7 @@ export class FestivalnvishesPage implements OnInit {
   }
 
   SaveDes() {
-    let offerform:any = {};
+    let offerform: any = {};
     offerform.b_id = new UserPipe().transform('b_id');
     offerform.userid = localStorage.getItem("UserId");
     offerform.title = this.wish_title;
@@ -148,6 +151,22 @@ export class FestivalnvishesPage implements OnInit {
     });
     await custmodal.present();
   }
+
+  OccasionChange(Cat) {
+    this.common.PostMethod("GetOccasionData", { type: "title", category: Cat }).then((res: any) => {
+      if (res.Status == 1) {
+        this.OccasionList = res.Data;
+      }
+    });
+
+    this.common.PostMethod("GetOccasionData", { type: "description", category: Cat }).then((res: any) => {
+      if (res.Status == 1) {
+        this.OccasionDescriptions = res.Data;
+      }
+    });
+  }
+
+
 
 
 }

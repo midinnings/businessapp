@@ -23,8 +23,7 @@
                 <ion-col size="12">
                     <ion-item linse="none" class="input-border">
                         <ion-label position="stacked" class="ion-text-uppercase">{{'JOB Title'|language}}</ion-label>
-                        <ion-input type="text"
-                            placeholder="Ex. Male Hair Artist,Female Hair Artist etc."
+                        <ion-input type="text" placeholder="Ex. Male Hair Artist,Female Hair Artist etc."
                             formControlName="title"></ion-input>
                     </ion-item>
                 </ion-col>
@@ -76,10 +75,24 @@
                 </ion-col>
                 <ion-col size="12">
                     <ion-item lines="none" class="input-border">
-                        <ion-label position="stacked" class="ion-text-uppercase">{{'Facilities'|language}}</ion-label>
-                        <ion-input formControlName="skills" placeholder="Ex. Incentive,Accomodation etc"
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'Skills'|language}}</ion-label>
+                        <ion-input formControlName="skills" placeholder="Mention your skills"
                             class="color-input round-img-5 mt-1 mb-1 pl-1 pr-1">
                         </ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item lines="none" class="input-border">
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'Do you provide incentive?'|language}}
+                        </ion-label>
+                        <ion-checkbox formControlName="incentive"> </ion-checkbox>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item lines="none" class="input-border">
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'Do you provide accommodation?'|language}}
+                        </ion-label>
+                        <ion-checkbox formControlName="accommodation"> </ion-checkbox>
                     </ion-item>
                 </ion-col>
                 <ion-col size="12" class="jobexpire">
@@ -92,7 +105,8 @@
                 </ion-col>
                 <ion-col size="12" class="input-border">
                     <ion-item lines="none">
-                        <ion-label position="stacked" class="ion-text-uppercase">{{'REQUIRED EXPERIENCE'|language}}</ion-label>
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'REQUIRED EXPERIENCE'|language}}
+                        </ion-label>
                         <ion-select text-right [(ngModel)]="lists.Experience" placeholder="Select"
                             [ngModelOptions]="{standalone: true}">
                             <ion-select-option *ngFor="let s of lists.exp" [value]="s">{{s}}
@@ -112,14 +126,16 @@
                 </ion-col>
                 <ion-col size="12">
                     <ion-item lines="none" class="input-border">
-                        <ion-label position="stacked" class="ion-text-uppercase">{{'JOB SUMMARY'|language}}</ion-label>
+                        <ion-label position="stacked" class="ion-text-uppercase">{{'JOB SUMMARY'|language}}
+                        </ion-label>
                         <ion-textarea formControlName="description" place="Explain Job" rows="3"
                             class="color-input round-img-5 mt-1 mb-1 pl-1 pr-1">
                         </ion-textarea>
                     </ion-item>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                    <ion-button [disabled]="!jobform.valid" (click)="submit()" shape="round" class="mc">{{'NEXT'|language}}
+                    <ion-button [disabled]="!jobform.valid" (click)="submit()" shape="round" class="mc">
+                        {{'NEXT'|language}}
                     </ion-button>
                 </ion-col>
             </ion-row>

@@ -15,13 +15,27 @@ export class DailyledgerPage implements OnInit {
   constructor(public common: CommonService, public modal: ModalController) { }
   lists: any = {}
   Type: any;
+  filterbystaff:any ='';
+  StaffList:any=[];
   ngOnInit() {
     this.Type = "Daily";
     this.lists.Sales = [];
     this.lists.Expenses = [];
     this.GetDailyLedger();
+    this.GetStylist();
   }
 
+  FilterByStaff(emp_id){
+    this.common.PostMethod("DailyLedger", { b_id: new UserPipe().transform('b_id'), bystaff:true, employee_id:emp_id }).then((res: any) => {
+      this.lists = res.Data;
+    });
+  }
+
+  GetStylist() {
+    this.common.PostMethod("GetFilterData", { file: "userlogin", name: "b_id", value: new UserPipe().transform('b_id') }).then((res: any) => {
+      this.StaffList = res.Data;
+    });
+  }
 
   GetDailyLedger() {
     if (this.Type == "Custom") {

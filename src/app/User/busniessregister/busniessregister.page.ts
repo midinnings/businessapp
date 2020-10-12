@@ -1,5 +1,5 @@
 import { UserPipe } from './../../Pipes/pipe/user.pipe';
-import { NavController } from '@ionic/angular';
+import { Events, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CommonService } from './../../Service/common.service';
@@ -77,7 +77,7 @@ export class BusniessregisterPage implements OnInit {
   Edit_BOS: boolean = false;
   BOS: any = {};
   ShowTerms: boolean = true;
-  constructor(public zone: NgZone, private geolocation: Geolocation, public navCtrl: NavController, private camera: Camera, private file: File, public common: CommonService, public fb: FormBuilder, public router: ActivatedRoute) {
+  constructor(public events:Events,public zone: NgZone, private geolocation: Geolocation, public navCtrl: NavController, private camera: Camera, private file: File, public common: CommonService, public fb: FormBuilder, public router: ActivatedRoute) {
     this.Initalization();
     this.GetStatelist();
     this.GetServiceCategory();
@@ -418,6 +418,7 @@ export class BusniessregisterPage implements OnInit {
                 localStorage.setItem("UserProfile", JSON.stringify(res.Data));
                 localStorage.setItem("UserType", res.Data.usertype);
                 localStorage.setItem("language", res.Data.language);
+                this.events.publish('ReloadDashboard');
                 this.common.dismissLoader();
                 this.common.PageGoto("Root", "");
               } else {

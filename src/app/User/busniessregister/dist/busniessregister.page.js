@@ -49,7 +49,8 @@ var core_1 = require("@angular/core");
 var stepper_1 = require("@angular/cdk/stepper");
 var moment = require("moment");
 var BusniessregisterPage = /** @class */ (function () {
-    function BusniessregisterPage(zone, geolocation, navCtrl, camera, file, common, fb, router) {
+    function BusniessregisterPage(events, zone, geolocation, navCtrl, camera, file, common, fb, router) {
+        this.events = events;
         this.zone = zone;
         this.geolocation = geolocation;
         this.navCtrl = navCtrl;
@@ -457,6 +458,7 @@ var BusniessregisterPage = /** @class */ (function () {
                                 localStorage.setItem("UserProfile", JSON.stringify(res.Data));
                                 localStorage.setItem("UserType", res.Data.usertype);
                                 localStorage.setItem("language", res.Data.language);
+                                _this.events.publish('ReloadDashboard');
                                 _this.common.dismissLoader();
                                 _this.common.PageGoto("Root", "");
                             }

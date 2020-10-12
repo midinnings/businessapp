@@ -6,11 +6,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.NewsPage = void 0;
-var core_1 = require("@angular/core");
+exports.EventPage = void 0;
 var user_pipe_1 = require("src/app/Pipes/pipe/user.pipe");
-var NewsPage = /** @class */ (function () {
-    function NewsPage(common) {
+var core_1 = require("@angular/core");
+var EventPage = /** @class */ (function () {
+    function EventPage(common) {
         this.common = common;
         this.lists = {};
         this.slideOpts = {
@@ -19,29 +19,33 @@ var NewsPage = /** @class */ (function () {
             autoplay: true
         };
     }
-    NewsPage.prototype.ngOnInit = function () {
-        this.GetNewslist();
+    EventPage.prototype.ngOnInit = function () {
     };
-    NewsPage.prototype.GetNewslist = function () {
+    EventPage.prototype.ionViewWillEnter = function () {
+        this.GetEventsList();
+    };
+    EventPage.prototype.GetEventsList = function () {
         var _this = this;
         this.common.presentLoader();
-        this.common.PostMethod("GetNews", { language: new user_pipe_1.UserPipe().transform('language'), usertype: localStorage.getItem("UserType") }).then(function (res) {
-            _this.lists.newslist = res.Data;
+        this.common.PostMethod("GetEvents", {
+            b_id: new user_pipe_1.UserPipe().transform('b_id'), userid: localStorage.getItem("UserId"), language: new user_pipe_1.UserPipe().transform('language'), usertype: localStorage.getItem("UserType")
+        }).then(function (res) {
+            _this.lists.eventlist = res.Data;
             _this.common.dismissLoader();
         }, function (err) {
             _this.common.dismissLoader();
         });
     };
-    NewsPage.prototype.GOtoDetails = function (ev) {
-        this.common.PageGoto('Forward', 'newsdetails', { Data: ev, Type: Event });
+    EventPage.prototype.GOtoDetails = function (ev) {
+        this.common.PageGoto('Forward', 'endetails', { Data: ev, Type: Event });
     };
-    NewsPage = __decorate([
+    EventPage = __decorate([
         core_1.Component({
-            selector: 'app-news',
-            templateUrl: './news.page.html',
-            styleUrls: ['./news.page.scss']
+            selector: 'app-event',
+            templateUrl: './event.page.html',
+            styleUrls: ['./event.page.scss']
         })
-    ], NewsPage);
-    return NewsPage;
+    ], EventPage);
+    return EventPage;
 }());
-exports.NewsPage = NewsPage;
+exports.EventPage = EventPage;

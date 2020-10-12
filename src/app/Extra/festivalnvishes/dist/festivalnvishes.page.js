@@ -95,6 +95,8 @@ var FestivalnvishesPage = /** @class */ (function () {
                 fontColor: '#ee88bf' // Default null
             } // Default {}
         };
+        this.OccasionList = [];
+        this.OccasionDescriptions = [];
     }
     FestivalnvishesPage.prototype.ngOnInit = function () {
         this.lists.Brithdays = [];
@@ -132,6 +134,7 @@ var FestivalnvishesPage = /** @class */ (function () {
     FestivalnvishesPage.prototype.SelectTemplate = function (TemplateFor) {
         this.lists.SelectedOccasion = TemplateFor;
         this.TakeDes = true;
+        this.OccasionChange(TemplateFor);
     };
     FestivalnvishesPage.prototype.OpenSharingPopup = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
@@ -202,6 +205,19 @@ var FestivalnvishesPage = /** @class */ (function () {
                         return [2 /*return*/];
                 }
             });
+        });
+    };
+    FestivalnvishesPage.prototype.OccasionChange = function (Cat) {
+        var _this = this;
+        this.common.PostMethod("GetOccasionData", { type: "title", category: Cat }).then(function (res) {
+            if (res.Status == 1) {
+                _this.OccasionList = res.Data;
+            }
+        });
+        this.common.PostMethod("GetOccasionData", { type: "description", category: Cat }).then(function (res) {
+            if (res.Status == 1) {
+                _this.OccasionDescriptions = res.Data;
+            }
         });
     };
     FestivalnvishesPage = __decorate([

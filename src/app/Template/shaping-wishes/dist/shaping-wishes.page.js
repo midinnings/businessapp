@@ -182,6 +182,7 @@ var ShapingWishesPage = /** @class */ (function () {
                                             _this.common.PostMethod("CreateOffer", _this.templatedata).then(function (res) {
                                                 _this.common.dismissLoader();
                                                 if (res.Status == 1) {
+                                                    _this.common.PageGoto('Root', 'app/tabs/dashboard');
                                                     _this.common.presentToast('Festival Wish Created Successfully', 4000);
                                                 }
                                                 else {

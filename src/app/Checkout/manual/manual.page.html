@@ -25,8 +25,7 @@
             <ion-col size="12">
                 <ion-item ines="none" class="input-border">
                     <ion-label position="floating" class="ion-text-uppercase">{{'Customer Name'|language}}</ion-label>
-                    <ion-input formControlName="name" type="text" (keyup)="SearchCustomer($event.target.value)"
-                        placeholder="Name"></ion-input>
+                    <ion-input formControlName="name" type="text" (keyup)="SearchCustomer($event.target.value)" placeholder="Name"></ion-input>
                 </ion-item>
                 <div *ngIf="lists.Customerlist" style="position: inherit !important;" class="auto-list">
                     <p (click)="SelectedCustomer(u)" *ngFor="let u of lists.Customerlist" class="autocomplete">
@@ -53,27 +52,25 @@
                     </ion-checkbox>
                 </ion-item>
                 <ion-item (click)="AddmoreService()" lines="none" class="small-font gray-text item-height-30">
-                    <ion-icon name="add-circle-outline" class="primary-text" size="small"></ion-icon> <span
-                        class="gray-text"> {{'Add More'|language}}</span>
+                    <ion-icon name="add-circle-outline" class="primary-text" size="small"></ion-icon> <span class="gray-text"> {{'Add More'|language}}</span>
                 </ion-item>
 
-                <ion-col size="12" class="input-border pb-1 mb-1">
+                <ion-col size="12" class="input-border ">
                     <ion-row>
-                        <ion-col size="5" class=" pb-1 mb-1">
+                        <ion-col size="5" class="">
                             <ion-item class="" (click)='OpenCoupon()'>
                                 <ion-label position="fixed">{{'View Offers'|language}}</ion-label>
                             </ion-item>
                         </ion-col>
-                        <ion-col size="7" class=" pb-1 mb-1">
+                        <ion-col size="7" class="">
                             <div>
-                                <ion-row class=" pb-1">
+                                <ion-row class="">
                                     <ion-col size="7">
-                                        <ion-input [(ngModel)]="CustomCoupon" formControlName="couponCode" type="text"
-                                            placeholder="Paste Coupon Code">
+                                        <ion-input [(ngModel)]="CustomCoupon" formControlName="couponCode" type="text" placeholder="Paste Coupon Code">
                                         </ion-input>
                                     </ion-col>
                                     <ion-col size="5" class="font-w-600 small-font">
-                                        <ion-button (click)="ApplyCoupon()">{{'Apply'|language}}</ion-button>
+                                        <ion-button class="small_bt" color="primary" shape="round" (click)="ApplyCoupon()">{{'Apply'|language}}</ion-button>
                                     </ion-col>
                                 </ion-row>
                             </div>
@@ -83,24 +80,23 @@
 
 
                 <div>
-                    <ion-row class="input-border pb-1">
+                    <ion-row class="input-border pb-1" style="padding-left: 4vw;">
 
-                        <ion-col size="1"></ion-col>
+                        <!-- <ion-col size="1"></ion-col> -->
                         <ion-col size="8" class="font-w-600 small-font">{{'Total Amount'|language}}</ion-col>
-                        <ion-col size="3" class="font-w-600 small-font" style="color:green">
+                        <ion-col size="4" class="font-w-600 small-font" style="color:green">
                             ₹ {{lists.price}}
                         </ion-col>
 
-                        <ion-col size="1"></ion-col>
+                        <!-- <ion-col size="1"></ion-col> -->
                         <ion-col size="8" class="font-w-600 small-font">{{'Discount'|language}}</ion-col>
-                        <ion-col size="3" class="font-w-600 small-font" style="color:green">
+                        <ion-col size="4" class="font-w-600 small-font" style="color:green">
                             ₹ {{Final_DiscountAvail}} (-)
                         </ion-col>
 
-                        <ion-col size="1"></ion-col>
+                        <!-- <ion-col size="1"></ion-col> -->
                         <ion-col size="8" class="font-w-600 small-font">{{'Grand Total'|language}}</ion-col>
-                        <ion-col size="3" class="font-w-600 small-font" *ngIf="lists.serviceinfo"><i
-                                class="fa fa-inr"></i> {{Amount_PayableShow}}
+                        <ion-col size="4" class="font-w-600 small-font" *ngIf="lists.serviceinfo"><i class="fa fa-inr"></i> {{Amount_PayableShow}}
                         </ion-col>
 
                     </ion-row>
@@ -108,12 +104,11 @@
 
 
 
-
             </ion-col>
 
             <ion-col size="12">
                 <div *ngIf="lists.PackageApplied">
-                    <ion-row class="input-border pb-1">
+                    <ion-row class="input-border">
 
 
                         <ion-col size="1"> </ion-col>
@@ -177,9 +172,7 @@
                 <ion-button (click)="GotoBack()" shape="round">{{'Back'|language}}</ion-button>
             </ion-col>
             <ion-col size="6" class=" ion-text-right mb-2">
-                <ion-button (click)="SubmitCheckout()"
-                    [disabled]="!checkoutform.valid&&!lists.employeeinfo.name&&lists.serviceinfo.length==0&&!lists.PaymentMode"
-                    shape="round">
+                <ion-button (click)="SubmitCheckout()" [disabled]="!checkoutform.valid&&!lists.employeeinfo.name&&lists.serviceinfo.length==0&&!lists.PaymentMode" shape="round">
                     {{'Submit'|language}}
                 </ion-button>
             </ion-col>
@@ -197,8 +190,7 @@
     <ion-item style="display: none;">
         <ion-label position="fixed">{{'Available Stylish'|language}}</ion-label>
         <ion-select [(ngModel)]="lists.employee" (ionChange)="ChangeStylist($event)" #stylistselect>
-            <ion-select-option *ngFor="let u of lists.userlist"
-                [disabled]="(u.id!=('id'|user))&&((('usertype'|user)!=2&&('usertype'|user)!=6))" value="{{u.id}}">
+            <ion-select-option *ngFor="let u of lists.userlist" [disabled]="(u.id!=('id'|user))&&((('usertype'|user)!=2&&('usertype'|user)!=6))" value="{{u.id}}">
                 {{u.name}}
             </ion-select-option>
         </ion-select>

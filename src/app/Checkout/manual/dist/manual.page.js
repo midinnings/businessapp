@@ -274,6 +274,7 @@ var ManualPage = /** @class */ (function () {
                         if (rdata.data.Status) {
                             if (!rdata.data.finish) {
                                 filename_1 = rdata.data.filename + ".pdf";
+                                debugger;
                                 this.file.writeFile(this.file.externalRootDirectory + "MSZApp/", filename_1, rdata.data.Data, { replace: true }).then(function (result) {
                                     _this.social.share("Your Salon Receipt via-My Salon Zone", "Receipt", [_this.file.externalRootDirectory + "MSZApp/" + filename_1], "");
                                 });
