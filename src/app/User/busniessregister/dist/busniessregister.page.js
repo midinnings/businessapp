@@ -231,6 +231,7 @@ var BusniessregisterPage = /** @class */ (function () {
         if (ev.BusinessOtherServices) {
             this.BOS = ev.BusinessOtherServices;
             this.Other_Info = this.BOS;
+            debugger;
             if (this.BOS.facility_ids) {
                 this.PreferedSelectedFacilites = this.BOS.facility_ids.split(',').map(Number);
             }
@@ -254,11 +255,17 @@ var BusniessregisterPage = /** @class */ (function () {
             this.Edit_BOS = true;
             //----------------------
             setTimeout(function () {
+                console.log('binding facilties and brand ids');
                 env.Facilities_List.forEach(function (element, i) {
                     if (env.BOS.facility_ids) {
                         var FacilityArr = env.BOS.facility_ids.split(',');
+                        console.log(FacilityArr, 'FacilityArr');
                         if (FacilityArr.includes(element.id) || FacilityArr.includes(JSON.stringify(element.id))) {
+                            if (!_this.PreferedSelectedFacilites.includes(element.id)) {
+                                _this.PreferedSelectedFacilites.push(parseInt(element.id));
+                            }
                             env.Facilities_List[i].selection = true;
+                            console.log(env.Facilities_List[i].selection, 'true now facilit');
                         }
                     }
                 });
@@ -267,10 +274,13 @@ var BusniessregisterPage = /** @class */ (function () {
                         var BrandsArr = env.BOS.brand_ids.split(',');
                         if (BrandsArr.includes(element.id) || BrandsArr.includes(JSON.stringify(element.id))) {
                             env.GetBrandList[i].selection = true;
+                            if (!_this.PreferedBrands.includes(element.id)) {
+                                _this.PreferedBrands.push(parseInt(element.id));
+                            }
                         }
                     }
                 });
-            }, 2000);
+            }, 4000);
         }
         setTimeout(function () {
             _this.lists.Servicetime = Weeks;

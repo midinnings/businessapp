@@ -207,8 +207,9 @@ export class BusniessregisterPage implements OnInit {
     if (ev.BusinessOtherServices) {
       this.BOS = ev.BusinessOtherServices;
       this.Other_Info = this.BOS;
+      debugger
       if (this.BOS.facility_ids) { this.PreferedSelectedFacilites = this.BOS.facility_ids.split(',').map(Number); }
-      if (this.BOS.brand_ids) { this.PreferedBrands = this.BOS.brand_ids.split(',').map(Number); }
+      if (this.BOS.brand_ids ) { this.PreferedBrands = this.BOS.brand_ids.split(',').map(Number); }
       this.Banner_Link = this.BOS.salon_banner;
       this.lists.Banner = this.common.Url + 'Files/' + this.BOS.salon_banner;
       if (this.BOS.additional_images) {
@@ -223,11 +224,19 @@ export class BusniessregisterPage implements OnInit {
       
       //----------------------
       setTimeout(() => {
+        console.log('binding facilties and brand ids');
         env.Facilities_List.forEach((element, i) => {
           if (env.BOS.facility_ids) {
             let FacilityArr = env.BOS.facility_ids.split(',');
+            console.log(FacilityArr, 'FacilityArr');
             if (FacilityArr.includes(element.id) || FacilityArr.includes(JSON.stringify(element.id))) {
+              
+              if(!this.PreferedSelectedFacilites.includes(element.id)){
+                this.PreferedSelectedFacilites.push(parseInt(element.id));
+              }
+              
               env.Facilities_List[i].selection = true;
+              console.log(env.Facilities_List[i].selection, 'true now facilit');
             }
           }
         });
@@ -236,10 +245,15 @@ export class BusniessregisterPage implements OnInit {
             let BrandsArr = env.BOS.brand_ids.split(',');
             if (BrandsArr.includes(element.id) || BrandsArr.includes(JSON.stringify(element.id))) {
               env.GetBrandList[i].selection = true;
+
+              if(!this.PreferedBrands.includes(element.id)){
+                this.PreferedBrands.push(parseInt(element.id));
+              }
+
             }
           }
         });
-      }, 2000);
+      }, 4000);
     }
 
 
@@ -394,8 +408,12 @@ export class BusniessregisterPage implements OnInit {
       this.Businessform1.value.Services = this.lists.ub_service;
       this.Businessform1.value.Service_Type = this.lists.ub_type;
       //New Keys-------------------------------------------------------
-      this.Businessform1.value.brand_ids = this.PreferedBrands;
-      this.Businessform1.value.facility_ids = this.PreferedSelectedFacilites;
+    
+        this.Businessform1.value.brand_ids = this.PreferedBrands;
+        this.Businessform1.value.facility_ids = this.PreferedSelectedFacilites;
+     
+
+      
       this.Businessform1.value.fb_link = this.Other_Info.facebook;
       this.Businessform1.value.instagram_link = this.Other_Info.instagram;
       this.Businessform1.value.youtube_link = this.Other_Info.youtube;

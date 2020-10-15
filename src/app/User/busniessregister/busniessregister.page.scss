@@ -130,6 +130,10 @@ ion-back-button {
     border-radius: 50%;
 }
 
+.nextbtn:disabled {
+    background: #d29b9b !important;
+}
+
 .ZindexTOP {
     z-index: 99999 !important;
 }
