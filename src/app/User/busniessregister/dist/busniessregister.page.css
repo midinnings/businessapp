@@ -133,3 +133,11 @@ ion-back-button {
   width: 100%;
   height: 16.5vh;
 }
+
+.has_error {
+  font-size: 12px;
+  text-align: center;
+  float: right;
+  color: #c73130;
+  font-weight: bold;
+}

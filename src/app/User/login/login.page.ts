@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
     this.loginform.value.token = localStorage.getItem("FCMToken");
     this.common.PostMethod("login", this.loginform.value).then((res: any) => {
       if (res.Status == 1 && res.Data.usertype != 3) {
-        this.common.presentToast(res.Message, 4000);
+        //this.common.presentToast(res.Message, 4000);
         res.Data.usertype = parseInt(res.Data.usertype);
         localStorage.setItem("UserId", res.Data.id);
         localStorage.setItem("UserProfile", JSON.stringify(res.Data));

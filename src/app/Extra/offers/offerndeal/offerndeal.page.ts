@@ -20,7 +20,7 @@ export class OfferndealPage implements OnInit {
   offerform: FormGroup;
 
   lists: any = {};
-
+  OccasionDescriptions:any = [];
   //ShowService: boolean = false;
 
   datePickerObj: any = {
@@ -218,6 +218,12 @@ export class OfferndealPage implements OnInit {
     this.common.PostMethod("GetOccasionData", { type: "title", category:Cat }).then((res: any) => {
       if (res.Status == 1) {
         this.OccasionList = res.Data;
+      }
+    });
+
+    this.common.PostMethod("GetOccasionData", { type: "description", category: Cat }).then((res: any) => {
+      if (res.Status == 1) {
+        this.OccasionDescriptions = res.Data;
       }
     });
   }

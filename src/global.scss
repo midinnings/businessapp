@@ -32,12 +32,16 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
-
 body {
     color: #464646;
 }
 
-.alert-radio-label, .alert-checkbox-label{
+.xs-small-font {
+    font-size: 11px !important;
+}
+
+.alert-radio-label,
+.alert-checkbox-label {
     font-size: 12px !important;
     text-overflow: unset !important;
     white-space: inherit !important;
@@ -54,7 +58,6 @@ body {
     font-size: 11px;
     position: absolute;
     right: 0;
-
     ion-icon {
         padding-right: 5px !important;
         font-size: 14px !important;
@@ -72,21 +75,17 @@ body {
 
 .dashboard {
     padding: 0px !important;
-
     ion-col {
         padding: 0px !important;
     }
-
     ion-card {
         margin: 0px !important;
     }
-
     img {
         height: 100px !important;
         display: unset !important;
         width: auto !important;
     }
-
     // span {
     //   font-weight: 700 !important;
     // }
@@ -99,7 +98,6 @@ ion-item {
 // New CSS DEsign
 .inputicon {
     text-align: center !important;
-
     i {
         font-size: 25px !important;
         margin-top: 14px !important;
@@ -622,7 +620,6 @@ input:-webkit-autofill:active {
     }
 }
 
-
 .mb-5 {
     margin-bottom: 50px !important;
 }
@@ -646,8 +643,6 @@ input:-webkit-autofill:active {
 .mb-0 {
     margin-bottom: 0px !important;
 }
-
-
 
 .mt-5 {
     margin-top: 50px !important;
@@ -673,7 +668,6 @@ input:-webkit-autofill:active {
     margin-top: 0px !important;
 }
 
-
 .ml-5 {
     margin-left: 50px !important;
 }
@@ -698,7 +692,6 @@ input:-webkit-autofill:active {
     margin-left: 0px !important;
 }
 
-
 .mr-5 {
     margin-right: 50px !important;
 }
@@ -722,7 +715,6 @@ input:-webkit-autofill:active {
 .mr-0 {
     margin-right: 0px !important;
 }
-
 
 .m-0 {
     margin: 0 !important;
@@ -760,7 +752,6 @@ input:-webkit-autofill:active {
     padding-bottom: 0px !important;
 }
 
-
 .pt-6 {
     padding-top: 60px !important;
 }
@@ -788,8 +779,6 @@ input:-webkit-autofill:active {
 .pt-0 {
     padding-top: 0px !important;
 }
-
-
 
 .pl-6 {
     padding-left: 60px !important;
@@ -819,8 +808,6 @@ input:-webkit-autofill:active {
     padding-left: 0px !important;
 }
 
-
-
 .pr-6 {
     padding-right: 60px !important;
 }
@@ -848,7 +835,6 @@ input:-webkit-autofill:active {
 .pr-0 {
     padding-right: 0px !important;
 }
-
 
 .p-1 {
     padding: 10px !important;
@@ -912,7 +898,6 @@ ion-header>ion-toolbar>ion-row {
 .small-font {
     font-size: 14px !important;
 }
-
 
 ion-title {
     font-size: 19px !important;
@@ -1066,7 +1051,6 @@ ion-title {
     height: 40px !important;
 }
 
-
 .owl-dt-calendar-table .owl-dt-calendar-cell-selected {
     background-color: #c73130 !important;
 }
@@ -1080,8 +1064,6 @@ iframe {
     height: 250px !important;
 }
 
-
-
 //  Start Template Design
 .sparallelogram {
     margin-left: 26%;
@@ -1093,8 +1075,6 @@ iframe {
     background: #555;
     padding-bottom: 20px
 }
-
-
 
 .scircle {
     height: 200px;
@@ -1159,7 +1139,6 @@ iframe {
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
     letter-spacing: 0px;
     float: right;
-
 }
 
 .sribbon-horizontal span {
@@ -1177,11 +1156,9 @@ iframe {
     float: right;
 }
 
-
 .alert-checkbox-label {
     white-space: normal !important;
 }
-
 
 // IOs Css
 ion-radio {

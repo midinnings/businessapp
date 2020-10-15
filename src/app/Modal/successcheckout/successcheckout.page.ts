@@ -16,6 +16,7 @@ export class SuccesscheckoutPage implements OnInit {
   image: any;
   lists: any = {}
   ngOnInit() {
+    debugger
     this.lists = this.navParams.data;
     this.lists.UserProfile = JSON.parse(localStorage.getItem("UserProfile"));
 
@@ -36,6 +37,7 @@ export class SuccesscheckoutPage implements OnInit {
   }
 
   totalamount() {
+    debugger
     let total: any = 0;
     this.lists.serviceinfo.forEach(element => {
       total = parseInt(total) + parseInt(element.serviceprice);

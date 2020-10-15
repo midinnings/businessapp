@@ -156,6 +156,30 @@ var CommonService = /** @class */ (function () {
             });
         });
     };
+    CommonService.prototype.presentRuntime = function (message_custom) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.isLoading = true;
+                        return [4 /*yield*/, this.loadingController.create({
+                                duration: 60000,
+                                spinner: "circles",
+                                message: message_custom
+                            }).then(function (a) {
+                                a.present().then(function () {
+                                    console.log('presented');
+                                    if (!_this.isLoading) {
+                                        a.dismiss().then(function () { return console.log('abort presenting'); });
+                                    }
+                                });
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     CommonService.prototype.dismissLoader = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {

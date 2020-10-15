@@ -50,6 +50,7 @@ var stepper_1 = require("@angular/cdk/stepper");
 var moment = require("moment");
 var BusniessregisterPage = /** @class */ (function () {
     function BusniessregisterPage(events, zone, geolocation, navCtrl, camera, file, common, fb, router) {
+        var _this = this;
         this.events = events;
         this.zone = zone;
         this.geolocation = geolocation;
@@ -110,16 +111,35 @@ var BusniessregisterPage = /** @class */ (function () {
         this.Edit_BOS = false;
         this.BOS = {};
         this.ShowTerms = true;
+        this.showzipmsg = false;
         this.Initalization();
         this.GetStatelist();
-        this.GetServiceCategory();
-        this.GetSubServiceCategory();
+        var env = this;
+        env.GetSubServiceCategory();
+        setTimeout(function () {
+            env.GetServiceCategory();
+        }, 8000);
         this.lists.ServiceStep = [];
         this.BOS.facility_ids = [];
         this.BOS.brand_ids = [];
+        //Get Facilites List-------------
+        this.common.GetMethod("GetFacilitiesList").then(function (res) {
+            console.log(res);
+            _this.Facilities_List = res.Data;
+        })["catch"](function (y) {
+            console.log(y);
+        });
+        //Get Brands List----------------
+        this.common.GetMethod("GetBrandList").then(function (res) {
+            console.log(res);
+            _this.GetBrandList = res.Data;
+        })["catch"](function (y) {
+            console.log(y);
+        });
     }
     BusniessregisterPage.prototype.ngOnInit = function () {
         var _this = this;
+        var env = this;
         this.Businessform1 = this.fb.group({
             name: new forms_1.FormControl('', forms_1.Validators.required),
             mobile: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(10), forms_1.Validators.maxLength(10)])),
@@ -144,12 +164,14 @@ var BusniessregisterPage = /** @class */ (function () {
         this.router.queryParams.subscribe(function (res) {
             if (res.edit) {
                 _this.lists.edit = res.edit;
-                var Profile = JSON.parse(localStorage.getItem("UserProfile"));
+                var Profile_1 = JSON.parse(localStorage.getItem("UserProfile"));
                 if (res.language) {
                     localStorage.setItem("language", res.language);
                     _this.lists.language = res.language;
                 }
-                _this.SetEditValue(Profile);
+                setTimeout(function () {
+                    env.SetEditValue(Profile_1);
+                }, 1000);
             }
             else if (res.searchaddress) {
                 _this.Businessform1.controls['address1'].setValue(res.address);
@@ -169,26 +191,12 @@ var BusniessregisterPage = /** @class */ (function () {
         });
         if (localStorage.getItem('language'))
             this.lists.language = localStorage.getItem('language');
-        //Get Facilites List-------------
-        this.common.GetMethod("GetFacilitiesList").then(function (res) {
-            console.log(res);
-            _this.Facilities_List = res.Data;
-        })["catch"](function (y) {
-            console.log(y);
-        });
-        //Get Brands List----------------
-        this.common.GetMethod("GetBrandList").then(function (res) {
-            console.log(res);
-            _this.GetBrandList = res.Data;
-        })["catch"](function (y) {
-            console.log(y);
-        });
     };
     BusniessregisterPage.prototype.SetEditValue = function (ev) {
         var _this = this;
         this.lists.terms = true;
         this.ShowTerms = false;
-        this.common.presentLoader();
+        this.common.presentRuntime('Please wait, getting business profile..');
         var env = this;
         if (ev.logo) {
             this.lists.Image = ev.logo;
@@ -270,6 +278,9 @@ var BusniessregisterPage = /** @class */ (function () {
                 element.checked = true;
             });
         }, 1000);
+        setTimeout(function () {
+            env.common.dismissLoader();
+        }, 10000);
     };
     BusniessregisterPage.prototype.Initalization = function () {
         this.lists.Servicetime = [
@@ -478,22 +489,30 @@ var BusniessregisterPage = /** @class */ (function () {
     };
     BusniessregisterPage.prototype.checkbusinessname = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var alert;
+            var env, alert;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.common.alertController.create({
-                            header: 'Confirm!',
-                            message: "Are your sure! Your name <b>" + this.Businessform1.value.name + "</b>  is your business name ? If not then please update it.",
-                            buttons: [
-                                {
-                                    text: 'Confirm',
-                                    handler: function () {
-                                        _this.lists.nameapprove = true;
+                    case 0:
+                        env = this;
+                        return [4 /*yield*/, this.common.alertController.create({
+                                header: 'Confirm!',
+                                message: "Are your sure! Your name <b>" + this.Businessform1.value.name + "</b>  is your business name ? If not then please update it.",
+                                buttons: [
+                                    {
+                                        text: 'Confirm',
+                                        handler: function () {
+                                            _this.lists.nameapprove = true;
+                                            env.myStepper.next();
+                                        }
+                                    },
+                                    {
+                                        text: 'Cancel',
+                                        handler: function () {
+                                        }
                                     }
-                                }
-                            ]
-                        })];
+                                ]
+                            })];
                     case 1:
                         alert = _a.sent();
                         return [4 /*yield*/, alert.present()];
@@ -771,11 +790,21 @@ var BusniessregisterPage = /** @class */ (function () {
     BusniessregisterPage.prototype.numberOnlyValidation = function (event) {
         var pattern = /[0-9.,]/;
         var inputChar = String.fromCharCode(event.charCode);
+        if (event.target.value.length != 6) {
+            this.showzipmsg = true;
+        }
+        else {
+            this.showzipmsg = false;
+        }
         if (!pattern.test(inputChar) || event.target.value.length > 5) {
-            // invalid character, prevent input
             event.preventDefault();
         }
+        else {
+        }
     };
+    __decorate([
+        core_1.ViewChild('stepper', { static: false })
+    ], BusniessregisterPage.prototype, "myStepper");
     BusniessregisterPage = __decorate([
         core_1.Component({
             selector: 'app-busniessregister',

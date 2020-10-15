@@ -3,13 +3,14 @@ import { Events, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CommonService } from './../../Service/common.service';
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import * as moment from "moment";
 import { StriphtmlPipe } from 'src/app/Pipes/striphtml.pipe';
+import { MatStepper } from '@angular/material/stepper';
 declare var google;
 @Component({
   selector: 'app-busniessregister',
@@ -77,19 +78,43 @@ export class BusniessregisterPage implements OnInit {
   Edit_BOS: boolean = false;
   BOS: any = {};
   ShowTerms: boolean = true;
-  constructor(public events:Events,public zone: NgZone, private geolocation: Geolocation, public navCtrl: NavController, private camera: Camera, private file: File, public common: CommonService, public fb: FormBuilder, public router: ActivatedRoute) {
+  showzipmsg: boolean = false;
+  @ViewChild('stepper', {static:false}) private myStepper: MatStepper;
+  constructor(public events: Events, public zone: NgZone, private geolocation: Geolocation, public navCtrl: NavController, private camera: Camera, private file: File, public common: CommonService, public fb: FormBuilder, public router: ActivatedRoute) {
     this.Initalization();
     this.GetStatelist();
-    this.GetServiceCategory();
-    this.GetSubServiceCategory();
+    let env = this;
+    env.GetSubServiceCategory();
+    setTimeout(() => {
+      env.GetServiceCategory();
+
+    }, 8000);
+
     this.lists.ServiceStep = [];
 
     this.BOS.facility_ids = [];
     this.BOS.brand_ids = [];
 
+    //Get Facilites List-------------
+    this.common.GetMethod("GetFacilitiesList").then((res: any) => {
+      console.log(res);
+      this.Facilities_List = res.Data;
+    }).catch(y => {
+      console.log(y);
+    });
+
+    //Get Brands List----------------
+    this.common.GetMethod("GetBrandList").then((res: any) => {
+      console.log(res);
+      this.GetBrandList = res.Data;
+    }).catch(y => {
+      console.log(y);
+    });
+
   }
 
   ngOnInit() {
+    let env = this;
     this.Businessform1 = this.fb.group({
       name: new FormControl('', Validators.required),
       mobile: new FormControl('', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])),
@@ -116,7 +141,10 @@ export class BusniessregisterPage implements OnInit {
         this.lists.edit = res.edit;
         let Profile = JSON.parse(localStorage.getItem("UserProfile"));
         if (res.language) { localStorage.setItem("language", res.language); this.lists.language = res.language; }
-        this.SetEditValue(Profile);
+        setTimeout(() => {
+          env.SetEditValue(Profile);
+        }, 1000);
+
       } else if (res.searchaddress) {
         this.Businessform1.controls['address1'].setValue(res.address);
         this.Businessform1.controls['pincode1'].setValue(res.pincode);
@@ -134,21 +162,7 @@ export class BusniessregisterPage implements OnInit {
     });
     if (localStorage.getItem('language')) this.lists.language = localStorage.getItem('language');
 
-    //Get Facilites List-------------
-    this.common.GetMethod("GetFacilitiesList").then((res: any) => {
-      console.log(res);
-      this.Facilities_List = res.Data;
-    }).catch(y => {
-      console.log(y);
-    });
 
-    //Get Brands List----------------
-    this.common.GetMethod("GetBrandList").then((res: any) => {
-      console.log(res);
-      this.GetBrandList = res.Data;
-    }).catch(y => {
-      console.log(y);
-    });
 
 
   }
@@ -156,7 +170,7 @@ export class BusniessregisterPage implements OnInit {
   SetEditValue(ev) {
     this.lists.terms = true;
     this.ShowTerms = false;
-    this.common.presentLoader();
+    this.common.presentRuntime('Please wait, getting business profile..');
     let env = this;
     if (ev.logo) {
       this.lists.Image = ev.logo;
@@ -206,6 +220,7 @@ export class BusniessregisterPage implements OnInit {
         this.lists.AddonImages = this.BOS.additional_images;
       }
       this.Edit_BOS = true;
+      
       //----------------------
       setTimeout(() => {
         env.Facilities_List.forEach((element, i) => {
@@ -234,6 +249,10 @@ export class BusniessregisterPage implements OnInit {
         element.checked = true;
       });
     }, 1000);
+
+    setTimeout(() => {
+      env.common.dismissLoader();
+    }, 10000);
   }
 
   Initalization() {
@@ -350,7 +369,7 @@ export class BusniessregisterPage implements OnInit {
   SaveBusiness() {
 
     if (!this.lists.terms) {
-      this.common.BasicAlert("Alert !", "", "Please first accept terms and conditions.")
+      this.common.BasicAlert("Alert !", "", "Please first accept terms and conditions.");
     } else {
       this.common.presentLoader();
 
@@ -438,6 +457,7 @@ export class BusniessregisterPage implements OnInit {
   }
 
   async checkbusinessname() {
+    let env=this;
     const alert = await this.common.alertController.create({
       header: 'Confirm!',
       message: "Are your sure! Your name <b>" + this.Businessform1.value.name + "</b>  is your business name ? If not then please update it.",
@@ -446,6 +466,13 @@ export class BusniessregisterPage implements OnInit {
           text: 'Confirm',
           handler: () => {
             this.lists.nameapprove = true;
+            env.myStepper.next();
+          }
+        },
+        {
+          text: 'Cancel',
+          handler: () => {
+            
           }
         }
       ]
@@ -453,6 +480,8 @@ export class BusniessregisterPage implements OnInit {
 
     await alert.present();
   }
+
+
 
   pickImage(sourceType) {
     const options: CameraOptions = {
@@ -659,7 +688,7 @@ export class BusniessregisterPage implements OnInit {
   }
 
   FacilityChecked(FacilityId, e) {
-    if(e.currentTarget.checked){}
+    if (e.currentTarget.checked) { }
     var FacilityIdVar: any = parseInt(FacilityId);
     if (this.PreferedSelectedFacilites.includes(FacilityIdVar) || this.PreferedSelectedFacilites.includes(FacilityId)) {
       const index = this.PreferedSelectedFacilites.indexOf(FacilityIdVar);
@@ -667,17 +696,17 @@ export class BusniessregisterPage implements OnInit {
         this.PreferedSelectedFacilites.splice(index, 1);
       }
     } else {
-      if(e.currentTarget.checked){
+      if (e.currentTarget.checked) {
         this.PreferedSelectedFacilites.push(FacilityIdVar);
       }
-      
+
     }
 
     console.log(this.PreferedSelectedFacilites, 'FacilityIds selected');
   }
 
   BrandChecked(BrandId, e) {
-    if(e.currentTarget.checked){}
+    if (e.currentTarget.checked) { }
     var BrandIdVar: any = parseInt(BrandId);
     if (this.PreferedBrands.includes(BrandIdVar) || this.PreferedBrands.includes(BrandId)) {
       const index = this.PreferedBrands.indexOf(BrandIdVar);
@@ -685,8 +714,8 @@ export class BusniessregisterPage implements OnInit {
         this.PreferedBrands.splice(index, 1);
       }
     } else {
-      if(e.currentTarget.checked){
-      this.PreferedBrands.push(BrandIdVar);
+      if (e.currentTarget.checked) {
+        this.PreferedBrands.push(BrandIdVar);
       }
     }
 
@@ -712,11 +741,20 @@ export class BusniessregisterPage implements OnInit {
     const pattern = /[0-9.,]/;
     let inputChar = String.fromCharCode(event.charCode);
 
-    if (!pattern.test(inputChar) || event.target.value.length >5) {
-      // invalid character, prevent input
+    if (event.target.value.length != 6) {
+      this.showzipmsg = true;
+    } else {
+      this.showzipmsg = false;
+    }
+
+    if (!pattern.test(inputChar) || event.target.value.length > 5) {
+
       event.preventDefault();
+    } else {
+
     }
   }
+
 
 
 }

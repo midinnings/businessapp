@@ -99,6 +99,10 @@ var ManualPage = /** @class */ (function () {
                 if (_this.lists.service.length == 0) {
                     _this.lists.PackageApplied = true;
                 }
+                debugger;
+                if (_this.lists.coupon_id && _this.lists.coupon_id != '') {
+                    _this.GetOfferData(_this.lists.coupon_id);
+                }
                 _this.checkoutform.controls['name'].setValue(res.customer_name);
                 _this.checkoutform.controls['mobile'].setValue(res.contactno);
             }
@@ -110,6 +114,21 @@ var ManualPage = /** @class */ (function () {
                 _this.PackageDiscount(_this.lists);
             }
         }, 200);
+    };
+    ManualPage.prototype.GetOfferData = function (offer_id) {
+        var _this = this;
+        var env = this;
+        this.common.PostMethod("GetFilterData", { file: "offer", name: "id", value: offer_id }).then(function (res) {
+            var Data = res.Data[0];
+            if (Data) {
+                if (Data.type == 'Flat' || Data.type == 'OnService') {
+                    setTimeout(function () {
+                        _this.CustomCoupon = Data.couponcode;
+                        env.ApplyDiscountConcession(Data);
+                    }, 3000);
+                }
+            }
+        });
     };
     ManualPage.prototype.onEventSelected = function (ev) {
         console.log(ev);
@@ -227,9 +246,9 @@ var ManualPage = /** @class */ (function () {
                         _this.lists.billid = resu.CheckoutId;
                         _this.common.dismissLoader();
                         _this.inmessage.sendMessage("Check Start Service", "Dashboard");
+                        _this.common.presentToast(resu.Message, 4000);
                         _this.OpenSucessCheckout();
                     });
-                    _this.common.presentToast(res.Message, 4000);
                 }
             }
         });
@@ -241,6 +260,7 @@ var ManualPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        this.lists.Amount_PayableShow = this.Amount_PayableShow;
                         this.common.GetMethod('StatusNotification?id=' + this.lists.id);
                         return [4 /*yield*/, this.modal.create({
                                 component: checkoutreceipt_page_1.CheckoutreceiptPage,
@@ -274,7 +294,6 @@ var ManualPage = /** @class */ (function () {
                         if (rdata.data.Status) {
                             if (!rdata.data.finish) {
                                 filename_1 = rdata.data.filename + ".pdf";
-                                debugger;
                                 this.file.writeFile(this.file.externalRootDirectory + "MSZApp/", filename_1, rdata.data.Data, { replace: true }).then(function (result) {
                                     _this.social.share("Your Salon Receipt via-My Salon Zone", "Receipt", [_this.file.externalRootDirectory + "MSZApp/" + filename_1], "");
                                 });
@@ -325,7 +344,6 @@ var ManualPage = /** @class */ (function () {
     };
     ManualPage.prototype.ChangeStylist = function (ev) {
         var _this = this;
-        debugger;
         if (typeof this.lists.employeeinfo == "string") {
             var EmployeeData = this.lists.userlist.filter(function (i) { return i.id == _this.lists.employee; });
             if (EmployeeData) {

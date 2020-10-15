@@ -18,9 +18,7 @@
         <ion-col size="6" class="small-font mb-1">{{'From Date'|language}} : {{lists.from|date}}</ion-col>
         <ion-col size="6" text-right class="small-font mb-1" text-right>{{'To Date'|language}} : {{lists.to|date}}</ion-col>
     </ion-row>
-    <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
-        (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
-        (onTimeSelected)="onTimeSelected($event)" step="30">
+    <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" step="30">
     </calendar>
     <ion-item *ngFor="let item of lists.pendinglists" lines="none" class="list-box mt-2">
         <ion-avatar slot="start">
@@ -29,8 +27,9 @@
         <ion-label>
             <h2 class="ion-text-uppercase font-w-600">{{item.customer_name}}</h2>
             <h3>{{common.SplitTime(item.prefeerddate)}}</h3>
-            <span class="small-font">{{item.coupon_applied}}</span>
-            <span class="small-font" *ngIf="item.serviceinfo">{{item.serviceinfo|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</span>
+            <span class="xs-small-font" *ngIf="item.coupon_applied && item.coupon_applied!='' ">{{'Deal/Offer Applied'|language}} - {{item.coupon_applied}} </span>
+            <br *ngIf="item.coupon_applied && item.coupon_applied!='' ">
+            <span class="xs-small-font" *ngIf="item.serviceinfo">{{item.serviceinfo|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</span>
         </ion-label>
         <ion-note class="p-padding">
             <p><a href="tel:{{item.contactno}}" class="default-h-color-p">{{'Call'|language}}</a></p>

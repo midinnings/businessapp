@@ -45,11 +45,16 @@
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Discount Type'|language}}</ion-label>
                     <ion-select (ionChange)="TypeSelected($event.target.value)" formControlName="discountMainTypes">
-                        <ion-select-option *ngIf="CreationType == 'Offers' " value="OnService">{{'Service Discount'|language}}</ion-select-option>
-                        <ion-select-option *ngIf="CreationType == 'Offers' " value="Flat">{{'Flat Discount'|language}}</ion-select-option>
-                        <ion-select-option *ngIf="CreationType == 'Deals' " value="Package">{{'Package'|language}}</ion-select-option>
-                        <ion-select-option *ngIf="CreationType == 'Deals' " value="Combo">{{'Combo'|language}}</ion-select-option>
-                        <ion-select-option *ngIf="CreationType == 'Deals' " value="BuynGet">{{'BuynGet'|language}}</ion-select-option>
+                        <ion-select-option *ngIf="CreationType == 'Offers' " value="OnService">
+                            {{'Service Discount'|language}}</ion-select-option>
+                        <ion-select-option *ngIf="CreationType == 'Offers' " value="Flat">{{'Flat Discount'|language}}
+                        </ion-select-option>
+                        <ion-select-option *ngIf="CreationType == 'Deals' " value="Package">{{'Package'|language}}
+                        </ion-select-option>
+                        <ion-select-option *ngIf="CreationType == 'Deals' " value="Combo">{{'Combo'|language}}
+                        </ion-select-option>
+                        <ion-select-option *ngIf="CreationType == 'Deals' " value="BuynGet">{{'BuynGet'|language}}
+                        </ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-col>
@@ -58,7 +63,9 @@
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Select Services'|language}}</ion-label>
                     <ion-select (ionChange)="ServiceSelected($event.target.value)" formControlName="services" multiple>
-                        <ion-select-option *ngFor="let BusinessServices of lists.Servicelist" [value]="BusinessServices.serviceid">{{BusinessServices.service}} - {{BusinessServices.serviceprice}}</ion-select-option>
+                        <ion-select-option *ngFor="let BusinessServices of lists.Servicelist" [value]="BusinessServices.serviceid">
+                            {{('language'|user)=='Hindi'?BusinessServices.service_hi:BusinessServices.service}} - {{BusinessServices.serviceprice}}
+                        </ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-col>
@@ -67,7 +74,8 @@
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Select Free Service'|language}}</ion-label>
                     <ion-select formControlName="second_service">
-                        <ion-select-option *ngFor="let BusinessServices of lists.Servicelist" [value]="BusinessServices.serviceid">{{BusinessServices.service}} - {{BusinessServices.serviceprice}}</ion-select-option>
+                        <ion-select-option *ngFor="let BusinessServices of lists.Servicelist" [value]="BusinessServices.serviceid">{{('language'|user)=='Hindi'?BusinessServices.service_hi:BusinessServices.service}} - {{BusinessServices.serviceprice}}
+                        </ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-col>
@@ -76,18 +84,22 @@
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Title'|language}}</ion-label>
                     <ion-select formControlName="title" class="customSelectClass">
-                        <ion-select-option *ngFor="let occasionL of OccasionList" [value]="occasionL.name">{{occasionL.name}}</ion-select-option>
+                        <ion-select-option *ngFor="let occasionL of OccasionList" [value]="occasionL.name">
+                            {{occasionL.name}}</ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-col>
 
-            <!-- <ion-col size="12">
+            <ion-col size="12">
                 <ion-item lines="none" class="input-border">
                     <ion-label position="fixed">{{'Description'|language}}</ion-label>
-                    <ion-input type="textarea" rows="3" formControlName="description" placeholder="Enter Description">
-                    </ion-input>
+                    <!-- <ion-input type="text" placeholder="Enter Wish Description" [(ngModel)]="wish_description"> </ion-input> -->
+                    <ion-select class="customSelectClass" formControlName="description" placeholder="Please select description">
+                        <ion-select-option *ngFor="let occasionL of OccasionDescriptions" [value]="occasionL.name">
+                            {{occasionL.name}}</ion-select-option>
+                    </ion-select>
                 </ion-item>
-            </ion-col> -->
+            </ion-col>
 
             <!-- <ion-col size="12">
                 <ion-item lines="none" class="input-border">
@@ -166,7 +178,8 @@
             </ion-col>
             <ion-col size="12" lines="none">
                 <ion-item class="input-border">
-                    <ion-label position="fixed" *ngIf="CreationType == 'Offers'">{{'Discount Value'|language}}</ion-label>
+                    <ion-label position="fixed" *ngIf="CreationType == 'Offers'">{{'Discount Value'|language}}
+                    </ion-label>
                     <ion-label position="fixed" *ngIf="CreationType == 'Deals'">{{'Deal Amount'|language}}</ion-label>
                     <ion-input type="number" formControlName="discount"></ion-input>
                 </ion-item>
@@ -183,7 +196,8 @@
                 <ion-button (click)="Back()" shape="round">{{'Cancel'|language}}</ion-button>
             </ion-col>
             <ion-col size="6" class="ion-text-right  mb-2">
-                <ion-button (click)="Next()" shape="round">{{'Next'|language}}</ion-button>
+                <ion-button [disabled]="!offerform.valid" (click)="Next()" shape="round">{{'Next'|language}}
+                </ion-button>
             </ion-col>
         </ion-row>
     </form>

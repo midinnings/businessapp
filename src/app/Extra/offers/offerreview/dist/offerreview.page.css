@@ -12,5 +12,7 @@ ion-title {
 
 .back_offer .item-native,
 .back_offer .item-inner {
-  padding: 0px;
+  padding: 0px !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
 }

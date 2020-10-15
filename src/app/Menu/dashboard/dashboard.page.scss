@@ -105,6 +105,9 @@ ion-slides {
         font-size: 9px !important;
         z-index: 99999 !important;
     }
+    img {
+        max-height: 210px;
+    }
 }
 
 .cardsqr {
@@ -168,7 +171,7 @@ ion-slides {
     max-width: 600px;
 }
 
-.notifybadge{
+.notifybadge {
     position: absolute !important;
     // right: 7px !important;
     z-index: 99999 !important;
@@ -176,6 +179,5 @@ ion-slides {
     background: #f1f1f1 !important;
     color: #c73130 !important;
     border-radius: 50% !important;
-    margin-left: 15px !important; 
+    margin-left: 15px !important;
 }
-

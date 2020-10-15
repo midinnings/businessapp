@@ -61,6 +61,10 @@ export class ManualPage implements OnInit {
           this.lists.PackageApplied = true;
           
         }
+        debugger
+        if(this.lists.coupon_id && this.lists.coupon_id!=''){
+          this.GetOfferData(this.lists.coupon_id);
+        }
         
         this.checkoutform.controls['name'].setValue(res.customer_name);
         this.checkoutform.controls['mobile'].setValue(res.contactno);
@@ -75,9 +79,25 @@ export class ManualPage implements OnInit {
       }
      
     }, 200);
-
-
   }
+
+  GetOfferData(offer_id){
+    let env=this;
+    this.common.PostMethod("GetFilterData", { file: "offer", name: "id", value:offer_id }).then((res: any) => {
+      let Data = res.Data[0];
+      if(Data){
+        if(Data.type == 'Flat' || Data.type == 'OnService'){
+          setTimeout(() => {
+            this.CustomCoupon = Data.couponcode;
+          env.ApplyDiscountConcession(Data);
+            
+          }, 3000);
+
+        }
+      }
+    });
+  }
+
   onEventSelected(ev) {
     console.log(ev);
   }
@@ -201,16 +221,18 @@ export class ManualPage implements OnInit {
           this.common.PostMethod("CompleteCheckout", this.lists).then((resu: any) => {
             this.lists.billid = resu.CheckoutId;
             this.common.dismissLoader();
-            this.inmessage.sendMessage("Check Start Service", "Dashboard")
+            this.inmessage.sendMessage("Check Start Service", "Dashboard");
+            this.common.presentToast(resu.Message, 4000);
             this.OpenSucessCheckout();
           });
-          this.common.presentToast(res.Message, 4000);
+         
         }
       }
     });
   }
 
   async OpenSucessCheckout() {
+    this.lists.Amount_PayableShow = this.Amount_PayableShow;
     this.common.GetMethod('StatusNotification?id=' + this.lists.id);
     const custmodal = await this.modal.create({
       component: CheckoutreceiptPage,
@@ -232,7 +254,7 @@ export class ManualPage implements OnInit {
       if (rdata.data.Status) {
         if (!rdata.data.finish) {
           let filename = rdata.data.filename + ".pdf";
-          debugger
+          
           this.file.writeFile(this.file.externalRootDirectory + "MSZApp/", filename, rdata.data.Data, { replace: true }).then((result: any) => {
             this.social.share("Your Salon Receipt via-My Salon Zone", "Receipt", [this.file.externalRootDirectory + "MSZApp/" + filename], "");
           });
@@ -278,7 +300,7 @@ export class ManualPage implements OnInit {
   }
 
   ChangeStylist(ev) {
-    debugger
+    
   
     if(typeof this.lists.employeeinfo== "string"){
       let EmployeeData = this.lists.userlist.filter( i => i.id==this.lists.employee );

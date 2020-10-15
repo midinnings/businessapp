@@ -31,8 +31,7 @@
                     </ion-col> -->
                     <ion-col size="12">
                         <ion-item text-center class="logo-img" lines="none" (click)="selectImage()">
-                            <img *ngIf="lists.edit"
-                                [src]="lists.Image?common.Url+'Files/'+lists.Image:'./assets/img/brand-logo.jpg' ">
+                            <img *ngIf="lists.edit" [src]="lists.Image?common.Url+'Files/'+lists.Image:'./assets/img/brand-logo.jpg' ">
                             <img *ngIf="!lists.edit" [src]="lists.Image?lists.Image:'./assets/img/brand-logo.jpg' ">
                         </ion-item>
                     </ion-col>
@@ -47,12 +46,12 @@
                     </ion-col>
 
 
-                    <ion-col size="12" >
+                    <ion-col size="12">
                         <ion-item class="input-border">
                             <ion-label position="fixed">
                                 *{{'Salon Type'|language}}
                             </ion-label>
-                            <ion-select placeholder="Select Select Type" multiple  formControlName="salon_type">
+                            <ion-select placeholder="Select Select Type" multiple formControlName="salon_type">
                                 <ion-select-option value="Unisex Salon">Unisex Salon</ion-select-option>
                                 <ion-select-option value="Gents Salon">Gents Salon</ion-select-option>
                                 <ion-select-option value="Ladies Salon">Ladies Salon</ion-select-option>
@@ -99,17 +98,16 @@
                         <ion-item class="input-border">
                             <ion-label position="fixed">*{{'PINCODE'|language}}
                             </ion-label>
-                            <ion-input (keypress)="numberOnlyValidation($event)" type="text" placeholder="Pincode" formControlName="pincode">
+                            <ion-input (input)="numberOnlyValidation($event)" type="text" placeholder="Pincode" formControlName="pincode">
                             </ion-input>
                         </ion-item>
+                        <span class="has_error" *ngIf="showzipmsg">Please enter 6 digit pincode</span>
                     </ion-col>
                     <ion-col size="12">
                         <ion-item class="input-border">
-                            <ion-label position="fixed">*{{'MAP LOCATION'|language}}
-                                .</ion-label>
-                            <ion-textarea rows="2" placeholder="Map Location Address"
-                                (ionFocus)="common.PageGoto('Forward','mapmaker',{address:$event.target.value})"
-                                formControlName="address1">
+                            <ion-label position="fixed">*{{'MAP LOCATION'|language}} .
+                            </ion-label>
+                            <ion-textarea rows="2" placeholder="Map Location Address" (ionFocus)="common.PageGoto('Forward','mapmaker',{address:$event.target.value})" formControlName="address1">
                             </ion-textarea>
                         </ion-item>
                     </ion-col>
@@ -126,20 +124,21 @@
                             <ion-label position="fixed">
                                 {{'EST DATE'|language}}
                             </ion-label>
-                            <ion-input readonly formControlName="dob" (ionChange)="CheckDateValidate($event)"
-                                [liIonic4Datepicker]="datePickerObj" placeholder="Enter Date">
+                            <ion-input readonly formControlName="dob" (ionChange)="CheckDateValidate($event)" [liIonic4Datepicker]="datePickerObj" placeholder="Enter Date">
                             </ion-input>
                         </ion-item>
                     </ion-col>
                 </ion-row>
 
                 <ion-footer class="ion-no-border fx-ftr">
-                    <ion-toolbar>
-                        <button class="nextbtn ZindexTOP" *ngIf="lists.nameapprove" mat-button matStepperNext
-                            [disabled]="!Businessform1.valid">{{'Next'|language}}
+                    <ion-toolbar *ngIf="ShowTerms">
+                        <button class="nextbtn ZindexTOP" *ngIf="lists.nameapprove" mat-button matStepperNext [disabled]="!Businessform1.valid">{{'Next'|language}}
                         </button>
-                        <button class="nextbtn ZindexTOP" *ngIf="!lists.nameapprove" mat-button
-                            [disabled]="!Businessform1.valid" (click)="checkbusinessname()">{{'Next'|language}}
+                        <button class="nextbtn ZindexTOP" *ngIf="!lists.nameapprove" mat-button [disabled]="!Businessform1.valid" (click)="checkbusinessname()">{{'Next'|language}}
+                        </button>
+                    </ion-toolbar>
+                    <ion-toolbar *ngIf="!ShowTerms">
+                        <button class="nextbtn ZindexTOP" mat-button matStepperNext [disabled]="!Businessform1.valid">{{'Next'|language}}
                         </button>
                     </ion-toolbar>
                 </ion-footer>
@@ -182,16 +181,14 @@
                 </ion-col>
                 <ion-col size="4">
                     <ion-item lines="none">
-                        <ion-select [(ngModel)]="item.day" placeholder="{{'Opening Time'|language}}"
-                            style="padding:5px !important">
+                        <ion-select [(ngModel)]="item.day" placeholder="{{'Opening Time'|language}}" style="padding:5px !important">
                             <ion-select-option *ngFor="let t of lists.Times" [value]="t">{{t}}</ion-select-option>
                         </ion-select>
                     </ion-item>
                 </ion-col>
                 <ion-col size="4">
                     <ion-item lines="none">
-                        <ion-select [(ngModel)]="item.evening" placeholder="{{'Closing Time'|language}}"
-                            style="padding:5px !important">
+                        <ion-select [(ngModel)]="item.evening" placeholder="{{'Closing Time'|language}}" style="padding:5px !important">
                             <ion-select-option *ngFor="let t of lists.Times" [value]="t">{{t}}</ion-select-option>
                         </ion-select>
                     </ion-item>
@@ -231,8 +228,7 @@
             <ng-template matStepLabel>{{'Service'|language}}</ng-template>
             <ion-row>
                 <ion-col size="12">
-                    <p class="bheader  mt-2">{{'Add the Services you Offer'|language}}<br><span
-                            class="bsubheader">{{('Do not worry- you will be able to edit these later')|language}}</span>
+                    <p class="bheader  mt-2">{{'Add the Services you Offer'|language}}<br><span class="bsubheader">{{('Do not worry- you will be able to edit these later')|language}}</span>
                     </p>
                 </ion-col>
             </ion-row>
@@ -328,8 +324,7 @@
                 <ion-item style="width:100%" class="p-r-in input-border" lines="none">
                     <ion-label>{{lists.language=='Hindi'?facility.facilitiesname_hi:facility.facilitiesname}}
                     </ion-label>
-                    <ion-checkbox slot="start" (ionChange)="FacilityChecked(facility.id, $event)"
-                        [(ngModel)]="facility.selection">
+                    <ion-checkbox slot="start" (ionChange)="FacilityChecked(facility.id, $event)" [(ngModel)]="facility.selection">
                     </ion-checkbox>
                 </ion-item>
             </ion-row>

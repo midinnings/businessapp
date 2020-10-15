@@ -9,12 +9,15 @@ import { NavParams, ModalController } from '@ionic/angular';
 })
 export class CheckoutreceiptPage implements OnInit {
   lists: any = {};
+  PackageComboApplied:boolean=false;
   constructor(public common: CommonService, public modal: ModalController, public navParams: NavParams) { }
 
   ngOnInit() {
     this.lists = this.navParams.data;
     console.log(this.navParams.data);
     this.lists.UserProfile = JSON.parse(localStorage.getItem("UserProfile"));
+    debugger
+    this.GetOfferData(this.lists.coupon_id);
   }
 
   next() {
@@ -35,7 +38,20 @@ export class CheckoutreceiptPage implements OnInit {
     } else {
       total = parseInt(total) - parseInt(this.lists.Discount);
     }
-    return parseFloat(total).toFixed(2);
+    return total;
+  }
+
+  GetOfferData(offer_id){
+    let env=this;
+    this.common.PostMethod("GetFilterData", { file: "offer", name: "id", value:offer_id }).then((res: any) => {
+      let Data = res.Data[0];
+      if(Data){
+        if(Data.type == 'Combo' || Data.type == 'Package'){
+          this.PackageComboApplied=true;
+
+        }
+      }
+    });
   }
 
 }

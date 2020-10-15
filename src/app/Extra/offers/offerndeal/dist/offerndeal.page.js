@@ -23,6 +23,7 @@ var OfferndealPage = /** @class */ (function () {
             currentDate: new Date()
         };
         this.lists = {};
+        this.OccasionDescriptions = [];
         //ShowService: boolean = false;
         this.datePickerObj = {
             inputDate: new Date(),
@@ -205,6 +206,11 @@ var OfferndealPage = /** @class */ (function () {
         this.common.PostMethod("GetOccasionData", { type: "title", category: Cat }).then(function (res) {
             if (res.Status == 1) {
                 _this.OccasionList = res.Data;
+            }
+        });
+        this.common.PostMethod("GetOccasionData", { type: "description", category: Cat }).then(function (res) {
+            if (res.Status == 1) {
+                _this.OccasionDescriptions = res.Data;
             }
         });
     };
