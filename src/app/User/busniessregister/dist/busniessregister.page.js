@@ -162,13 +162,14 @@ var BusniessregisterPage = /** @class */ (function () {
             salon_type: new forms_1.FormControl('', forms_1.Validators.required)
         });
         this.router.queryParams.subscribe(function (res) {
+            debugger;
+            if (res.language) {
+                localStorage.setItem("language", res.language);
+                _this.lists.language = res.language;
+            }
             if (res.edit) {
                 _this.lists.edit = res.edit;
                 var Profile_1 = JSON.parse(localStorage.getItem("UserProfile"));
-                if (res.language) {
-                    localStorage.setItem("language", res.language);
-                    _this.lists.language = res.language;
-                }
                 setTimeout(function () {
                     env.SetEditValue(Profile_1);
                 }, 1000);
@@ -458,6 +459,9 @@ var BusniessregisterPage = /** @class */ (function () {
             if (this.lists.editprofile) {
                 this.Businessform1.value.id = this.lists.userid;
                 this.Businessform1.value.b_id = new user_pipe_1.UserPipe().transform('b_id');
+            }
+            if (this.lists.language) {
+                this.Businessform1.value.userlanguage = this.lists.language;
             }
             this.common.PostMethod("UserRegistration", this.Businessform1.value).then(function (res) {
                 if (res.status.Status == 1) {

@@ -2,8 +2,7 @@
     <ion-grid style="height: 100%" style="margin-top: 20px;">
         <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
             <div text-center>
-                <img src="{{('logo'|user)?common.Url+'Files/'+('logo'|user):'./assets/img/app/user-1.jpg'}}"
-                    class='round-img border-primary' style="width: 120px" />
+                <img src="{{('logo'|user)?common.Url+'Files/'+('logo'|user):'./assets/img/app/user-1.jpg'}}" class='round-img border-primary' style="width: 120px" />
                 <h4>{{'name'|user}}</h4>
 
             </div>
@@ -32,7 +31,7 @@
                     <ion-item class="input-border small-font" (click)="Openpopup()">
                         {{'Change Language'|language}}
                     </ion-item>
-                    <ion-item class="input-border small-font" (click)="OpenSettings()">
+                    <ion-item *ngIf="lists.UserType!='1'" class="input-border small-font" (click)="OpenSettings()">
                         {{'Business Settings'|language}}
                     </ion-item>
                     <ion-item lines="none">

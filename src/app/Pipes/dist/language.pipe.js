@@ -12,6 +12,7 @@ var LanguagePipe = /** @class */ (function () {
     function LanguagePipe() {
         this.hi = {
             // "":"",
+            "Offer Type": "ऑफ़र प्रकार",
             "Overall": "संपूर्ण",
             "Ambience": "माहौल",
             "Corona Safety": "कोरोना सुरक्षा",
@@ -38,6 +39,8 @@ var LanguagePipe = /** @class */ (function () {
             "No": "नहीं",
             "Do you provide accommodation?": "क्या आप आवास प्रदान करते हैं?",
             "Do you provide incentive?": "क्या आप प्रोत्साहन प्रदान करते हैं?",
+            "Provide accommodation?": "आवास प्रदान करते हैं?",
+            "Provide incentive?": "प्रोत्साहन प्रदान करते हैं?",
             "Apply": "लागू",
             "Grand Total": "कुल योग",
             "Total Amount": "कुल रकम",
@@ -58,7 +61,7 @@ var LanguagePipe = /** @class */ (function () {
             "How many loyalty points will be rewarded on checkout to referral user?": "रेफरल उपयोगकर्ता को चेकआउट पर कितने वफादारी अंक दिए जाएंगे?",
             "Do you want to send loyalty points to referral?": "क्या आप रेफ़रल में लॉयल्टी पॉइंट भेजना चाहते हैं?",
             "Max amount to apply from loyalty points": "वफादारी अंक से लागू करने के लिए अधिकतम राशि",
-            "One loyalty point equals to how many ₹": "एक वफादारी कितने रुपए के बराबर है",
+            "One ₹(Ruppee) equals to how many loyalty points": "एक ₹(रुपया) कितने वफादारी अंक के बराबर है",
             "How many loyalty points will be rewarded on checkout?": "चेकआउट पर कितने वफादारी अंक दिए जाएंगे?",
             "Salon Code": "सैलून कोड",
             "Do you want to give loyalty points to your customers?": "क्या आप अपने ग्राहकों को वफादारी अंक देना चाहते हैं?",

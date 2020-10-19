@@ -20,7 +20,9 @@ export class OffersPage implements OnInit {
 
   constructor(public androidPermissions: AndroidPermissions, public screenshot: Screenshot, private transfer: FileTransfer, private file: File, public common: CommonService, public social: SocialSharing, public modal: ModalController, public popUp: ModalController) { }
   lists: any = {};
+  Usertype_check:any='2';
   ngOnInit() {
+    this.Usertype_check = new UserPipe().transform('usertype');
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(
       result => console.log('Has permission?', result.hasPermission),
       err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)

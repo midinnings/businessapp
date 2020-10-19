@@ -46,9 +46,17 @@
         </ion-item>
         <ion-item lines=none *ngIf="lists.skills" class="small-font ml-3 item-height-30">
             <ion-icon name="settings" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
-            <ion-label>{{'Facilities'|language}} ({{lists.skills}}) </ion-label>
+            <ion-label>{{'Skills'|language}} ({{lists.skills}}) </ion-label>
         </ion-item>
         <ion-item lines=none *ngIf="lists.skills" class="small-font ml-3 item-height-30">
+            <ion-icon name="checkmark" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>{{'Provide accommodation?'|language}} ({{lists.accommodation==1 ? 'Yes':'No' |language}}) </ion-label>
+        </ion-item>
+        <ion-item lines=none *ngIf="lists.skills" class="small-font ml-3 item-height-30">
+            <ion-icon name="checkmark" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
+            <ion-label>{{'Provide incentive?'|language}} ({{lists.incentive==1 ? 'Yes':'No' |language}}) </ion-label>
+        </ion-item>
+        <ion-item lines=none class="small-font ml-3 item-height-30">
             <ion-icon name="calendar" slot="start" class="primary-text mr-1 icon-small-size"></ion-icon>
             <ion-label>{{'Last Date'|language}} ({{lists.lastdate|date:'dd-MM-yyyy'}}) </ion-label>
         </ion-item>
@@ -60,12 +68,11 @@
             <ion-label>Posted on {{lists.postingdate|daysago}}</ion-label>
         </ion-item>
         <ion-row>
-            <ion-col size="12">{{'Contact Info'|language}} : {{lists.email}}/
-                {{lists.number}}</ion-col>
+            <ion-col size="12">{{'Contact Info'|language}} : {{lists.email}}/ {{lists.number}}
+            </ion-col>
             <ion-col size="6">{{'Total Applied'|language}} : {{lists.Applied.length}}</ion-col>
             <ion-col class="ion-text-center" size="12" *ngIf="lists.UserType==2||lists.UserType==6">
-                <ion-button (click)="ApplyJob(lists.id)" *ngIf="CheckApply(lists.Applied)" shape="round"
-                    class="mc mt-1 mb-1">
+                <ion-button (click)="ApplyJob(lists.id)" *ngIf="CheckApply(lists.Applied)" shape="round" class="mc mt-1 mb-1">
                     {{'Apply Now'|language}}</ion-button>
             </ion-col>
         </ion-row>

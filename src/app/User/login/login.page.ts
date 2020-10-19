@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
         this.common.PageGoto("Root", "/app/tabs/dashboard");
       } else {
         this.common.dismissLoader();
-        this.common.presentToast(res.Message, 4000);
+        this.common.presentToast('Please check your Username/Password..', 4000);
       }
     });
   }

@@ -20,6 +20,7 @@ export class EmployerPage implements OnInit {
 
   ngOnInit() {
     this.lists.language = localStorage.getItem("language")||"English";
+    this.lists.UserType = localStorage.getItem("UserType");
   }
 
   logout() {

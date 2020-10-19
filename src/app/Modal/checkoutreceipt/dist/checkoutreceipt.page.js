@@ -34,8 +34,9 @@ var CheckoutreceiptPage = /** @class */ (function () {
         this.lists.serviceinfo.forEach(function (element) {
             total = parseInt(total) + parseInt(element.serviceprice);
         });
-        if (this.lists.DiscountType == 'P') {
-            total = parseInt(total) - ((parseInt(this.lists.Discount) * 100) / 100);
+        if (this.lists.applycoupon.discounttype == "Percent") {
+            this.lists.Discount = total - this.lists.cost;
+            total = this.lists.cost;
         }
         else {
             total = parseInt(total) - parseInt(this.lists.Discount);

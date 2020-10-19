@@ -1,170 +1,166 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-row>
-      <ion-col size="2" class="ion-text-center" (click)="close()">
-        <ion-icon style="    color: #fff; font-size: 27px;" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-      </ion-col>
-      <ion-col size="10">
-        <ion-title style="color:white">{{'Business Settings'|language}}
-        </ion-title>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-row>
+            <ion-col size="2" class="ion-text-center" (click)="close()">
+                <ion-icon style="    color: #fff; font-size: 27px;" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </ion-col>
+            <ion-col size="10">
+                <ion-title style="color:white">{{'Business Settings'|language}}
+                </ion-title>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
 
-  <ion-segment scrollable class="segment-button-month" [(ngModel)]="SegmentChange" (ionChange)="segmentChange($event)">
-    <ion-segment-button class="br-6" value="CheckoutUser">{{'User'|language}}
-    </ion-segment-button>
-    <ion-segment-button class="br-6" value="Referral" checked>{{'Referral'|language}}
-    </ion-segment-button>
-  </ion-segment>
+    <ion-segment scrollable class="segment-button-month" [(ngModel)]="SegmentChange" (ionChange)="segmentChange($event)">
+        <ion-segment-button class="br-6" value="CheckoutUser">{{'User'|language}}
+        </ion-segment-button>
+        <ion-segment-button class="br-6" value="Referral" checked>{{'Referral'|language}}
+        </ion-segment-button>
+    </ion-segment>
 
-  <div *ngIf="SegmentChange==='CheckoutUser'">
-    <ion-row>
-      <ion-col size="12">
-        <ion-card class="mycardinfo cardsqr">
-          <ion-row class="input-border">
-            <ion-col size="2">
-              <ion-icon name="checkbox-outline"></ion-icon>
+    <div *ngIf="SegmentChange==='CheckoutUser'">
+        <ion-row>
+            <ion-col size="12">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-row class="input-border">
+                        <ion-col size="2">
+                            <ion-icon name="checkbox-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-label>
+                                <p class="heading_settings">{{'Salon Code'|language}} - <span>{{SalonCode}}</span>
+                                    <ion-icon class="copy_icon" name="copy" (click)="CopyCode(SalonCode)"></ion-icon>
+                                </p>
+                            </ion-label>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+
+
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-row class="input-border">
+                        <ion-col size="2">
+                            <ion-icon name="checkbox-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-label>
+                                <p class="heading_settings">{{'Do you want to give loyalty points to your customers?'|language}} </p>
+                            </ion-label>
+                            <ion-col size="12">
+                                <ion-toggle [(ngModel)]="apply_loyalty"></ion-toggle>
+                            </ion-col>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+
+
+
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-row class="input-border">
+                        <ion-col size="2">
+                            <ion-icon name="checkbox-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-label>
+                                <p class="heading_settings">{{'How many loyalty points will be rewarded on checkout?'|language}} </p>
+                            </ion-label>
+                            <ion-input [(ngModel)]="no_points" type="number" maxlength="2" placeholder="5" class="small_values">
+                            </ion-input>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-row class="input-border">
+                        <ion-col size="2">
+                            <ion-icon name="card"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-label>
+                                <p class="heading_settings">{{'One ₹(Ruppee) equals to how many loyalty points'|language}} </p>
+                            </ion-label>
+                            <ion-input [(ngModel)]="points_value" type="number" maxlength="2" placeholder="1" class="small_values">
+                            </ion-input>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-row class="input-border">
+                        <ion-col size="2">
+                            <ion-icon name="cart"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-label>
+                                <p class="heading_settings">{{'Max amount to apply from loyalty points'|language}} </p>
+                            </ion-label>
+
+                            <ion-input [(ngModel)]="max_apply" type="number" maxlength="2" placeholder="1" class="small_values">
+                            </ion-input>
+
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+
+
+
             </ion-col>
-            <ion-col size="10">
-              <ion-label>
-                <p class="heading_settings">{{'Salon Code'|language}} - <span>{{SalonCode}}</span>
-                  <ion-icon class="copy_icon" name="copy" (click)="CopyCode(SalonCode)"></ion-icon>
-                </p>
-              </ion-label>
-            </ion-col>
-          </ion-row>
-        </ion-card>
 
 
-        <ion-card class="mycardinfo cardsqr">
-          <ion-row class="input-border">
-            <ion-col size="2">
-              <ion-icon name="checkbox-outline"></ion-icon>
-            </ion-col>
-            <ion-col size="10">
-              <ion-label>
-                <p class="heading_settings">{{'Do you want to give loyalty points to your customers?'|language}} </p>
-              </ion-label>
-              <ion-col size="12">
-                <ion-toggle [(ngModel)]="apply_loyalty"></ion-toggle>
-              </ion-col>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-
-
-
-        <ion-card class="mycardinfo cardsqr">
-          <ion-row class="input-border">
-            <ion-col size="2">
-              <ion-icon name="checkbox-outline"></ion-icon>
-            </ion-col>
-            <ion-col size="10">
-              <ion-label>
-                <p class="heading_settings">{{'How many loyalty points will be rewarded on checkout?'|language}} </p>
-              </ion-label>
-              <ion-input [(ngModel)]="no_points" type="number" maxlength="2" placeholder="5" class="small_values">
-              </ion-input>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-
-
-        <ion-card class="mycardinfo cardsqr">
-          <ion-row class="input-border">
-            <ion-col size="2">
-              <ion-icon name="card"></ion-icon>
-            </ion-col>
-            <ion-col size="10">
-              <ion-label>
-                <p class="heading_settings">{{'One loyalty point equals to how many ₹'|language}} </p>
-              </ion-label>
-
-              <ion-input [(ngModel)]="points_value" type="number" maxlength="2" placeholder="1" class="small_values">
-              </ion-input>
-
-            </ion-col>
-          </ion-row>
-        </ion-card>
-
-        <ion-card class="mycardinfo cardsqr">
-          <ion-row class="input-border">
-            <ion-col size="2">
-              <ion-icon name="cart"></ion-icon>
-            </ion-col>
-            <ion-col size="10">
-              <ion-label>
-                <p class="heading_settings">{{'Max amount to apply from loyalty points'|language}} </p>
-              </ion-label>
-
-              <ion-input [(ngModel)]="max_apply" type="number" maxlength="2" placeholder="1" class="small_values">
-              </ion-input>
-
-            </ion-col>
-          </ion-row>
-        </ion-card>
-
-
-
-      </ion-col>
-
-
-      <!-- <ion-col size="12">
+            <!-- <ion-col size="12">
             <ion-item>
               <ion-input placeholder="Confirm Password" type="password"></ion-input>
             </ion-item>
           </ion-col> -->
-      <ion-col size="12" text-center>
+            <ion-col size="12" text-center>
 
-        <!-- <ion-button shape="round" (click)="close()">{{'Back'|language}}
+                <!-- <ion-button shape="round" (click)="close()">{{'Back'|language}}
         </ion-button> -->
-        <ion-button class="loginbutton" [disabled]="!points_value && !max_apply" shape="round" size="small"
-          (click)="CustSave()">
-          {{'Save'|language}}
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </div>
+                <ion-button class="loginbutton" [disabled]="!points_value && !max_apply" shape="round" size="small" (click)="CustSave()">
+                    {{'Save'|language}}
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </div>
 
 
 
-  <div class="card" *ngIf="SegmentChange==='Referral'">
+    <div class="card" *ngIf="SegmentChange==='Referral'">
 
-    <ion-card class="mycardinfo cardsqr">
-      <ion-row class="input-border">
-        <ion-col size="2">
-          <ion-icon name="cart"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <ion-label>
-            <p class="heading_settings">{{'Do you want to send loyalty points to referral?'|language}} </p>
-          </ion-label>
-          <ion-toggle [(ngModel)]="referral_points"></ion-toggle>
-        </ion-col>
-      </ion-row>
-    </ion-card>
+        <ion-card class="mycardinfo cardsqr">
+            <ion-row class="input-border">
+                <ion-col size="2">
+                    <ion-icon name="cart"></ion-icon>
+                </ion-col>
+                <ion-col size="10">
+                    <ion-label>
+                        <p class="heading_settings">{{'Do you want to send loyalty points to referral?'|language}} </p>
+                    </ion-label>
+                    <ion-toggle [(ngModel)]="referral_points"></ion-toggle>
+                </ion-col>
+            </ion-row>
+        </ion-card>
 
-    <ion-card class="mycardinfo cardsqr">
-      <ion-row class="input-border">
-        <ion-col size="2">
-          <ion-icon name="checkbox-outline"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <ion-label>
-            <p class="heading_settings">
-              {{'How many loyalty points will be rewarded on checkout to referral user?'|language}} </p>
-          </ion-label>
-          <ion-input [(ngModel)]="no_referral_points" type="number" maxlength="2" placeholder="5" class="small_values">
-          </ion-input>
-        </ion-col>
-      </ion-row>
-    </ion-card>
+        <ion-card class="mycardinfo cardsqr">
+            <ion-row class="input-border">
+                <ion-col size="2">
+                    <ion-icon name="checkbox-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="10">
+                    <ion-label>
+                        <p class="heading_settings">
+                            {{'How many loyalty points will be rewarded on checkout to referral user?'|language}} </p>
+                    </ion-label>
+                    <ion-input [(ngModel)]="no_referral_points" type="number" maxlength="2" placeholder="5" class="small_values">
+                    </ion-input>
+                </ion-col>
+            </ion-row>
+        </ion-card>
 
-  </div>
+    </div>
 
 </ion-content>

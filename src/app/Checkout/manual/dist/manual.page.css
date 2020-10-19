@@ -19,3 +19,7 @@ ion-title {
   height: 30px;
   width: 83px;
 }
+
+.highlightlabel {
+  color: #c73130 !important;
+}

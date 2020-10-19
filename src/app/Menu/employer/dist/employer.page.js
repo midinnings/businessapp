@@ -57,6 +57,7 @@ var EmployerPage = /** @class */ (function () {
     }
     EmployerPage.prototype.ngOnInit = function () {
         this.lists.language = localStorage.getItem("language") || "English";
+        this.lists.UserType = localStorage.getItem("UserType");
     };
     EmployerPage.prototype.logout = function () {
         var _this = this;

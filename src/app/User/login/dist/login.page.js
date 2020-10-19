@@ -55,7 +55,7 @@ var LoginPage = /** @class */ (function () {
             }
             else {
                 _this.common.dismissLoader();
-                _this.common.presentToast(res.Message, 4000);
+                _this.common.presentToast('Please check your Username/Password..', 4000);
             }
         });
     };

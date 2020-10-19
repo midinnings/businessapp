@@ -35,6 +35,7 @@ export class ManualPage implements OnInit {
   @ViewChild('stylistselect', { static: false }) stylistselect: IonSelect;
   constructor(public social: SocialSharing, public file: File, public inmessage: InmessageService, public modal: ModalController, public common: CommonService, public router: ActivatedRoute, public fb: FormBuilder, public navCtrl: NavController) { }
   ngOnInit() {
+    this.common.presentLoader();
     this.lists.serviceinfo = [];
     this.lists.Discount = 0;
     this.lists.employeeinfo = {}
@@ -61,7 +62,7 @@ export class ManualPage implements OnInit {
           this.lists.PackageApplied = true;
           
         }
-        debugger
+        
         if(this.lists.coupon_id && this.lists.coupon_id!=''){
           this.GetOfferData(this.lists.coupon_id);
         }
@@ -183,6 +184,16 @@ export class ManualPage implements OnInit {
         this.lists.serviceinfo.forEach(element => {
           service.push(element.serviceid);
         });
+
+         // Send Update Cost when changed costing from business app-----------------------
+         this.lists.updatecost = null;
+              
+         if(this.lists.payableamount && this.lists.payableamount!=0){
+           this.lists.updatecost = this.lists.payableamount;
+         }else{
+           this.lists.updatecost = this.lists.cost;
+         }
+
         if (!this.lists.Old) {
           this.lists.services = JSON.stringify(service);
           let Data = {
@@ -206,6 +217,8 @@ export class ManualPage implements OnInit {
               this.lists.id = res.Data;
               this.lists.userid = localStorage.getItem("UserId");
               this.lists.b_id = new UserPipe().transform('b_id');
+             
+
               this.common.PostMethod("CompleteCheckout", this.lists).then((resu: any) => {
                 this.lists.billid = resu.CheckoutId;
                 this.common.dismissLoader();
@@ -418,7 +431,7 @@ export class ManualPage implements OnInit {
     let data = { file: 'offer', name: 'couponcode', value: this.CustomCoupon };
     this.common.PostMethod("GetFilterData", data).then((res: any) => {
       console.log(res);
-      debugger
+      
       if (res.Status == 1) {
         if (res.Data.length != 0) {
           let CouponExtractData = res.Data[0];
@@ -437,9 +450,10 @@ export class ManualPage implements OnInit {
 
   PackageDiscount(values) {
     let data = { file: 'offer', name: 'id', value: this.lists.coupon_id };
-    debugger
+    
     this.common.PostMethod("GetFilterData", data).then((res: any) => {
       if (res.Status == 1) {
+        if(res.Data[0].services){
         let ServiceIds = res.Data[0].services.split(',');
         this.lists.packageservicelist = []
         ServiceIds.forEach(element => {
@@ -448,6 +462,7 @@ export class ManualPage implements OnInit {
             this.lists.packageservicelist.push(ServiceFound[0]);
           }
         });
+      }
 
       }
     });

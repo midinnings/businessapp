@@ -75,6 +75,7 @@ var ManualPage = /** @class */ (function () {
     }
     ManualPage.prototype.ngOnInit = function () {
         var _this = this;
+        this.common.presentLoader();
         this.lists.serviceinfo = [];
         this.lists.Discount = 0;
         this.lists.employeeinfo = {};
@@ -99,7 +100,6 @@ var ManualPage = /** @class */ (function () {
                 if (_this.lists.service.length == 0) {
                     _this.lists.PackageApplied = true;
                 }
-                debugger;
                 if (_this.lists.coupon_id && _this.lists.coupon_id != '') {
                     _this.GetOfferData(_this.lists.coupon_id);
                 }
@@ -207,6 +207,14 @@ var ManualPage = /** @class */ (function () {
                 _this.lists.serviceinfo.forEach(function (element) {
                     service_1.push(element.serviceid);
                 });
+                // Send Update Cost when changed costing from business app-----------------------
+                _this.lists.updatecost = null;
+                if (_this.lists.payableamount && _this.lists.payableamount != 0) {
+                    _this.lists.updatecost = _this.lists.payableamount;
+                }
+                else {
+                    _this.lists.updatecost = _this.lists.cost;
+                }
                 if (!_this.lists.Old) {
                     _this.lists.services = JSON.stringify(service_1);
                     var Data = {
@@ -471,7 +479,6 @@ var ManualPage = /** @class */ (function () {
         var data = { file: 'offer', name: 'couponcode', value: this.CustomCoupon };
         this.common.PostMethod("GetFilterData", data).then(function (res) {
             console.log(res);
-            debugger;
             if (res.Status == 1) {
                 if (res.Data.length != 0) {
                     var CouponExtractData = res.Data[0];
@@ -491,17 +498,18 @@ var ManualPage = /** @class */ (function () {
     ManualPage.prototype.PackageDiscount = function (values) {
         var _this = this;
         var data = { file: 'offer', name: 'id', value: this.lists.coupon_id };
-        debugger;
         this.common.PostMethod("GetFilterData", data).then(function (res) {
             if (res.Status == 1) {
-                var ServiceIds = res.Data[0].services.split(',');
-                _this.lists.packageservicelist = [];
-                ServiceIds.forEach(function (element) {
-                    var ServiceFound = _this.lists.servicelist.filter(function (i) { return i.serviceid == element; });
-                    if (ServiceFound) {
-                        _this.lists.packageservicelist.push(ServiceFound[0]);
-                    }
-                });
+                if (res.Data[0].services) {
+                    var ServiceIds = res.Data[0].services.split(',');
+                    _this.lists.packageservicelist = [];
+                    ServiceIds.forEach(function (element) {
+                        var ServiceFound = _this.lists.servicelist.filter(function (i) { return i.serviceid == element; });
+                        if (ServiceFound) {
+                            _this.lists.packageservicelist.push(ServiceFound[0]);
+                        }
+                    });
+                }
             }
         });
         // Applying package discounts and making other service carges-----------------

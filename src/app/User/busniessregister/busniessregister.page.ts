@@ -137,10 +137,12 @@ export class BusniessregisterPage implements OnInit {
       salon_type: new FormControl('', Validators.required)
     });
     this.router.queryParams.subscribe((res: any) => {
+      debugger
+      if (res.language) { localStorage.setItem("language", res.language); this.lists.language = res.language; }
+
       if (res.edit) {
         this.lists.edit = res.edit;
         let Profile = JSON.parse(localStorage.getItem("UserProfile"));
-        if (res.language) { localStorage.setItem("language", res.language); this.lists.language = res.language; }
         setTimeout(() => {
           env.SetEditValue(Profile);
         }, 1000);
@@ -435,6 +437,10 @@ export class BusniessregisterPage implements OnInit {
       if (this.lists.editprofile) {
         this.Businessform1.value.id = this.lists.userid;
         this.Businessform1.value.b_id = new UserPipe().transform('b_id');
+      }
+
+      if(this.lists.language){
+        this.Businessform1.value.userlanguage = this.lists.language;
       }
       this.common.PostMethod("UserRegistration", this.Businessform1.value).then((res: any) => {
         if (res.status.Status == 1) {

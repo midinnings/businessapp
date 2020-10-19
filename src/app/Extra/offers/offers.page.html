@@ -33,7 +33,7 @@
         </ion-row>
     </ion-col> -->
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="Usertype_check!='1' || Usertype_check!=1 ">
         <ion-fab-button>
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>

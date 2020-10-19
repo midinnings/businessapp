@@ -58,9 +58,11 @@ var OffersPage = /** @class */ (function () {
         this.modal = modal;
         this.popUp = popUp;
         this.lists = {};
+        this.Usertype_check = '2';
     }
     OffersPage.prototype.ngOnInit = function () {
         var _this = this;
+        this.Usertype_check = new user_pipe_1.UserPipe().transform('usertype');
         this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(function (result) { return console.log('Has permission?', result.hasPermission); }, function (err) { return _this.androidPermissions.requestPermission(_this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE); });
         this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then(function (result) { return console.log('Has permission? read', result.hasPermission); }, function (err) { return _this.androidPermissions.requestPermission(_this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE); });
         // this.GetMyOffers();
