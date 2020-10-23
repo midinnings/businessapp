@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ToastController, AlertController, LoadingController, NavController, ActionSheetController } from '@ionic/angular';
+import { ToastController, AlertController, LoadingController, NavController, ActionSheetController, ModalController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { PremiumPage } from '../Modal/premium/premium.page';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-  //public Url:any = "http://192.168.0.120/mysalonzone/api/public/";  
+  //public Url: any = "http://192.168.0.120/mysalonzone/api/public/";
   // Url: any = "http://localhost/mysalone/public/";
   // public Url: any = "http://mysalonzone.in/staging/public/";
   Url: any = "http://api.mysalonzone.in/";
   Website: any = "http://mysalonzone.in/";
   isLoading: boolean = false;
-  constructor(public inapp: InAppBrowser, public actionSheetController: ActionSheetController, public navCtrl: NavController, public http: HttpClient, public toastController: ToastController, public alertController: AlertController, public loadingController: LoadingController) { }
+  constructor(public modal:ModalController,public inapp: InAppBrowser, public actionSheetController: ActionSheetController, public navCtrl: NavController, public http: HttpClient, public toastController: ToastController, public alertController: AlertController, public loadingController: LoadingController) { }
   GetMethod(MapUrl) {
     return new Promise((resolve, reject) => {
       this.http.get(this.Url + MapUrl).subscribe(
@@ -201,7 +202,7 @@ export class CommonService {
       let TimeOnly = DateTime_V.split(' ')[1];
       let Phase = DateTime_V.split(' ')[2];
       if (TimeOnly) {
-        return TimeOnly+' '+Phase;
+        return TimeOnly + ' ' + Phase;
       } else {
         return '00:00:00';
       }
@@ -221,6 +222,29 @@ export class CommonService {
       return true;
     }
     return false;
+  }
+
+  PremiumMember() {
+    var UserProfile = JSON.parse(localStorage.getItem('UserProfile'));
+    if (UserProfile.is_premium) {
+      if ( UserProfile.is_premium != 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  async PremiumModal(){
+    const custmodal = await this.modal.create({
+      component: PremiumPage,
+      cssClass: 'checkoutreceipt',
+      showBackdrop: true,
+      componentProps: {}
+    });
+    await custmodal.present();
   }
 
 }

@@ -11,8 +11,7 @@
             <ion-col size="2" class="ion-text-center">
                 <ion-badge class="notifybadge">
                     {{lists.dashboardwid.notifications||0}}</ion-badge>
-                <ion-icon name="notifications" size="large" (click)="common.PageGoto('Forward','notifications')"
-                    style="color: #fff !important;"></ion-icon>
+                <ion-icon name="notifications" size="large" (click)="common.PageGoto('Forward','notifications')" style="color: #fff !important;"></ion-icon>
             </ion-col>
         </ion-row>
     </ion-toolbar>
@@ -58,7 +57,8 @@
                     </ion-card-content>
                 </ion-card>
             </ion-col>
-            <ion-col size="4" (click)="common.PageGoto('Forward', 'festivalnvishes', {})">
+
+            <!-- <ion-col size="4" (click)="common.PageGoto('Forward', 'festivalnvishes', {})">
                 <ion-card class="mycardinfo cardsqr">
                     <ion-card-content>
                         <p class="info iconimg"><img src="./assets/icon/icon1.png" /></p>
@@ -73,7 +73,28 @@
                         <p class="infoname">{{'Offer/Deal'|language}}</p>
                     </ion-card-content>
                 </ion-card>
+            </ion-col> -->
+
+            <ion-col size="4" (click)="common.PageGoto('Forward', 'customermanager', {})">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info iconimg"><img src="./assets/icon/icon1.png" /></p>
+                        <p class="infoname">{{'Customer Manager'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
             </ion-col>
+
+
+            <ion-col size="4">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content (click)="GotoPage('dailyledger')">
+                        <p class="info iconimg"><img src="./assets/icon/ledger.png" /></p>
+                        <p class="infoname">{{'Daily Ledger'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+
+
             <ion-col size="4">
                 <ion-card class="mycardinfo cardsqr">
                     <ion-card-content (click)="GotoPage('services')">
@@ -189,7 +210,8 @@
         </ion-row>
         <ion-row class="griddata">
             <ion-icon name="ios-arrow-back" class="leftarrow"></ion-icon>
-            <ion-col size="4" (click)="common.PageGoto('Forward', 'festivalnvishes', {})">
+
+            <!-- <ion-col size="4" (click)="common.PageGoto('Forward', 'festivalnvishes', {})">
                 <ion-card class="mycardinfo cardsqr">
                     <ion-card-content>
                         <p class="info iconimg"><img src="./assets/icon/icon1.png" /></p>
@@ -202,6 +224,22 @@
                     <ion-card-content>
                         <p class="info iconimg"><img src="./assets/icon/icon2.png" /></p>
                         <p class="infoname">{{'Offer/Deal'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col> -->
+            <ion-col size="4" (click)="common.PageGoto('Forward', 'customermanager', {})">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content>
+                        <p class="info iconimg"><img src="./assets/icon/template.png" /></p>
+                        <p class="infoname">{{'Customer Manager'|language}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="4">
+                <ion-card class="mycardinfo cardsqr">
+                    <ion-card-content (click)="GotoPage('dailyledger')">
+                        <p class="info iconimg"><img src="./assets/icon/ledger.png" /></p>
+                        <p class="infoname">{{'Daily Ledger'|language}}</p>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -226,8 +264,7 @@
                                 <ion-card class="slidecard">
                                     <p>{{b.title}}</p>
                                     <span>{{b.ndatetime|date:'dd-MMM-yyyy'}}</span>
-                                    <img onerror="this.src='./assets/img/placeholder.jfif';"
-                                        [src]="common.Url+'Files/'+ b.coverimage" />
+                                    <img onerror="this.src='./assets/img/placeholder.jfif';" [src]="common.Url+'Files/'+ b.coverimage" />
                                 </ion-card>
                             </ion-slide>
                         </ion-slides>
@@ -244,8 +281,7 @@
                                 <ion-card class="slidecard">
                                     <p>{{b.title}}</p>
                                     <span>{{b.publishedon|date:'dd-MMM-yyyy'}}</span>
-                                    <img onerror="this.src='./assets/img/placeholder.jfif';"
-                                        [src]="common.Url+'Files/'+ b.coverImage" />
+                                    <img onerror="this.src='./assets/img/placeholder.jfif';" [src]="common.Url+'Files/'+ b.coverImage" />
                                 </ion-card>
                             </ion-slide>
                         </ion-slides>
@@ -263,8 +299,7 @@
                                 <ion-card class="slidecard">
                                     <p>{{b.eventname}}</p>
                                     <span>{{b.publishingdate|date:'dd-MMM-yyyy'}}</span>
-                                    <img onerror="this.src='./assets/img/placeholder.jfif';"
-                                        [src]="common.Url+'Files/'+ b.coverImage" />
+                                    <img onerror="this.src='./assets/img/placeholder.jfif';" [src]="common.Url+'Files/'+ b.coverImage" />
                                 </ion-card>
                             </ion-slide>
                         </ion-slides>

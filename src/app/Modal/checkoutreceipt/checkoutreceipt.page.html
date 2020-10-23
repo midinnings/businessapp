@@ -41,10 +41,13 @@
 
 
     <ion-row padding *ngIf="!PackageComboApplied">
+        <ion-col size="6"><b>{{'Total'|language}}</b></ion-col>
+        <ion-col size="6" text-right>{{OrgTotal}} ₹</ion-col>
+
         <ion-col size="6"><b>{{'Discount'|language}}
             </b></ion-col>
         <ion-col size="6" text-right>- {{lists.Discount}} {{lists.DiscountType=='Percent'?'%':'₹'}}</ion-col>
-        <ion-col size="6"><b>{{'Total'|language}}</b></ion-col>
+        <ion-col size="6"><b>{{'Grand Total'|language}}</b></ion-col>
         <ion-col size="6" text-right>{{totalamount()}} ₹</ion-col>
     </ion-row>
 

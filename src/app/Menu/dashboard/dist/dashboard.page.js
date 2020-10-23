@@ -95,6 +95,13 @@ var DashboardPage = /** @class */ (function () {
         });
     };
     DashboardPage.prototype.GotoPage = function (ev) {
+        // By Pass with premium membership------------------
+        if (ev == 'festivalnvishes' || ev == 'offers') {
+            if (!this.common.PremiumMember()) {
+                this.common.PremiumModal();
+                return;
+            }
+        }
         if (ev == 'festivalnvishes') {
             this.common.presentToast("Feature Coming Soon", 4000);
         }

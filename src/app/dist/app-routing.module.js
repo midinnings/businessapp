@@ -305,6 +305,10 @@ var routes = [
     {
         path: 'customer-reviews',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./Extra/customer-reviews/customer-reviews.module'); }).then(function (m) { return m.CustomerReviewsPageModule; }); }
+    },
+    {
+        path: 'premium',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./Modal/premium/premium.module'); }).then(function (m) { return m.PremiumPageModule; }); }
     }
 ];
 var AppRoutingModule = /** @class */ (function () {

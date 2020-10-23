@@ -31,6 +31,8 @@ export class ManualPage implements OnInit {
   Amount_PayableShow: number = 0;
   CustomCoupon: any = '';
   AppliedCoupon: any = '';
+  TempPrice: any;
+  Points_Redeemed:boolean=false;
   @ViewChild('serviceselect', { static: false }) serviceselect: IonSelect;
   @ViewChild('stylistselect', { static: false }) stylistselect: IonSelect;
   constructor(public social: SocialSharing, public file: File, public inmessage: InmessageService, public modal: ModalController, public common: CommonService, public router: ActivatedRoute, public fb: FormBuilder, public navCtrl: NavController) { }
@@ -60,13 +62,13 @@ export class ManualPage implements OnInit {
         }
         if (this.lists.service.length == 0) {
           this.lists.PackageApplied = true;
-          
+
         }
-        
-        if(this.lists.coupon_id && this.lists.coupon_id!=''){
+
+        if (this.lists.coupon_id && this.lists.coupon_id != '') {
           this.GetOfferData(this.lists.coupon_id);
         }
-        
+
         this.checkoutform.controls['name'].setValue(res.customer_name);
         this.checkoutform.controls['mobile'].setValue(res.contactno);
       }
@@ -75,23 +77,23 @@ export class ManualPage implements OnInit {
       this.GetServiceList();
       this.GetEmployeelist();
 
-      if(this.lists.PackageApplied){
+      if (this.lists.PackageApplied) {
         this.PackageDiscount(this.lists);
       }
-     
+
     }, 200);
   }
 
-  GetOfferData(offer_id){
-    let env=this;
-    this.common.PostMethod("GetFilterData", { file: "offer", name: "id", value:offer_id }).then((res: any) => {
+  GetOfferData(offer_id) {
+    let env = this;
+    this.common.PostMethod("GetFilterData", { file: "offer", name: "id", value: offer_id }).then((res: any) => {
       let Data = res.Data[0];
-      if(Data){
-        if(Data.type == 'Flat' || Data.type == 'OnService'){
+      if (Data) {
+        if (Data.type == 'Flat' || Data.type == 'OnService') {
           setTimeout(() => {
             this.CustomCoupon = Data.couponcode;
-          env.ApplyDiscountConcession(Data);
-            
+            env.ApplyDiscountConcession(Data);
+
           }, 3000);
 
         }
@@ -129,6 +131,7 @@ export class ManualPage implements OnInit {
       this.lists.serviceinfo.forEach(element => {
         price = parseInt(price) + parseInt(element.serviceprice);
       });
+      this.TempPrice = price;
     }
     //this.lists.payableamount = (parseInt(price) - parseInt(this.lists.Discount));
     //return (parseInt(price) - parseInt(this.lists.Discount));
@@ -139,6 +142,10 @@ export class ManualPage implements OnInit {
     }
     this.lists.payableamount = price;
     this.Amount_PayableShow = price;
+    if (this.lists.points_redeem && this.lists.points_redeem != 0 && this.lists.points_redeem != '0') {
+      this.lists.payableamount = this.Amount_PayableShow = this.Amount_PayableShow - parseInt(this.lists.points_redeem);
+      this.Points_Redeemed=true;
+    }
     this.Final_DiscountAvail = 0;
     this.CustomCoupon = '';
     // reset discount value--------------------------
@@ -185,15 +192,15 @@ export class ManualPage implements OnInit {
           service.push(element.serviceid);
         });
 
-         // Send Update Cost when changed costing from business app-----------------------
-         this.lists.updatecost = null;
-              
-         if(this.lists.payableamount && this.lists.payableamount!=0){
-           this.lists.updatecost = this.lists.payableamount;
-         }else{
-           this.lists.updatecost = this.lists.cost;
-         }
+        // Send Update Cost when changed costing from business app-----------------------
+        this.lists.updatecost = null;
 
+        if (this.lists.payableamount && this.lists.payableamount != 0) {
+          this.lists.updatecost = this.lists.payableamount;
+        } else {
+          this.lists.updatecost = this.lists.cost;
+        }
+        this.lists.checkout_app = 'business';
         if (!this.lists.Old) {
           this.lists.services = JSON.stringify(service);
           let Data = {
@@ -209,6 +216,7 @@ export class ManualPage implements OnInit {
             comments: 'MANUAL CHECKOUT BY ' + new UserPipe().transform('name'),
             employee: this.lists.employee,
             appointmentstatus: 'Confirm',
+            checkout_app: 'business'
           }
           this.lists.customer_name = this.checkoutform.value.name;
           this.lists.contactno = this.checkoutform.value.mobile;
@@ -217,7 +225,7 @@ export class ManualPage implements OnInit {
               this.lists.id = res.Data;
               this.lists.userid = localStorage.getItem("UserId");
               this.lists.b_id = new UserPipe().transform('b_id');
-             
+
 
               this.common.PostMethod("CompleteCheckout", this.lists).then((resu: any) => {
                 this.lists.billid = resu.CheckoutId;
@@ -231,6 +239,7 @@ export class ManualPage implements OnInit {
         } else {
 
           this.lists.services = JSON.stringify(service);
+
           this.common.PostMethod("CompleteCheckout", this.lists).then((resu: any) => {
             this.lists.billid = resu.CheckoutId;
             this.common.dismissLoader();
@@ -238,7 +247,7 @@ export class ManualPage implements OnInit {
             this.common.presentToast(resu.Message, 4000);
             this.OpenSucessCheckout();
           });
-         
+
         }
       }
     });
@@ -267,7 +276,7 @@ export class ManualPage implements OnInit {
       if (rdata.data.Status) {
         if (!rdata.data.finish) {
           let filename = rdata.data.filename + ".pdf";
-          
+
           this.file.writeFile(this.file.externalRootDirectory + "MSZApp/", filename, rdata.data.Data, { replace: true }).then((result: any) => {
             this.social.share("Your Salon Receipt via-My Salon Zone", "Receipt", [this.file.externalRootDirectory + "MSZApp/" + filename], "");
           });
@@ -313,18 +322,18 @@ export class ManualPage implements OnInit {
   }
 
   ChangeStylist(ev) {
-    
-  
-    if(typeof this.lists.employeeinfo== "string"){
-      let EmployeeData = this.lists.userlist.filter( i => i.id==this.lists.employee );
-      if(EmployeeData){
-        if(typeof this.lists.employeeinfo== "string"){
+
+
+    if (typeof this.lists.employeeinfo == "string") {
+      let EmployeeData = this.lists.userlist.filter(i => i.id == this.lists.employee);
+      if (EmployeeData) {
+        if (typeof this.lists.employeeinfo == "string") {
           this.lists.employeeinfo = {};
         }
         this.lists.employeeinfo.name = EmployeeData[0].name;
         return
       }
-      
+
     }
     this.lists.userlist.forEach(element => {
       if (element.id == ev.detail.value) {
@@ -336,6 +345,10 @@ export class ManualPage implements OnInit {
 
 
   async OpenCoupon() {
+
+    this.common.presentToast('Offers/Deals not available....', 2000);
+    return
+
     let env = this;
     const custmodal = await this.modal.create({
       component: CuponsPage,
@@ -359,6 +372,11 @@ export class ManualPage implements OnInit {
 
 
   ApplyDiscountConcession(DataCoupon) {
+
+    //Remove functionality for now-----------------
+
+    
+
     console.log(DataCoupon);
     let values = this.DiscountValues = DataCoupon;
     this.lists.applycoupon = values;
@@ -424,14 +442,19 @@ export class ManualPage implements OnInit {
       this.Amount_PayableShow = this.lists.price - this.lists.Discount;
       this.lists.payableamount = this.Amount_PayableShow;
     }
+
   }
 
 
   ApplyCoupon() {
+    this.common.presentToast('Offers/Deals not available....', 2000);
+    return
+
+    
     let data = { file: 'offer', name: 'couponcode', value: this.CustomCoupon };
     this.common.PostMethod("GetFilterData", data).then((res: any) => {
       console.log(res);
-      
+
       if (res.Status == 1) {
         if (res.Data.length != 0) {
           let CouponExtractData = res.Data[0];
@@ -450,19 +473,19 @@ export class ManualPage implements OnInit {
 
   PackageDiscount(values) {
     let data = { file: 'offer', name: 'id', value: this.lists.coupon_id };
-    
+
     this.common.PostMethod("GetFilterData", data).then((res: any) => {
       if (res.Status == 1) {
-        if(res.Data[0].services){
-        let ServiceIds = res.Data[0].services.split(',');
-        this.lists.packageservicelist = []
-        ServiceIds.forEach(element => {
-          let ServiceFound = this.lists.servicelist.filter(i => i.serviceid == element);
-          if (ServiceFound) {
-            this.lists.packageservicelist.push(ServiceFound[0]);
-          }
-        });
-      }
+        if (res.Data[0].services) {
+          let ServiceIds = res.Data[0].services.split(',');
+          this.lists.packageservicelist = []
+          ServiceIds.forEach(element => {
+            let ServiceFound = this.lists.servicelist.filter(i => i.serviceid == element);
+            if (ServiceFound) {
+              this.lists.packageservicelist.push(ServiceFound[0]);
+            }
+          });
+        }
 
       }
     });

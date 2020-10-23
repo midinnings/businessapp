@@ -108,12 +108,21 @@ export class DashboardPage implements OnInit {
   }
 
   GotoPage(ev) {
+    // By Pass with premium membership------------------
+    if(ev == 'festivalnvishes' || ev == 'offers'){
+        if(!this.common.PremiumMember()){
+          this.common.PremiumModal();
+          return;
+        }
+    }
     if (ev == 'festivalnvishes') {
       this.common.presentToast("Feature Coming Soon", 4000);
     } else {
       this.common.PageGoto('Forward', ev, {});
     }
   }
+
+
   Gotoenpage(ev) {
     this.common.PageGoto('Forward', ev, {});
   }

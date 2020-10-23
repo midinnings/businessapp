@@ -9,7 +9,8 @@ import { NavParams, ModalController } from '@ionic/angular';
 })
 export class CheckoutreceiptPage implements OnInit {
   lists: any = {};
-  PackageComboApplied:boolean=false;
+  PackageComboApplied: boolean = false;
+  OrgTotal=0;
   constructor(public common: CommonService, public modal: ModalController, public navParams: NavParams) { }
 
   ngOnInit() {
@@ -33,24 +34,50 @@ export class CheckoutreceiptPage implements OnInit {
     this.lists.serviceinfo.forEach(element => {
       total = parseInt(total) + parseInt(element.serviceprice);
     });
-    if (this.lists.applycoupon.discounttype == "Percent") {
+    this.OrgTotal = total;
+
+
+    if (this.lists.applycoupon.type == "OnService") {
+      if (this.lists.applycoupon.discounttype == "Amount") {
+        let ServiceCount = this.lists.serviceinfo.length;
+        this.lists.Discount = parseInt(this.lists.applycoupon.discount) * ServiceCount;
+        total = total - this.lists.Discount;
+      } else {
+        // By Precent----------------------------------------
+        var PercentOfService=0;
+        this.lists.serviceinfo.forEach(element => {
+          PercentOfService =PercentOfService + ((parseInt(this.lists.applycoupon.discount)/parseInt(element.serviceprice)) * 100);
+        });
+        total = total - PercentOfService;
+      }
+
       
-      
+
+    } else if(this.lists.applycoupon.type == "Combo" || this.lists.applycoupon.type == "Package") {
       this.lists.Discount = total - this.lists.cost;
       total = this.lists.cost;
-    } else {
-      total = parseInt(total) - parseInt(this.lists.Discount);
+    }else{
+      //Subtract Loyalty points if redeemed-----------
+      let SubPoints=0;
+      debugger
+      if(this.lists.points_redeem){
+        SubPoints=parseInt(this.lists.points_redeem);
+      }
+      this.lists.Discount = this.lists.points_redeem ;
+      total = total - SubPoints;
+
+      
     }
     return total;
   }
 
-  GetOfferData(offer_id){
-    let env=this;
-    this.common.PostMethod("GetFilterData", { file: "offer", name: "id", value:offer_id }).then((res: any) => {
+  GetOfferData(offer_id) {
+    let env = this;
+    this.common.PostMethod("GetFilterData", { file: "offer", name: "id", value: offer_id }).then((res: any) => {
       let Data = res.Data[0];
-      if(Data){
-        if(Data.type == 'Combo' || Data.type == 'Package'){
-          this.PackageComboApplied=true;
+      if (Data) {
+        if (Data.type == 'Combo' || Data.type == 'Package') {
+          this.PackageComboApplied = true;
 
         }
       }

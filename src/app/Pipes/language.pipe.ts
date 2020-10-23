@@ -16,6 +16,9 @@ export class LanguagePipe implements PipeTransform {
 
   hi: any = {
     // "":"",
+    "Loyalty Points Redeemed":"वफादारी अंक रिडीम",
+    "Deal Price":"डील मूल्य",
+    "All": "सभी",
     "Offer Type":"ऑफ़र प्रकार",
     "Overall":"संपूर्ण",
     "Ambience":"माहौल",
@@ -23,7 +26,7 @@ export class LanguagePipe implements PipeTransform {
     "Waiting":"इंतज़ार",
     "Create":"बनाए",
     "Offers":"ऑफर",
-    "Deal Amount":"सौदा राशि",
+    "Deal Amount":"डील राशि",
     "Discount Value":"डिस्काउंट मूल्य",
     "Discount By":"छूट द्वारा",
     "BuynGet":"खरीदें और पाएं",
@@ -33,6 +36,7 @@ export class LanguagePipe implements PipeTransform {
     "Select Services":"सेवाओं का चयन करें",
     "Occassion":"अवसर",
     "Deal/Offer Applied" : "डील / ऑफ़र लागू",
+    "Deal/Offer Price":"डील / ऑफ़र मूल्य",
     "Package/Combo":"पैकेज / कॉम्बो",
     "View Deals":"डील देखें",
     "Select Staff Name":"स्टाफ का नाम चुनें",

@@ -16,6 +16,7 @@ var CuponsPage = /** @class */ (function () {
         this.lists = {};
     }
     CuponsPage.prototype.ngOnInit = function () {
+        this.lists.Myoffers = [];
         this.GetMyOffers();
     };
     CuponsPage.prototype.close = function () {

@@ -31,14 +31,16 @@
                 </ion-item>
             </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="Usertype != '1' ">
             <ion-col size="6">
                 <p>{{'Search by Staff'|language}}</p>
             </ion-col>
             <ion-col size="6">
                 <ion-item lines="none">
                     <ion-select [(ngModel)]="filterbystaff" (ionChange)="FilterByStaff($event.target.value)">
-                        <ion-select-option value="" disabled selected>{{'Select Staff Name'|language}}
+                        <ion-select-option value="" disabled selected>{{'Select by Staff'|language}}
+                        </ion-select-option>
+                        <ion-select-option value="">{{'All'|language}}
                         </ion-select-option>
                         <ion-select-option *ngFor="let u of StaffList" value="{{u.id}}">{{u.name}}
                         </ion-select-option>
@@ -80,7 +82,9 @@
                 <ion-label *ngIf="s.service!=[]">{{s.service|arraytostring:('language'|user)=='Hindi'?'service_hi':'service'}}</ion-label>
             </ion-col>
             <ion-col size="4" text-right>
-                <ion-label><i class="fa fa-inr"></i> {{s.cost}}</ion-label>
+                <ion-label *ngIf="s.cost && s.cost!= '' "><i class="fa fa-inr"></i> {{s.cost}}</ion-label>
+                <ion-label *ngIf="!s.cost || s.cost== '' "><i class="fa fa-inr"></i> {{SimpleTotalCount(s)}}</ion-label>
+
             </ion-col>
         </ion-row>
         <ion-row>

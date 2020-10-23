@@ -44,8 +44,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.CommonService = void 0;
 var core_1 = require("@angular/core");
+var premium_page_1 = require("../Modal/premium/premium.page");
 var CommonService = /** @class */ (function () {
-    function CommonService(inapp, actionSheetController, navCtrl, http, toastController, alertController, loadingController) {
+    function CommonService(modal, inapp, actionSheetController, navCtrl, http, toastController, alertController, loadingController) {
+        this.modal = modal;
         this.inapp = inapp;
         this.actionSheetController = actionSheetController;
         this.navCtrl = navCtrl;
@@ -53,7 +55,7 @@ var CommonService = /** @class */ (function () {
         this.toastController = toastController;
         this.alertController = alertController;
         this.loadingController = loadingController;
-        //public Url:any = "http://192.168.0.120/mysalonzone/api/public/";  
+        //public Url: any = "http://192.168.0.120/mysalonzone/api/public/";
         // Url: any = "http://localhost/mysalone/public/";
         // public Url: any = "http://mysalonzone.in/staging/public/";
         this.Url = "http://api.mysalonzone.in/";
@@ -307,6 +309,41 @@ var CommonService = /** @class */ (function () {
             return true;
         }
         return false;
+    };
+    CommonService.prototype.PremiumMember = function () {
+        var UserProfile = JSON.parse(localStorage.getItem('UserProfile'));
+        if (UserProfile.is_premium) {
+            if (UserProfile.is_premium != 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    };
+    CommonService.prototype.PremiumModal = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var custmodal;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modal.create({
+                            component: premium_page_1.PremiumPage,
+                            cssClass: 'checkoutreceipt',
+                            showBackdrop: true,
+                            componentProps: {}
+                        })];
+                    case 1:
+                        custmodal = _a.sent();
+                        return [4 /*yield*/, custmodal.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     CommonService = __decorate([
         core_1.Injectable({

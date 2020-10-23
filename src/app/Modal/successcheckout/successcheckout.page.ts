@@ -82,6 +82,12 @@ export class SuccesscheckoutPage implements OnInit {
         finalDiscount = StringDicount_v + '' + finalDiscount;
       }
     }
+
+    if (this.lists.points_redeem && this.lists.points_redeem != 0 && this.lists.points_redeem != '0') {
+      finalDiscount = this.lists.points_redeem+' ₹';
+    }
+
+
     this.externalDataRetrievedFromServer = [];
     this.lists.serviceinfo.forEach((element, index) => {
       this.externalDataRetrievedFromServer.push({ No: index + 1, Service: element.service, Price: element.serviceprice });

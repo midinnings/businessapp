@@ -15,6 +15,7 @@ var CheckoutreceiptPage = /** @class */ (function () {
         this.navParams = navParams;
         this.lists = {};
         this.PackageComboApplied = false;
+        this.OrgTotal = 0;
     }
     CheckoutreceiptPage.prototype.ngOnInit = function () {
         this.lists = this.navParams.data;
@@ -30,16 +31,40 @@ var CheckoutreceiptPage = /** @class */ (function () {
         this.modal.dismiss({ Status: false });
     };
     CheckoutreceiptPage.prototype.totalamount = function () {
+        var _this = this;
         var total = 0;
         this.lists.serviceinfo.forEach(function (element) {
             total = parseInt(total) + parseInt(element.serviceprice);
         });
-        if (this.lists.applycoupon.discounttype == "Percent") {
+        this.OrgTotal = total;
+        if (this.lists.applycoupon.type == "OnService") {
+            if (this.lists.applycoupon.discounttype == "Amount") {
+                var ServiceCount = this.lists.serviceinfo.length;
+                this.lists.Discount = parseInt(this.lists.applycoupon.discount) * ServiceCount;
+                total = total - this.lists.Discount;
+            }
+            else {
+                // By Precent----------------------------------------
+                var PercentOfService = 0;
+                this.lists.serviceinfo.forEach(function (element) {
+                    PercentOfService = PercentOfService + ((parseInt(_this.lists.applycoupon.discount) / parseInt(element.serviceprice)) * 100);
+                });
+                total = total - PercentOfService;
+            }
+        }
+        else if (this.lists.applycoupon.type == "Combo" || this.lists.applycoupon.type == "Package") {
             this.lists.Discount = total - this.lists.cost;
             total = this.lists.cost;
         }
         else {
-            total = parseInt(total) - parseInt(this.lists.Discount);
+            //Subtract Loyalty points if redeemed-----------
+            var SubPoints = 0;
+            debugger;
+            if (this.lists.points_redeem) {
+                SubPoints = parseInt(this.lists.points_redeem);
+            }
+            this.lists.Discount = this.lists.points_redeem;
+            total = total - SubPoints;
         }
         return total;
     };

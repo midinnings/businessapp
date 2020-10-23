@@ -33,6 +33,10 @@ body {
   font-size: 11px !important;
 }
 
+.nopadding {
+  padding: 0;
+}
+
 .alert-radio-label,
 .alert-checkbox-label {
   font-size: 12px !important;

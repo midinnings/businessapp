@@ -55,8 +55,11 @@ var DailyledgerPage = /** @class */ (function () {
         this.lists = {};
         this.filterbystaff = '';
         this.StaffList = [];
+        this.EmployeeSelected = '';
+        this.Usertype = '';
     }
     DailyledgerPage.prototype.ngOnInit = function () {
+        this.Usertype = localStorage.getItem('UserType');
         this.Type = "Daily";
         this.lists.Sales = [];
         this.lists.Expenses = [];
@@ -64,10 +67,15 @@ var DailyledgerPage = /** @class */ (function () {
         this.GetStylist();
     };
     DailyledgerPage.prototype.FilterByStaff = function (emp_id) {
-        var _this = this;
-        this.common.PostMethod("DailyLedger", { b_id: new user_pipe_1.UserPipe().transform('b_id'), bystaff: true, employee_id: emp_id }).then(function (res) {
-            _this.lists = res.Data;
-        });
+        this.EmployeeSelected = emp_id;
+        this.GetDailyLedger();
+        // this.common.PostMethod("DailyLedger", {
+        //   b_id: new UserPipe().transform('b_id'),
+        //   bystaff: true,
+        //   employee_id: emp_id
+        // }).then((res: any) => {
+        //   this.lists = res.Data;
+        // });
     };
     DailyledgerPage.prototype.GetStylist = function () {
         var _this = this;
@@ -77,6 +85,9 @@ var DailyledgerPage = /** @class */ (function () {
     };
     DailyledgerPage.prototype.GetDailyLedger = function () {
         var _this = this;
+        if (this.Usertype == '1') {
+            this.EmployeeSelected = localStorage.getItem('UserId');
+        }
         if (this.Type == "Custom") {
             this.Customdateopen();
         }
@@ -89,18 +100,40 @@ var DailyledgerPage = /** @class */ (function () {
             if (this.Type == 'Monthly') {
                 fromdate = moment(fromdate).subtract(30, 'days');
             }
-            this.common.PostMethod("DailyLedger", { b_id: new user_pipe_1.UserPipe().transform('b_id'), from: moment(fromdate).format('YYYY-MM-DD'), to: moment(todate).format('YYYY-MM-DD') }).then(function (res) {
+            this.common.PostMethod("DailyLedger", {
+                b_id: new user_pipe_1.UserPipe().transform('b_id'),
+                from: moment(fromdate).format('YYYY-MM-DD'),
+                to: moment(todate).format('YYYY-MM-DD'),
+                employee_id: this.EmployeeSelected
+            }).then(function (res) {
                 _this.lists = res.Data;
             });
         }
     };
     DailyledgerPage.prototype.TotalSales = function () {
+        var _this = this;
         var Total = 0;
         this.lists.Sales.forEach(function (element) {
-            if (element.cost)
+            if (element.cost && element.cost != '') {
                 Total = parseInt(Total) + parseInt(element.cost);
+            }
+            else {
+                Total = parseInt(Total) + _this.SimpleTotalCount(element);
+            }
         });
         return Total;
+    };
+    DailyledgerPage.prototype.SimpleTotalCount = function (data) {
+        var price = 0;
+        if (data.service) {
+            (data.service).forEach(function (element) {
+                price = parseInt(price) + parseInt(element.serviceprice);
+            });
+            return price;
+        }
+        else {
+            return "";
+        }
     };
     DailyledgerPage.prototype.TotalExpense = function () {
         var Total = 0;
@@ -155,7 +188,11 @@ var DailyledgerPage = /** @class */ (function () {
                     case 3:
                         data = (_a.sent()).data;
                         if (data.status) {
-                            this.common.PostMethod("DailyLedger", { b_id: new user_pipe_1.UserPipe().transform('b_id'), from: moment(data.fromdate).format('YYYY-MM-DD'), to: moment(data.todate).format('YYYY-MM-DD') }).then(function (res) {
+                            this.common.PostMethod("DailyLedger", {
+                                b_id: new user_pipe_1.UserPipe().transform('b_id'),
+                                from: moment(data.fromdate).format('YYYY-MM-DD'),
+                                to: moment(data.todate).format('YYYY-MM-DD')
+                            }).then(function (res) {
                                 _this.lists = res.Data;
                             });
                         }

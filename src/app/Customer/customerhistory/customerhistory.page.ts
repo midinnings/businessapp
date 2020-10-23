@@ -12,16 +12,23 @@ export class CustomerhistoryPage implements OnInit {
   constructor(public common: CommonService) { }
 
   ngOnInit() {
+    this.lists.Usertype = localStorage.getItem('UserType');
+    this.lists.UserId = localStorage.getItem('UserId');
+    this.lists.employee_id = '';
+    if (this.lists.Usertype == '1') {
+      this.lists.employee_id = this.lists.UserId;
+    }
     this.GetCustomerHistory();
   }
 
   GetCustomerHistory() {
-    this.common.PostMethod("GetCustomerHistory", { b_id: new UserPipe().transform('b_id') }).then((res: any) => {
+    this.common.PostMethod("GetCustomerHistory", { employee_id: this.lists.employee_id, b_id: new UserPipe().transform('b_id') }).then((res: any) => {
       this.lists.customerlist = res.Data;
     });
   }
+
   SearchCustomer(ev) {
-    this.common.PostMethod("GetCustomerHistory", { b_id: new UserPipe().transform('b_id'), search: ev }).then((res: any) => {
+    this.common.PostMethod("GetCustomerHistory", { employee_id: this.lists.employee_id, b_id: new UserPipe().transform('b_id'), search: ev }).then((res: any) => {
       this.lists.customerlist = res.Data;
     });
   }

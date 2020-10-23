@@ -15,9 +15,12 @@ export class DailyledgerPage implements OnInit {
   constructor(public common: CommonService, public modal: ModalController) { }
   lists: any = {}
   Type: any;
-  filterbystaff:any ='';
-  StaffList:any=[];
+  filterbystaff: any = '';
+  StaffList: any = [];
+  EmployeeSelected:any='';
+  Usertype:any='';
   ngOnInit() {
+    this.Usertype = localStorage.getItem('UserType');
     this.Type = "Daily";
     this.lists.Sales = [];
     this.lists.Expenses = [];
@@ -25,10 +28,17 @@ export class DailyledgerPage implements OnInit {
     this.GetStylist();
   }
 
-  FilterByStaff(emp_id){
-    this.common.PostMethod("DailyLedger", { b_id: new UserPipe().transform('b_id'), bystaff:true, employee_id:emp_id }).then((res: any) => {
-      this.lists = res.Data;
-    });
+  FilterByStaff(emp_id) {
+    this.EmployeeSelected = emp_id;
+    this.GetDailyLedger();
+    // this.common.PostMethod("DailyLedger", {
+    //   b_id: new UserPipe().transform('b_id'),
+    //   bystaff: true,
+    //   employee_id: emp_id
+    // }).then((res: any) => {
+    //   this.lists = res.Data;
+    // });
+
   }
 
   GetStylist() {
@@ -38,6 +48,10 @@ export class DailyledgerPage implements OnInit {
   }
 
   GetDailyLedger() {
+    if(this.Usertype=='1'){
+      this.EmployeeSelected = localStorage.getItem('UserId');
+    }
+
     if (this.Type == "Custom") {
       this.Customdateopen();
     } else {
@@ -49,7 +63,12 @@ export class DailyledgerPage implements OnInit {
       if (this.Type == 'Monthly') {
         fromdate = moment(fromdate).subtract(30, 'days');
       }
-      this.common.PostMethod("DailyLedger", { b_id: new UserPipe().transform('b_id'), from: moment(fromdate).format('YYYY-MM-DD'), to: moment(todate).format('YYYY-MM-DD') }).then((res: any) => {
+      this.common.PostMethod("DailyLedger", {
+        b_id: new UserPipe().transform('b_id'),
+        from: moment(fromdate).format('YYYY-MM-DD'),
+        to: moment(todate).format('YYYY-MM-DD'),
+        employee_id: this.EmployeeSelected
+      }).then((res: any) => {
         this.lists = res.Data;
       });
     }
@@ -57,10 +76,25 @@ export class DailyledgerPage implements OnInit {
 
   TotalSales() {
     let Total: any = 0;
+    
     this.lists.Sales.forEach(element => {
-      if(element.cost)Total = parseInt(Total) + parseInt(element.cost);
+      if (element.cost && element.cost!=''){Total = parseInt(Total) + parseInt(element.cost)}else{
+        Total = parseInt(Total) + this.SimpleTotalCount(element);
+      }
     });
     return Total;
+  }
+
+  SimpleTotalCount(data){
+    let price: any = 0;
+    if (data.service) {
+      (data.service).forEach(element => {
+        price = parseInt(price) + parseInt(element.serviceprice);
+      });
+      return price;
+    }else{
+      return "";
+    }
   }
 
   TotalExpense() {
@@ -70,6 +104,7 @@ export class DailyledgerPage implements OnInit {
     });
     return Total;
   }
+  
   async AddExpenses() {
     const modal = await this.modal.create({
       component: AddexpensePage,
@@ -93,7 +128,11 @@ export class DailyledgerPage implements OnInit {
     await modal.present();
     let { data } = await modal.onWillDismiss();
     if (data.status) {
-      this.common.PostMethod("DailyLedger", { b_id: new UserPipe().transform('b_id'), from: moment(data.fromdate).format('YYYY-MM-DD'), to: moment(data.todate).format('YYYY-MM-DD') }).then((res: any) => {
+      this.common.PostMethod("DailyLedger", {
+        b_id: new UserPipe().transform('b_id'),
+        from: moment(data.fromdate).format('YYYY-MM-DD'),
+        to: moment(data.todate).format('YYYY-MM-DD')
+      }).then((res: any) => {
         this.lists = res.Data;
       });
     }

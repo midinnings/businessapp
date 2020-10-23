@@ -197,7 +197,7 @@ var AppointmentsPage = /** @class */ (function () {
         else {
             this.lists.prefeereddate = new common_1.DatePipe('en-GB').transform(this.lists.appointmentdate, 'yyyy-MM-dd') + ' ' + new common_1.DatePipe('en-GB').transform(this.lists.selectedtime, 'hh:mm:ss a');
             var Services_i = "[]";
-            if (this.book.value.service != "") {
+            if (this.book.value.service != "" && this.book.value.service != []) {
                 Services_i = JSON.stringify(this.book.value.service);
                 this.OfferParams.coupon_applied = this.OfferParams.coupon_id = null;
             }
@@ -216,7 +216,8 @@ var AppointmentsPage = /** @class */ (function () {
                 'appointmentstatus': 'Waiting',
                 'coupon_id': this.OfferParams.coupon_id,
                 'coupon_applied': this.OfferParams.coupon_applied,
-                'cost': this.OfferParams.cost
+                'cost': this.OfferParams.cost,
+                'points_redeem': 0
             };
             this.common.PostMethod("CreateAppointment", Data).then(function (res) {
                 if (res.Status == "1") {
@@ -302,12 +303,10 @@ var AppointmentsPage = /** @class */ (function () {
             var modal, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: cupons_page_1.CuponsPage,
-                            cssClass: '',
-                            showBackdrop: true,
-                            componentProps: {}
-                        })];
+                    case 0:
+                        // removing offer functionality for now-----------------
+                        this.common.presentToast('Offers/Deals not available....', 2000);
+                        return [2 /*return*/];
                     case 1:
                         modal = _a.sent();
                         return [4 /*yield*/, modal.present()];

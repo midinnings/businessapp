@@ -47,13 +47,14 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import {BussinessSettingsPage} from './Modal/bussiness-settings/bussiness-settings.page';
+import {PremiumPage} from './Modal/premium/premium.page';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { CouponDetailsPage } from './Extra/coupon-details/coupon-details.page';
 import { Screenshot } from '@ionic-native/screenshot/ngx';
 
 @NgModule({
-  declarations: [AppComponent, CouponDetailsPage, OtpPage, BussinessSettingsPage, AddcustpopPage, CheckoutpopPage, AddcustomerPage, CancelappointmentPage, MessageboxPage, AcceptappointmentPage, SuccesscheckoutPage, CheckoutreceiptPage, CuponsPage, AddexpensePage, PasswordresetPage, SharingpopPage, AddtemplatesPage, ContactlistPage, JobskeerinfoPage, AppointmenttimestatusPage, CustomdatePage],
-  entryComponents: [CouponDetailsPage, BussinessSettingsPage, OtpPage, AddcustpopPage, CheckoutpopPage, AddcustomerPage, CancelappointmentPage, MessageboxPage, AcceptappointmentPage, SuccesscheckoutPage, CheckoutreceiptPage, CuponsPage, AddexpensePage, PasswordresetPage, SharingpopPage, AddtemplatesPage, ContactlistPage, JobskeerinfoPage, AppointmenttimestatusPage, CustomdatePage],
+  declarations: [AppComponent, CouponDetailsPage, OtpPage, BussinessSettingsPage, PremiumPage, AddcustpopPage, CheckoutpopPage, AddcustomerPage, CancelappointmentPage, MessageboxPage, AcceptappointmentPage, SuccesscheckoutPage, CheckoutreceiptPage, CuponsPage, AddexpensePage, PasswordresetPage, SharingpopPage, AddtemplatesPage, ContactlistPage, JobskeerinfoPage, AppointmenttimestatusPage, CustomdatePage],
+  entryComponents: [CouponDetailsPage, BussinessSettingsPage, PremiumPage, OtpPage, AddcustpopPage, CheckoutpopPage, AddcustomerPage, CancelappointmentPage, MessageboxPage, AcceptappointmentPage, SuccesscheckoutPage, CheckoutreceiptPage, CuponsPage, AddexpensePage, PasswordresetPage, SharingpopPage, AddtemplatesPage, ContactlistPage, JobskeerinfoPage, AppointmenttimestatusPage, CustomdatePage],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, MaterialModule, HttpClientModule,
     ComponentModule,
     ModalModule,

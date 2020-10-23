@@ -72,6 +72,9 @@ var SuccesscheckoutPage = /** @class */ (function () {
                 finalDiscount = StringDicount_v + '' + finalDiscount;
             }
         }
+        if (this.lists.points_redeem && this.lists.points_redeem != 0 && this.lists.points_redeem != '0') {
+            finalDiscount = this.lists.points_redeem + ' ₹';
+        }
         this.externalDataRetrievedFromServer = [];
         this.lists.serviceinfo.forEach(function (element, index) {
             _this.externalDataRetrievedFromServer.push({ No: index + 1, Service: element.service, Price: element.serviceprice });

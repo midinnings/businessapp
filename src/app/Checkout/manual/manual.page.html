@@ -55,7 +55,7 @@
                     <ion-icon name="add-circle-outline" class="primary-text" size="small"></ion-icon> <span class="gray-text"> {{'Add More'|language}}</span>
                 </ion-item>
 
-                <ion-col size="12" class="input-border ">
+                <ion-col size="12" class="input-border " *ngIf="!Points_Redeemed">
                     <ion-row>
                         <ion-col size="5" class="">
                             <ion-item class="" (click)='OpenCoupon()'>
@@ -94,9 +94,13 @@
                             ₹ {{Final_DiscountAvail}} (-)
                         </ion-col>
 
+                        <ion-col *ngIf="Points_Redeemed" size="8" class="font-w-600 small-font">{{'Loyalty Points Redeemed'|language}}</ion-col>
+                        <ion-col *ngIf="Points_Redeemed" size="4" class="font-w-600 small-font" style="color:green"><i class="fa fa-inr"></i> {{lists.points_redeem}} (-)
+                        </ion-col>
+
                         <!-- <ion-col size="1"></ion-col> -->
                         <ion-col size="8" class="font-w-600 small-font">{{'Grand Total'|language}}</ion-col>
-                        <ion-col size="4" class="font-w-600 small-font" *ngIf="lists.serviceinfo"><i class="fa fa-inr"></i> {{Amount_PayableShow}}
+                        <ion-col size="4" class="font-w-600 small-font" *ngIf="lists.serviceinfo" style="color:green"><i class="fa fa-inr"></i> {{Amount_PayableShow}}
                         </ion-col>
 
                     </ion-row>
@@ -109,10 +113,8 @@
             <ion-col size="12">
                 <div *ngIf="lists.PackageApplied">
                     <ion-row class="input-border">
-
-
                         <ion-col size="1"> </ion-col>
-                        <ion-col size="8" class="font-w-600 small-font">Offer Applied</ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">{{'Deal/Offer Applied'|language}}</ion-col>
                         <ion-col size="3" class="font-w-600 small-font" style="color:green">{{lists.coupon_applied}}
                         </ion-col>
                     </ion-row>
@@ -124,9 +126,16 @@
                             ₹ {{s.serviceprice}}
                         </ion-col>
                     </ion-row>
-                    <ion-row class="input-border pb-1">
+                    <ion-row class="input-border pb-1 input-border" *ngIf="TempPrice && TempPrice!=0">
                         <ion-col size="1"> </ion-col>
-                        <ion-col size="8" class="font-w-600 small-font">Grand Total</ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">{{'Total Amount'|language}}</ion-col>
+                        <ion-col size="3" class="font-w-600 small-font" style="color:#c73130;text-decoration: line-through;">
+                            ₹ {{TempPrice}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="input-border pb-1 input-border">
+                        <ion-col size="1"> </ion-col>
+                        <ion-col size="8" class="font-w-600 small-font">{{'Deal/Offer Price'|language}}</ion-col>
                         <ion-col size="3" class="font-w-600 small-font" style="color:green">
                             ₹ {{lists.cost}}
                         </ion-col>

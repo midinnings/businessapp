@@ -298,6 +298,10 @@ const routes: Routes = [
   {
     path: 'customer-reviews',
     loadChildren: () => import('./Extra/customer-reviews/customer-reviews.module').then( m => m.CustomerReviewsPageModule)
+  },
+  {
+    path: 'premium',
+    loadChildren: () => import('./Modal/premium/premium.module').then( m => m.PremiumPageModule)
   }
 ];
 @NgModule({

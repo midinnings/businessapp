@@ -72,6 +72,7 @@ var ManualPage = /** @class */ (function () {
         this.Amount_PayableShow = 0;
         this.CustomCoupon = '';
         this.AppliedCoupon = '';
+        this.Points_Redeemed = false;
     }
     ManualPage.prototype.ngOnInit = function () {
         var _this = this;
@@ -159,6 +160,7 @@ var ManualPage = /** @class */ (function () {
             this.lists.serviceinfo.forEach(function (element) {
                 price = parseInt(price) + parseInt(element.serviceprice);
             });
+            this.TempPrice = price;
         }
         //this.lists.payableamount = (parseInt(price) - parseInt(this.lists.Discount));
         //return (parseInt(price) - parseInt(this.lists.Discount));
@@ -169,6 +171,10 @@ var ManualPage = /** @class */ (function () {
         }
         this.lists.payableamount = price;
         this.Amount_PayableShow = price;
+        if (this.lists.points_redeem && this.lists.points_redeem != 0 && this.lists.points_redeem != '0') {
+            this.lists.payableamount = this.Amount_PayableShow = this.Amount_PayableShow - parseInt(this.lists.points_redeem);
+            this.Points_Redeemed = true;
+        }
         this.Final_DiscountAvail = 0;
         this.CustomCoupon = '';
         // reset discount value--------------------------
@@ -215,6 +221,7 @@ var ManualPage = /** @class */ (function () {
                 else {
                     _this.lists.updatecost = _this.lists.cost;
                 }
+                _this.lists.checkout_app = 'business';
                 if (!_this.lists.Old) {
                     _this.lists.services = JSON.stringify(service_1);
                     var Data = {
@@ -229,7 +236,8 @@ var ManualPage = /** @class */ (function () {
                         prefeerddate: new common_1.DatePipe('en-GB').transform(_this.calendar.currentDate, 'yyyy-MM-dd') + ' ' + new common_1.DatePipe('en-GB').transform(_this.calendar.currentDate, 'hh:mm:ss a'),
                         comments: 'MANUAL CHECKOUT BY ' + new user_pipe_1.UserPipe().transform('name'),
                         employee: _this.lists.employee,
-                        appointmentstatus: 'Confirm'
+                        appointmentstatus: 'Confirm',
+                        checkout_app: 'business'
                     };
                     _this.lists.customer_name = _this.checkoutform.value.name;
                     _this.lists.contactno = _this.checkoutform.value.mobile;
@@ -375,12 +383,8 @@ var ManualPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        env = this;
-                        return [4 /*yield*/, this.modal.create({
-                                component: cupons_page_1.CuponsPage,
-                                showBackdrop: true,
-                                componentProps: this.lists
-                            })];
+                        this.common.presentToast('Offers/Deals not available....', 2000);
+                        return [2 /*return*/];
                     case 1:
                         custmodal = _a.sent();
                         if (!(this.lists.service.length > 0)) return [3 /*break*/, 4];
@@ -404,6 +408,7 @@ var ManualPage = /** @class */ (function () {
         });
     };
     ManualPage.prototype.ApplyDiscountConcession = function (DataCoupon) {
+        //Remove functionality for now-----------------
         console.log(DataCoupon);
         var values = this.DiscountValues = DataCoupon;
         this.lists.applycoupon = values;
@@ -476,6 +481,8 @@ var ManualPage = /** @class */ (function () {
     };
     ManualPage.prototype.ApplyCoupon = function () {
         var _this = this;
+        this.common.presentToast('Offers/Deals not available....', 2000);
+        return;
         var data = { file: 'offer', name: 'couponcode', value: this.CustomCoupon };
         this.common.PostMethod("GetFilterData", data).then(function (res) {
             console.log(res);
