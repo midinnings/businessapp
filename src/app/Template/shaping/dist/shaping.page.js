@@ -73,7 +73,6 @@ var ShapingPage = /** @class */ (function () {
     ShapingPage.prototype.GetTemplates = function () {
         var _this = this;
         var data = {};
-        debugger;
         if (this.lists.occassion) {
             data = { occassion: this.lists.occassion };
         }

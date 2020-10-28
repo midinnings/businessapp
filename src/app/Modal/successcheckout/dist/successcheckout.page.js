@@ -22,7 +22,6 @@ var SuccesscheckoutPage = /** @class */ (function () {
     }
     SuccesscheckoutPage.prototype.ngOnInit = function () {
         var _this = this;
-        debugger;
         this.lists = this.navParams.data;
         this.lists.UserProfile = JSON.parse(localStorage.getItem("UserProfile"));
         this.common.GetMethod("GetProfileBase64?id=" + this.lists.UserProfile.b_id).then(function (res) {

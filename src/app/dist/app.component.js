@@ -62,9 +62,10 @@ var AppComponent = /** @class */ (function () {
                 console.error('Got a deeplink that didn\'t match', nomatch);
             });
         });
+        //Uncomment below line to get & set packages that are subscribed by business-----------
+        //this.common.GetUserPackage();
     };
     AppComponent.prototype.NavigateDeepLink = function (Match) {
-        debugger;
         var Path = Match.$link.url;
         if (Path) {
             if (Path.includes('blog/')) {

@@ -71,10 +71,12 @@ export class AppComponent {
      
     });
 
+    //Uncomment below line to get & set packages that are subscribed by business-----------
+    //this.common.GetUserPackage();
+
   }
 
   NavigateDeepLink(Match) {
-    debugger
     let Path = Match.$link.url;
     if (Path) {
       if (Path.includes('blog/')) {

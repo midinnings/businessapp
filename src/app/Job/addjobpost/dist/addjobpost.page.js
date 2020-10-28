@@ -50,7 +50,6 @@ var AddjobpostPage = /** @class */ (function () {
         Data.postdate = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
         Data.lastdate = moment(Data.lastdate).format("YYYY-MM-DD HH:mm:ss");
         Data.company_name = new user_pipe_1.UserPipe().transform('companyname');
-        debugger;
         this.common.PageGoto('Forward', 'reviewjob', Data);
     };
     AddjobpostPage.prototype.GetMasterListData = function () {

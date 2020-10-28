@@ -310,10 +310,14 @@ var CommonService = /** @class */ (function () {
         }
         return false;
     };
-    CommonService.prototype.PremiumMember = function () {
-        var UserProfile = JSON.parse(localStorage.getItem('UserProfile'));
-        if (UserProfile.is_premium) {
-            if (UserProfile.is_premium != 0) {
+    CommonService.prototype.PremiumMember = function (Checkby_ModuleName) {
+        //----Pass module name according to DB to check if package have this module or not----
+        var TempPackage = localStorage.getItem('BusinessPackage');
+        if (Checkby_ModuleName && TempPackage) {
+            var UserPackage = JSON.parse(TempPackage);
+            var BusinessPackage = JSON.parse(UserPackage);
+            //----Check if module array includes this module-----
+            if (BusinessPackage.includes(Checkby_ModuleName)) {
                 return true;
             }
             else {
@@ -322,6 +326,19 @@ var CommonService = /** @class */ (function () {
         }
         else {
             return false;
+        }
+    };
+    CommonService.prototype.GetUserPackage = function () {
+        // Get and store package modules that are included in subscribed module---------------
+        var BusinessPackage_ID = JSON.parse(localStorage.getItem('UserProfile'));
+        var PackageID = BusinessPackage_ID.package;
+        if (PackageID != 0 || PackageID != '0') {
+            var data_1 = { file: 'subscription', name: 'id', value: PackageID };
+            this.PostMethod("GetFilterData", data_1).then(function (res) {
+                if (res.Status == 1) {
+                    localStorage.setItem('BusinessPackage', data_1[0].modules);
+                }
+            });
         }
     };
     CommonService.prototype.PremiumModal = function () {

@@ -95,13 +95,14 @@ var DashboardPage = /** @class */ (function () {
         });
     };
     DashboardPage.prototype.GotoPage = function (ev) {
+        // call premium member function and pass module name according to saved in DB returned value will be in Boolean
         // By Pass with premium membership------------------
-        if (ev == 'festivalnvishes' || ev == 'offers') {
-            if (!this.common.PremiumMember()) {
-                this.common.PremiumModal();
-                return;
-            }
-        }
+        // if(ev == 'festivalnvishes' || ev == 'offers'){
+        //     if(!this.common.PremiumMember()){
+        //       this.common.PremiumModal();
+        //       return;
+        //     }
+        // }
         if (ev == 'festivalnvishes') {
             this.common.presentToast("Feature Coming Soon", 4000);
         }

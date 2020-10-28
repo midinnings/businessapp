@@ -15,7 +15,7 @@ export class CommonService {
   Url: any = "http://api.mysalonzone.in/";
   Website: any = "http://mysalonzone.in/";
   isLoading: boolean = false;
-  constructor(public modal:ModalController,public inapp: InAppBrowser, public actionSheetController: ActionSheetController, public navCtrl: NavController, public http: HttpClient, public toastController: ToastController, public alertController: AlertController, public loadingController: LoadingController) { }
+  constructor(public modal: ModalController, public inapp: InAppBrowser, public actionSheetController: ActionSheetController, public navCtrl: NavController, public http: HttpClient, public toastController: ToastController, public alertController: AlertController, public loadingController: LoadingController) { }
   GetMethod(MapUrl) {
     return new Promise((resolve, reject) => {
       this.http.get(this.Url + MapUrl).subscribe(
@@ -224,10 +224,14 @@ export class CommonService {
     return false;
   }
 
-  PremiumMember() {
-    var UserProfile = JSON.parse(localStorage.getItem('UserProfile'));
-    if (UserProfile.is_premium) {
-      if ( UserProfile.is_premium != 0) {
+  PremiumMember(Checkby_ModuleName) {
+    //----Pass module name according to DB to check if package have this module or not----
+    let TempPackage = localStorage.getItem('BusinessPackage');
+    if (Checkby_ModuleName && TempPackage) {
+      var UserPackage = JSON.parse(TempPackage);
+      let BusinessPackage = JSON.parse(UserPackage);
+      //----Check if module array includes this module-----
+      if (BusinessPackage.includes(Checkby_ModuleName)) {
         return true;
       } else {
         return false;
@@ -237,7 +241,21 @@ export class CommonService {
     }
   }
 
-  async PremiumModal(){
+  GetUserPackage() {
+    // Get and store package modules that are included in subscribed module---------------
+      let BusinessPackage_ID = JSON.parse(localStorage.getItem('UserProfile'));
+      let PackageID = BusinessPackage_ID.package;
+      if(PackageID!=0 || PackageID!='0'){
+        let data = { file: 'subscription', name: 'id', value: PackageID };
+        this.PostMethod("GetFilterData", data).then((res: any) => {
+          if (res.Status == 1) {
+            localStorage.setItem('BusinessPackage', data[0].modules);
+          }
+        });
+      }
+  }
+
+  async PremiumModal() {
     const custmodal = await this.modal.create({
       component: PremiumPage,
       cssClass: 'checkoutreceipt',

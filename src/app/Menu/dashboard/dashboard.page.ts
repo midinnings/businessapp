@@ -108,13 +108,15 @@ export class DashboardPage implements OnInit {
   }
 
   GotoPage(ev) {
+
+    // call premium member function and pass module name according to saved in DB returned value will be in Boolean
     // By Pass with premium membership------------------
-    if(ev == 'festivalnvishes' || ev == 'offers'){
-        if(!this.common.PremiumMember()){
-          this.common.PremiumModal();
-          return;
-        }
-    }
+    // if(ev == 'festivalnvishes' || ev == 'offers'){
+    //     if(!this.common.PremiumMember()){
+    //       this.common.PremiumModal();
+    //       return;
+    //     }
+    // }
     if (ev == 'festivalnvishes') {
       this.common.presentToast("Feature Coming Soon", 4000);
     } else {
@@ -128,13 +130,9 @@ export class DashboardPage implements OnInit {
   }
   GetBlogs() {
     this.common.PostMethod("DashboardBlog", { userid: localStorage.getItem("UserId"), usertype: localStorage.getItem("UserType"), b_id: new UserPipe().transform('b_id'), language: new UserPipe().transform('language') }).then((res: any) => {
-
-    
-
       this.lists.bloglist = res.Data.Blog;
       this.lists.newslist = res.Data.News;
       this.lists.eventlist = res.Data.Event;
-
     });
   }
 

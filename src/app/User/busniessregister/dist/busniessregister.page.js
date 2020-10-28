@@ -162,7 +162,6 @@ var BusniessregisterPage = /** @class */ (function () {
             salon_type: new forms_1.FormControl('', forms_1.Validators.required)
         });
         this.router.queryParams.subscribe(function (res) {
-            debugger;
             if (res.language) {
                 localStorage.setItem("language", res.language);
                 _this.lists.language = res.language;
@@ -232,7 +231,6 @@ var BusniessregisterPage = /** @class */ (function () {
         if (ev.BusinessOtherServices) {
             this.BOS = ev.BusinessOtherServices;
             this.Other_Info = this.BOS;
-            debugger;
             if (this.BOS.facility_ids) {
                 this.PreferedSelectedFacilites = this.BOS.facility_ids.split(',').map(Number);
             }

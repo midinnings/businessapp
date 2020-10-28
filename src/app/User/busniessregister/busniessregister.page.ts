@@ -137,7 +137,6 @@ export class BusniessregisterPage implements OnInit {
       salon_type: new FormControl('', Validators.required)
     });
     this.router.queryParams.subscribe((res: any) => {
-      debugger
       if (res.language) { localStorage.setItem("language", res.language); this.lists.language = res.language; }
 
       if (res.edit) {
@@ -209,7 +208,6 @@ export class BusniessregisterPage implements OnInit {
     if (ev.BusinessOtherServices) {
       this.BOS = ev.BusinessOtherServices;
       this.Other_Info = this.BOS;
-      debugger
       if (this.BOS.facility_ids) { this.PreferedSelectedFacilites = this.BOS.facility_ids.split(',').map(Number); }
       if (this.BOS.brand_ids ) { this.PreferedBrands = this.BOS.brand_ids.split(',').map(Number); }
       this.Banner_Link = this.BOS.salon_banner;

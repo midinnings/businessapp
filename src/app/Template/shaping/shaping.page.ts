@@ -77,7 +77,6 @@ export class ShapingPage implements OnInit {
 
   GetTemplates() {
     var data = {};
-    debugger
     if (this.lists.occassion) {
       data = { occassion: this.lists.occassion }
     }

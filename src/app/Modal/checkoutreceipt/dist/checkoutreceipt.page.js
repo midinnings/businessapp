@@ -21,7 +21,6 @@ var CheckoutreceiptPage = /** @class */ (function () {
         this.lists = this.navParams.data;
         console.log(this.navParams.data);
         this.lists.UserProfile = JSON.parse(localStorage.getItem("UserProfile"));
-        debugger;
         this.GetOfferData(this.lists.coupon_id);
     };
     CheckoutreceiptPage.prototype.next = function () {
@@ -59,7 +58,6 @@ var CheckoutreceiptPage = /** @class */ (function () {
         else {
             //Subtract Loyalty points if redeemed-----------
             var SubPoints = 0;
-            debugger;
             if (this.lists.points_redeem) {
                 SubPoints = parseInt(this.lists.points_redeem);
             }

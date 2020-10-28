@@ -65,7 +65,6 @@ export class OffersPage implements OnInit {
 
   async OpenCoupon(CouponData) {
     let env = this;
-    debugger
     const custmodal = await this.popUp.create({
       component: CouponDetailsPage,
       showBackdrop: true,

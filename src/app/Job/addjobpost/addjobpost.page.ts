@@ -47,7 +47,6 @@ export class AddjobpostPage implements OnInit {
     Data.postdate = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
     Data.lastdate = moment(Data.lastdate).format("YYYY-MM-DD HH:mm:ss");
     Data.company_name = new UserPipe().transform('companyname');
-    debugger
     this.common.PageGoto('Forward', 'reviewjob', Data);
   }
   GetMasterListData() {
