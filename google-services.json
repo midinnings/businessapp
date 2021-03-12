@@ -1,43 +1,42 @@
 {
   "project_info": {
-    "project_number": "61311465595",
-    "firebase_url": "https://my-salon-zone-notification.firebaseio.com",
-    "project_id": "my-salon-zone-notification",
-    "storage_bucket": "my-salon-zone-notification.appspot.com"
+    "project_number": "567771002650",
+    "firebase_url": "https://my-salon-zone-business.firebaseio.com",
+    "project_id": "my-salon-zone-business",
+    "storage_bucket": "my-salon-zone-business.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:61311465595:android:7a4939ac3cc06307490ade",
+        "mobilesdk_app_id": "1:567771002650:android:b6ba9d8aaf3997c5fa5ea3",
         "android_client_info": {
-          "package_name": "com.mysalonzone"
+          "package_name": "com.mysalonzonebusiness"
         }
       },
       "oauth_client": [
         {
-          "client_id": "61311465595-sjhutu5ti8m7b6899efj7122h8nnoi65.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mysalonzone",
-            "certificate_hash": "36b9404366b5da2a0b15160a4f151d74b317181d"
-          }
-        },
-        {
-          "client_id": "61311465595-mu28nb961aj544i6m47uq0iinnr5cvlk.apps.googleusercontent.com",
+          "client_id": "567771002650-hhk4ltki7ql2d768f12s45m82ij3t5mj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDCZ-6BGbaVffb3MKRuNW55vJflz-FX7hU"
+          "current_key": "AIzaSyB_sprmgtYbu3ykr0wq6-2G9v-wRABohTs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "61311465595-mu28nb961aj544i6m47uq0iinnr5cvlk.apps.googleusercontent.com",
+              "client_id": "567771002650-hhk4ltki7ql2d768f12s45m82ij3t5mj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "567771002650-8rnaot6mf7gmiask6adilj1i0qs7f6u6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mysalonzonecom"
+              }
             }
           ]
         }

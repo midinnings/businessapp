@@ -21,17 +21,22 @@
         <ion-col size="6" class="small-font mb-1">{{'Selected Date'|language}}</ion-col>
         <ion-col size="6" class="small-font mb-1" text-right>{{lists.title}}</ion-col>
     </ion-row>
-    <calendar [eventSource]="eventSource" [markDisabled]="markDisabled" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)"
-        step="30">
+    <calendar [eventSource]="eventSource" [markDisabled]="markDisabled" [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate" (onEventSelected)="onEventSelected($event)"
+        (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" step="30">
     </calendar>
-    <calendar [markDisabled]="markDisabled" [eventSource]="eventSource1" startHour="6" endHour="24" [calendarMode]="calendar.timemode" [currentDate]="calendar.currenttime" step="30" (onTimeSelected)="onTimeSelected1($event)" [eventSource]="lists.eventtime">
+    <calendar [markDisabled]="markDisabled" [eventSource]="eventSource1" startHour="6" endHour="24"
+        [calendarMode]="calendar.timemode" [currentDate]="calendar.currenttime" step="30"
+        (onTimeSelected)="onTimeSelected1($event)" [eventSource]="lists.eventtime">
     </calendar>
+    
     <form [formGroup]="book">
 
         <ion-col size="12">
             <ion-item class="input-border">
                 <ion-label position="fixed">{{'Customer Name'|language}}</ion-label>
-                <ion-input type="text" formControlName="cname" (keyup)="SearchCustomer($event.target.value)" placeholder="Laura Wilson">
+                <ion-input type="text" formControlName="cname" (keyup)="SearchCustomer($event.target.value)"
+                    placeholder="Laura Wilson">
                 </ion-input>
             </ion-item>
             <div *ngIf="lists.Customerlist" style="position: inherit !important;" class="auto-list">
@@ -75,7 +80,6 @@
             <ion-item class="input-border">
                 <ion-label position="fixed">{{'Available Stylist'|language}}</ion-label>
                 <ion-select formControlName="stylist">
-
                     <ion-select-option *ngFor="let u of lists.userlist" value="{{u.id}}">{{u.name}}
                     </ion-select-option>
                 </ion-select>
@@ -84,22 +88,23 @@
 
         <!-- Removing Option for now -->
 
-        <!-- <ion-col size="12" *ngIf="ShowDealSelection">
+        <ion-col size="12" *ngIf="ShowDealSelection">
             <ion-item class="input-border">
                 <ion-label position="fixed">{{'Do you want to select a Deal?'|language}}</ion-label>
-                <ion-checkbox style="margin-left: 10vw;" (ionChange)="SelectAnOffer($event.target.value)" name="" formControlName="PackageSelected">
+                <ion-checkbox style="margin-left: 10vw;" (ionChange)="SelectAnOffer($event.target.value)" name=""
+                    formControlName="PackageSelected">
                 </ion-checkbox>
             </ion-item>
-        </ion-col> -->
+        </ion-col>
 
-
-        <!-- <ion-col size="12" *ngIf="lists.ShowOffers">
+        <ion-col size="12" *ngIf="lists.ShowOffers">
             <ion-item class="input-border">
                 <ion-label position="fixed" (click)="ViewOffers()">{{'View Deals'|language}}</ion-label>
-                <ion-input [(ngModel)]="ShowCode" (click)="ViewOffers()" [ngModelOptions]="{standalone: true}" placeholder="Please select Offer/Deal" readonly>
+                <ion-input [(ngModel)]="ShowCode" (click)="ViewOffers()" [ngModelOptions]="{standalone: true}"
+                    placeholder="Please select Offer/Deal" readonly>
                 </ion-input>
             </ion-item>
-        </ion-col> -->
+        </ion-col>
 
 
 

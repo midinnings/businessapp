@@ -34,7 +34,7 @@ import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { SMS } from '@ionic-native/sms/ngx';
+//import { SMS } from '@ionic-native/sms/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CheckoutreceiptPage } from './Modal/checkoutreceipt/checkoutreceipt.page';
@@ -74,7 +74,7 @@ import { Screenshot } from '@ionic-native/screenshot/ngx';
     AndroidPermissions,
     Camera,
     File,
-    SMS,
+    //SMS,
     SocialSharing,
     Diagnostic,
     FileOpener,

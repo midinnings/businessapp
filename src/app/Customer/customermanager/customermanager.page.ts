@@ -10,9 +10,14 @@ import { ContactlistPage } from 'src/app/Extra/contactlist/contactlist.page';
 })
 export class CustomermanagerPage implements OnInit {
 
-  constructor(public common: CommonService, public modal: ModalController) { }
+  public UserType: any = '';
+
+  constructor(public common: CommonService, public modal: ModalController) {
+
+  }
 
   ngOnInit() {
+    this.UserType = localStorage.getItem('UserType');
   }
   GotoPage(ev) {
     this.common.PageGoto('Forward', ev, {});

@@ -8,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeermanagmentPage implements OnInit {
 
+  UserType:any='';
+
   constructor(public common: CommonService) { }
 
   ngOnInit() {
+    this.UserType = localStorage.getItem('UserType');
   }
 
 }

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mysalonzone" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mysalonzonebusiness" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>My Salon Zone</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <description>My Salon Zone business app for managing appointment, clients and much more.</description>
+    <author email="noreply@mysalonzone.com" href="http://mysalonzone.com/">My Salon Zone Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

@@ -172,7 +172,7 @@ var AppointmentsPage = /** @class */ (function () {
     };
     AppointmentsPage.prototype.GetStylist = function () {
         var _this = this;
-        this.common.PostMethod("GetFilterData", { file: "userlogin", name: "b_id", value: new user_pipe_1.UserPipe().transform('b_id') }).then(function (res) {
+        this.common.PostMethod("Get_Filtered_Staff", { file: "userlogin", name: "b_id", value: new user_pipe_1.UserPipe().transform('b_id') }).then(function (res) {
             _this.lists.userlist = res.Data;
         });
     };

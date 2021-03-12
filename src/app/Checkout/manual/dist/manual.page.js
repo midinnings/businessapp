@@ -149,7 +149,7 @@ var ManualPage = /** @class */ (function () {
     };
     ManualPage.prototype.GetEmployeelist = function () {
         var _this = this;
-        this.common.PostMethod("GetFilterData", { file: "userlogin", name: "b_id", value: new user_pipe_1.UserPipe().transform('b_id') }).then(function (res) {
+        this.common.PostMethod("Get_Filtered_Staff", { file: "userlogin", name: "b_id", value: new user_pipe_1.UserPipe().transform('b_id') }).then(function (res) {
             _this.lists.userlist = res.Data;
             _this.ChangeStylist(_this.lists);
         });
@@ -237,7 +237,8 @@ var ManualPage = /** @class */ (function () {
                         comments: 'MANUAL CHECKOUT BY ' + new user_pipe_1.UserPipe().transform('name'),
                         employee: _this.lists.employee,
                         appointmentstatus: 'Confirm',
-                        checkout_app: 'business'
+                        checkout_app: 'business',
+                        points_redeem: 0
                     };
                     _this.lists.customer_name = _this.checkoutform.value.name;
                     _this.lists.contactno = _this.checkoutform.value.mobile;

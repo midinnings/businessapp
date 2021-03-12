@@ -82,6 +82,7 @@ var SuccesscheckoutPage = /** @class */ (function () {
         var today = new Date();
         var Profile = JSON.parse(localStorage.getItem("UserProfile"));
         var receiptname = this.splitname(Profile.Businessinfo.name);
+        var receiptrandomseries = Math.floor(Math.random() * (999 - 100 + 1) + 100);
         pdfmake.vfs = pdfFonts.pdfMake.vfs;
         var docDefinition = {
             content: [
@@ -100,7 +101,7 @@ var SuccesscheckoutPage = /** @class */ (function () {
                     ]
                 },
                 { text: "Receipt Date : " + moment(today).format("DD.MM.YYYY hh:mm a"), style: 'date' },
-                { text: "Receipt No. : " + receiptname + "/" + moment(today).format("DD/MM/YYYY") + "/" + this.lists.billid, style: 'date' },
+                { text: "Receipt No. : " + receiptname + "/" + moment(today).format("DD/MM/YYYY") + "/" + this.lists.billid + "/SQ" + receiptrandomseries, style: 'date' },
                 { text: "Stylist Name : " + this.lists.employeeinfo.name },
                 { text: "Customer Name : " + this.lists.customer_name },
                 { text: 'Summary', style: 'statment', margin: [0, 10, 0, 10] },
@@ -112,7 +113,8 @@ var SuccesscheckoutPage = /** @class */ (function () {
                             ['Offer/Deal Applied', this.lists.couponCode || 'NA'],
                             ['Discount', finalDiscount],
                             ['Tax', '0%',],
-                            ['Total Amount', this.totalamount()]
+                            ['Total Amount', ServicesCosting]
+                            // show current amount now only
                         ]
                     },
                     alignment: 'right'

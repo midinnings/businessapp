@@ -1,7 +1,7 @@
 import { UserPipe } from './../../Pipes/pipe/user.pipe';
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
-import { SMS } from '@ionic-native/sms/ngx'
+//import { SMS } from '@ionic-native/sms/ngx'
 import { CommonService } from 'src/app/Service/common.service';
 @Component({
   selector: 'app-messagebox',
@@ -10,7 +10,7 @@ import { CommonService } from 'src/app/Service/common.service';
 })
 export class MessageboxPage implements OnInit {
 
-  constructor(public common: CommonService, public modal: ModalController, public navParams: NavParams, public sms: SMS) { }
+  constructor(public common: CommonService, public modal: ModalController, public navParams: NavParams) { }
   lists: any = {}
   ngOnInit() {
     this.lists = this.navParams.data;

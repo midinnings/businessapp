@@ -7,7 +7,7 @@
                 </ion-buttons>
             </ion-col>
             <ion-col size="8" class="ion-text-center">
-                <ion-title>{{'My Employeer'|language}}
+                <ion-title>{{'My Employer'|language}}
                 </ion-title>
             </ion-col>
             <ion-col size="2" class="ion-text-center">
@@ -40,7 +40,7 @@
 
 
 
-    <ion-row class="frow input-border">
+    <ion-row class="frow input-border" *ngIf="UserType!= '1' ">
         <ion-col size="6" text-center class="icon-box" (click)="common.presentToast('Feature Coming Soon',4000)">
             <img src="./assets/icon/attendance.png" />
             <div class="hsubheader">{{'Attendance'|language}}
@@ -52,9 +52,10 @@
             </P>
         </ion-col>
     </ion-row>
+
+
     <ion-row>
-        <ion-col size="6" text-center class="icon-box"
-            (click)="common.PageGoto('Forward','appointments/confirm',{Page:'MyWork'})">
+        <ion-col *ngIf="UserType!= '1' " size="6" text-center class="icon-box" (click)="common.PageGoto('Forward','appointments/confirm',{Page:'MyWork'})">
             <img src="./assets/icon/my-experience.png" />
             <P class="hsubheader">{{'My Work Experience'|language}}
             </P>

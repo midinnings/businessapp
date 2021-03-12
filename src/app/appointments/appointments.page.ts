@@ -133,7 +133,7 @@ export class AppointmentsPage implements OnInit {
   }
 
   GetStylist() {
-    this.common.PostMethod("GetFilterData", { file: "userlogin", name: "b_id", value: new UserPipe().transform('b_id') }).then((res: any) => {
+    this.common.PostMethod("Get_Filtered_Staff", { file: "userlogin", name: "b_id", value: new UserPipe().transform('b_id') }).then((res: any) => {
       this.lists.userlist = res.Data;
     });
   }

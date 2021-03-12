@@ -119,7 +119,7 @@ export class ManualPage implements OnInit {
   }
 
   GetEmployeelist() {
-    this.common.PostMethod("GetFilterData", { file: "userlogin", name: "b_id", value: new UserPipe().transform('b_id') }).then((res: any) => {
+    this.common.PostMethod("Get_Filtered_Staff", { file: "userlogin", name: "b_id", value: new UserPipe().transform('b_id') }).then((res: any) => {
       this.lists.userlist = res.Data;
       this.ChangeStylist(this.lists);
     });
@@ -216,7 +216,8 @@ export class ManualPage implements OnInit {
             comments: 'MANUAL CHECKOUT BY ' + new UserPipe().transform('name'),
             employee: this.lists.employee,
             appointmentstatus: 'Confirm',
-            checkout_app: 'business'
+            checkout_app: 'business',
+            points_redeem:0
           }
           this.lists.customer_name = this.checkoutform.value.name;
           this.lists.contactno = this.checkoutform.value.mobile;

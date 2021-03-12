@@ -98,7 +98,9 @@
             </ion-col>
         </ion-row>
     </div>
-    <div class="input-border pb-1">
+
+
+    <div class="input-border pb-1" *ngIf="Usertype != '1' ">
         <ion-row>
             <ion-col size="6">
                 <p>EXPENSES</p>
@@ -116,7 +118,9 @@
             </ion-col>
         </ion-row>
     </div>
-    <div class="input-border pt-1 pb-2 input-border   small_fonts">
+
+
+    <div class="input-border pt-1 pb-2 input-border   small_fonts" *ngIf="Usertype != '1' ">
 
         <ion-row class="pt-1">
             <ion-col size="4">

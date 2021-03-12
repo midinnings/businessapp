@@ -20,7 +20,6 @@ export class FcmmessageService {
     }
   }
 
-
   GetForgroundMessage() {
     if (this.platform.is("android")) {
       this.FcmMessage.onMessage().subscribe((res: any) => {

@@ -43,23 +43,23 @@ var ngx_3 = require("@ionic-native/Camera/ngx");
 var ngx_4 = require("@ionic-native/file/ngx");
 var ngx_5 = require("@ionic-native/android-permissions/ngx");
 var ng_otp_input_1 = require("ng-otp-input");
-var ngx_6 = require("@ionic-native/sms/ngx");
-var ngx_7 = require("@ionic-native/diagnostic/ngx");
-var ngx_8 = require("@ionic-native/social-sharing/ngx");
+//import { SMS } from '@ionic-native/sms/ngx';
+var ngx_6 = require("@ionic-native/diagnostic/ngx");
+var ngx_7 = require("@ionic-native/social-sharing/ngx");
 var checkoutreceipt_page_1 = require("./Modal/checkoutreceipt/checkoutreceipt.page");
 var ionic4_datepicker_1 = require("@logisticinfotech/ionic4-datepicker");
-var ngx_9 = require("@ionic-native/file-opener/ngx");
-var ngx_10 = require("@ionic-native/firebase-messaging/ngx");
-var ngx_11 = require("@ionic-native/geolocation/ngx");
-var ngx_12 = require("@ionic-native/contacts/ngx");
-var ngx_13 = require("@ionic-native/in-app-browser/ngx");
+var ngx_8 = require("@ionic-native/file-opener/ngx");
+var ngx_9 = require("@ionic-native/firebase-messaging/ngx");
+var ngx_10 = require("@ionic-native/geolocation/ngx");
+var ngx_11 = require("@ionic-native/contacts/ngx");
+var ngx_12 = require("@ionic-native/in-app-browser/ngx");
 var ng_pick_datetime_1 = require("ng-pick-datetime");
-var ngx_14 = require("@ionic-native/deeplinks/ngx");
+var ngx_13 = require("@ionic-native/deeplinks/ngx");
 var bussiness_settings_page_1 = require("./Modal/bussiness-settings/bussiness-settings.page");
 var premium_page_1 = require("./Modal/premium/premium.page");
-var ngx_15 = require("@ionic-native/file-transfer/ngx");
+var ngx_14 = require("@ionic-native/file-transfer/ngx");
 var coupon_details_page_1 = require("./Extra/coupon-details/coupon-details.page");
-var ngx_16 = require("@ionic-native/screenshot/ngx");
+var ngx_15 = require("@ionic-native/screenshot/ngx");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -85,17 +85,17 @@ var AppModule = /** @class */ (function () {
                 ngx_5.AndroidPermissions,
                 ngx_3.Camera,
                 ngx_4.File,
-                ngx_6.SMS,
-                ngx_8.SocialSharing,
-                ngx_7.Diagnostic,
-                ngx_9.FileOpener,
-                ngx_11.Geolocation,
-                ngx_10.FirebaseMessaging,
-                ngx_12.Contacts,
-                ngx_14.Deeplinks,
-                ngx_13.InAppBrowser,
-                ngx_15.FileTransfer,
-                ngx_16.Screenshot,
+                //SMS,
+                ngx_7.SocialSharing,
+                ngx_6.Diagnostic,
+                ngx_8.FileOpener,
+                ngx_10.Geolocation,
+                ngx_9.FirebaseMessaging,
+                ngx_11.Contacts,
+                ngx_13.Deeplinks,
+                ngx_12.InAppBrowser,
+                ngx_14.FileTransfer,
+                ngx_15.Screenshot,
                 { provide: router_1.RouteReuseStrategy, useClass: angular_1.IonicRouteStrategy }
             ],
             bootstrap: [app_component_1.AppComponent]
